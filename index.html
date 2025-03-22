@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  <title>Home</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="css/estilo.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+    crossorigin="anonymous"></script>
+
+
+</head>
+
+<body>
+
+  <div class="container">
+
+
+    <!--========================================================== -->
+    <!-- Menu de navegacion-->
+    <!--========================================================== -->
+
+    <div class="row">
+      <div class="col-md-20">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" id="menu">
+          <div class="container" id="color">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+              aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="#"><span class="badge badge-light"><i
+                        class="icon icon-home"></i></span>Inicio</a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" href=""><span class="badge badge-light"><i
+                        class="icon-clipboard"></i></span>Catalogo</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href=""><span class="badge badge-light"><i
+                        class="icon-phone"></i></span>Contacto</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href=""><span class="badge badge-light"><i
+                        class="bi bi-question-circle"></i></span>Ayuda</a>
+                </li>
+
+              </ul>
+              <form class="d-flex">
+                <input class="form-control me-2" type="email" placeholder="Buscar" aria-label="Buscar">
+                <button class="btn btn-primary btn-primary-outline-success" type="button">Buscar</button>
+              </form>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <!--========================================================== -->
+    <!-- Slider de imagenes-->
+    <!--========================================================== -->
+
+    <div id="carousel" class="carousel slide" data-bs-ride="carousel">
+
+      <div class="carousel-inner">
+
+        <div class="carousel-item active" data-bs-interval="3000">
+          <img src="imagenes/en.png" class="d-block w-100" alt="">
+        </div>
+
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
+    </div>
+
+    <!--========================================================== -->
+    <!-- Categorias Mas populares -->
+    <!--========================================================== -->
+
+    <div class="container col-12">
+      <div class="row">
+        <div class="listado col-12">
+          <h1 class="text-sm-center">Tendencia</h1>
+        </div>
+
+        <div class="col-lg-4 col-sm-6">
+          <div class="card" onclick="redirectTo('html/blusas/p1-2.html')">
+            <div class="card-body text-center">
+              <img src="imagenes/p1-1.jpg" class="img-fluid" alt="Accesorios">
+              <div class="card-title">BLUSA MADRID SUMMER</div>
+              <div class="card-price">$12.99</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-sm-6">
+          <div class="card" onclick="redirectTo('html/blusas/p2-1.html')">
+            <div class="card-body text-center">
+              <img src="imagenes/p2-1.jpg" class="img-fluid" alt="Periféricos">
+              <div class="card-title">BLUSA ROSE MACA</div>
+              <div class="card-price">$14.99</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-sm-6">
+          <div class="card" onclick="redirectTo('html/blusas/p3-1.html')">
+            <div class="card-body text-center">
+              <img src="imagenes/p3-1.jpg" class="img-fluid" alt="Monitores">
+              <div class="card-title">CAMISETA GARFIELD</div>
+              <div class="card-price">$10.00</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-4 col-sm-6">
+          <div class="card" onclick="redirectTo('html/blusas/p4-1.html')">
+            <div class="card-body text-center">
+              <img src="imagenes/p-4.jpg" class="img-fluid" alt="Accesorios">
+              <div class="card-title">BLUSA AZUL ZARA</div>
+              <div class="card-price">$15.90</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-sm-6">
+          <div class="card" onclick="redirectTo('html/blusas/p5-1.html')">
+            <div class="card-body text-center">
+              <img src="imagenes/p5-1.jpg" class="img-fluid" alt="Periféricos">
+              <div class="card-title">PLATAFORMAS AZULES</div>
+              <div class="card-price">$14.99</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-sm-6">
+          <div class="card" onclick="redirectTo('')">
+            <div class="card-body text-center">
+              <img src="imagenes/p6-1.jpg" class="img-fluid" alt="Monitores">
+              <div class="card-title">LLAVERO PETS</div>
+              <div class="card-price">$3.95</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <br>
+    <div class="row">
+      <div class="listado col-12">
+        <h3 class="text-sm-center">Ubicados en Centro Historico de San Salvador</h3>
+      </div>
+    </div>
+    <br>
+    <!--========================================================== -->
+    <!-- Mapa -->
+    <!--========================================================== -->
+    <div class="map-responsive">
+
+      <h2>Ubicado en Santiago Nonualco La Paz</h2>
+
+      <!--Google map-->
+      <div id="map-container-google-2" class="z-depth-1-half map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d242.2726635476819!2d-89.19156224318957!3d13.696474360802977!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2ssv!4v1742685284925!5m2!1ses!2ssv" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+
+      <!--Google Maps-->
+
+    </div>
+
+    <br>
+    <br>
+    <footer class="w-100  d-flex  align-items-center justify-content-center flex-wrap">
+      <p class="fs-5 px-3  pt-3">Regi´s Store. &copy; Todos Los Derechos Reservados 2025</p>
+      <div id="iconos">
+        <a href="https://www.facebook.com/abtech16" target="_blank"><i class="bi bi-facebook"></i></a>
+        <a href="https://www.instagram.com/abtech16/" target="_blank"><i class="bi bi-instagram"></i></a>
+        <a href="https://www.tiktok.com/@abtech16" target="_blank"><i class="bi bi-tiktok"></i></a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    function redirectTo(url) {
+      window.location.href = url;
+    }
+  </script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
