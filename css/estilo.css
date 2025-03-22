@@ -1,0 +1,255 @@
+/* Asegurar que el sitio cubra toda la pantalla */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Evita el scroll horizontal */
+}
+
+/* Contenedor principal para expandir al 100% de la pantalla */
+.wrap {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* Estilos generales */
+#color {
+    background: #080808;
+}
+
+.map-responsive {
+    overflow: hidden;
+    padding-bottom: 56.25%;
+    position: relative;
+    height: 0;
+}
+
+.map-responsive iframe {
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+/* Tamaño de imagen de productos */
+#porteImg {
+    width: 200px;
+    height: 200px;
+}
+
+#cajaNumber {
+    font-size: 10px;
+}
+
+/* Estilos para botones */
+[id^="btn"] {
+    border-radius: 50px;
+    transition: transform 0.5s;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+[id^="btn"]:hover {
+    transform: scale(0.9);
+}
+
+/* Imagen especial */
+#imgEs {
+    border-radius: 60px;
+    transition: transform 0.5s;
+    font-size: 14px;
+    width: 200px;
+    cursor: pointer;
+}
+
+#imgEs:hover {
+    transform: scale(0.9);
+}
+
+.text-sm-center {
+    font-family: "Cascadia Code", monospace;
+    font-style: oblique;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 35px;
+    border: 2px solid rgba(0, 70, 147, 0.75);
+}
+
+#menu a, button {
+    font-size: 16px !important;
+    font-weight: 600;
+}
+
+#menu a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+}
+
+#menu a:hover {
+    color: white;
+}
+
+footer {
+    background: #1b2a4e;
+    min-height: 100px;
+    margin-top: auto; /* Mantiene el footer abajo */
+    text-align: center;
+}
+
+footer p {
+    color: #f3f3f3;
+}
+
+#iconos i {
+    font-size: 26px;
+    padding: 0 8px;
+    color: #f3f3f3;
+}
+
+/* Estilos de categorías */
+.category_list .category_item {
+    display: block;
+    width: 90%;
+    padding: 15px 0;
+    margin-bottom: 20px;
+    background: #E84C3D;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+}
+
+.category_list .ct_item-active {
+    background: #2D3E50;
+}
+
+/* Productos */
+.products-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.products-list .product-item {
+    width: 22%;
+    margin-bottom: 25px;
+    box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.22);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all .4s;
+}
+
+.products-list .product-item img {
+    width: 100%;
+}
+
+.products-list .product-item a {
+    display: block;
+    width: 100%;
+    padding: 8px 0;
+    background: #2D3E50;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+}
+
+.modal {
+    padding-top: 5%;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.7);
+    display: none;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Responsividad */
+@media screen and (max-width: 1100px) {
+    .products-list .product-item {
+        width: 30.3%;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .category_list, .products-list {
+        width: 100%;
+    }
+
+    .category_list {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .category_list .category_item {
+        width: 15%;
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .category_list {
+        flex-direction: column;
+    }
+
+    .category_list .category_item {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .products-list .product-item {
+        width: 47.5%;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .products-list .product-item {
+        width: 100%;
+    }
+}
+.card {
+    border-radius: 1px;
+    box-shadow: 0px 4px 8px rgba(255,255,255,0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 6px 12px rgba(255, 255, 255, 0.3);
+}
+.card img {
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+    margin-bottom: 10px;
+}
+.card-title {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.card-price {
+    font-size: 1em;
+    color: #ffaa00;
+}
+
+#carousel {
+    max-width: 600px;
+    margin: 20px auto;
+}
+#carousel img {
+    max-height: 250px;
+    object-fit: contain;
+}

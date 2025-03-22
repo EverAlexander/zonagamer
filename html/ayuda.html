@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Home</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../css/estilo.css">
+    <link rel="stylesheet" href="../css/style.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+        <style>
+            body {
+                color: rgb(0, 0, 0);
+                text-align: center;
+            }
+            
+            .help-container {
+                position: relative;
+                z-index: 2;
+                padding-top: 100px;
+            }
+            
+            .footer a {
+                color: white;
+                text-decoration: none;
+            }
+        </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+
+        <!--========================================================== -->
+        <!-- Menu de navegacion-->
+        <!--========================================================== -->
+
+        <div class="row">
+            <div class="col-md-20">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light" id="menu">
+                    <div class="container" id="color">
+
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link" aria-current="page" href="../index.html"><span
+                                            class="badge badge-light"><i class="icon icon-home"></i></span>Inicio</a>
+                                </li>
+                                <li class="dropdown">
+                                    <a class="nav-link" href="html/productos.html"><span class="badge badge-light"><i
+                                                class="icon-tree"></i></span>Productos</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="html/catalogo.html"><span class="badge badge-light"><i
+                                                class="icon-clipboard"></i></span>Catalogo</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="html/contacto.html"><span class="badge badge-light"><i
+                                                class="icon-phone"></i></span>Contacto</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="html/ayuda.html"><span class="badge badge-light"><i
+                                                class="bi bi-question-circle"></i></span>Ayuda</a>
+                                </li>
+
+                            </ul>
+                            <form class="d-flex">
+                                <input class="form-control me-2" type="email" placeholder="Buscar" aria-label="Buscar">
+                                <button class="btn btn-primary btn-primary-outline-success"
+                                    type="button">Buscar</button>
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+
+        <div class="overlay"></div>
+        <div class="container help-container">
+            <h1 class="fw-bold">AYUDA</h1>
+            <p class="lead">¿CÓMO PODEMOS AYUDARTE?</p>
+        </div>
+
+
+
+        <footer class="footer text-light mt-5 text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5>CONSULTAS FRECUENTES</h5>
+                        <a href="quienesomos.html"><i class="bi bi-info-circle"></i> Quienes Somos</a><br>
+                        <a href="vision.html"><i class="bi bi-eye"></i> Visión y Misión</a><br>
+                        <a href="pollitica.html"><i class="bi bi-file-earmark-text"></i> Políticas</a>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>TODOS LOS TEMAS DE AYUDA</h5>
+                        <a href="#"><i class="bi bi-person-plus"></i> Crear Usuario</a><br>
+                        <a href="#"><i class="bi bi-key"></i> Olvidaste tu contraseña</a>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>OPCIONES PARA REGALO</h5>
+                        <a href="#"><i class="bi bi-gift"></i> Tarjeta regalo</a>
+                    </div>
+                </div>
+            </div>
+            <p class="fs-5 px-3 pt-3">Regi´s Stores. &copy; Todos Los Derechos Reservados 2025</p>
+            <div id="iconos">
+                <a href="https://www.facebook.com/abtech16" target="_blank"><i class="bi bi-facebook"></i></a>
+                <a href="https://www.instagram.com/abtech16/" target="_blank"><i class="bi bi-instagram"></i></a>
+                <a href="https://www.tiktok.com/@abtech16" target="_blank"><i class="bi bi-tiktok"></i></a>
+            </div>
+        </footer>
+  
+    </div>
+
+    <script>
+        function redirectTo(url) {
+            window.location.href = url;
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+</body>
+
+</html>
