@@ -44,17 +44,20 @@
       <div class="sidebar-heading">Menú Prestamos</div>
 
       <li class="nav-item">
-        <a class="nav-link" href="agregar.html">
-          <i class="fas fa-plus"></i>
-          <span>Agregar Préstamos</span>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+          aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-exchange-alt"></i>
+          <span>Recursos</span>
         </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="lista.html">
-          <i class="fas fa-list"></i>
-          <span>Lista de Préstamos</span>
-        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Opciones:</h6>
+            <a class="collapse-item" href="agregarPrestamos.html">Agregar Prestamos</a>
+            <a class="collapse-item" href="#">Reservas</a>
+            <a class="collapse-item" href="listausuario.html">Prestamos activos</a>
+            <a class="collapse-item" href="#">Lista de usuarios</a>
+          </div>
+        </div>
       </li>
     </ul>
     <!-- End Sidebar -->
