@@ -1,1 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Lista de Préstamos</title>
+
+  <!-- Fuente Nunito -->
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
+
+  <!-- Estilos -->
+  <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="../css/estilo.css" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class="fas fa-arrow-up"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Nivel 6</div>
+      </a>
+      <hr class="sidebar-divider my-0">
+
+      <li class="nav-item active">
+        <a class="nav-link" href="home.html">
+          <i class="fas fa-home"></i>
+          <span>Inicio</span>
+        </a>
+      </li>
+
+      <hr class="sidebar-divider">
+      <div class="sidebar-heading">Menú Prestamos</div>
+
+      <li class="nav-item">
+        <a class="nav-link" href="agregar.html">
+          <i class="fas fa-plus"></i>
+          <span>Agregar Préstamos</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="lista.html">
+          <i class="fas fa-list"></i>
+          <span>Lista de Préstamos</span>
+        </a>
+      </li>
+    </ul>
+    <!-- End Sidebar -->
+
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content" class="p-4">
+
+        <h1 class="h3 mb-4 text-gray-800">Lista de Préstamos</h1>
+
+        <!-- Tabla -->
+        <div class="card shadow mb-4">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="tabla">
+                <thead class="thead-light"></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            © <script>document.write(new Date().getFullYear());</script>, The_Alexander
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Scripts base -->
+  <script src="../public/vendor/jquery/jquery.min.js"></script>
+  <script src="../public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../public/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="../public/js/sb-admin-2.min.js"></script>
+
+  <!-- Google Sheets -->
+  <script>
+    const API_KEY = "AIzaSyAs8iEM2khSPKICutk0A-Zf7EulMpq5c1I";
+    const SPREADSHEET_ID = "1jcP5Kwh903YSN4sXV4CCC6EAUOwxM1rTmk339Evlh-I";
+    const RANGE = "prestamosnivel6!A1:Z1000";
+
+    const columnasDeseadas = [
+      "Tipo documento",
+      "Num documento",
+      "Nombre completo",
+      "Lugar de estudio",
+      "Prestamo de",
+      "Estado",
+      "Recibido"
+    ];
+
+    async function obtenerDatos() {
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}?key=${API_KEY}`;
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        return data.values || [];
+      } catch (e) {
+        console.error("Error obteniendo datos:", e);
+        return [];
+      }
+    }
+
+    function mostrarDatos(datos) {
+      const tabla = document.getElementById("tabla");
+      const thead = tabla.querySelector("thead");
+      const tbody = tabla.querySelector("tbody");
+
+      thead.innerHTML = "";
+      tbody.innerHTML = "";
+
+      if (!datos || datos.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7">No hay datos para mostrar</td></tr>';
+        return;
+      }
+
+      // Buscar índices de las columnas deseadas
+      const encabezados = datos[0];
+      const indices = columnasDeseadas.map(col => encabezados.indexOf(col));
+
+      // Crear encabezados
+      const trHead = document.createElement("tr");
+      columnasDeseadas.forEach(h => {
+        const th = document.createElement("th");
+        th.textContent = h;
+        trHead.appendChild(th);
+      });
+      thead.appendChild(trHead);
+
+      // Filas
+      for (let i = 1; i < datos.length; i++) {
+        const tr = document.createElement("tr");
+        indices.forEach(idx => {
+          const td = document.createElement("td");
+          td.textContent = idx >= 0 ? datos[i][idx] || "" : "";
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      }
+    }
+
+    obtenerDatos().then(mostrarDatos);
+  </script>
+</body>
+</html>
