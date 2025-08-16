@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Agregar Préstamo</title>
-<script src="https://apis.google.com/js/api.js"></script>
-<style>
-body { font-family: Arial; margin: 20px; }
-form { max-width: 600px; margin: auto; }
-label { display: block; margin-top: 10px; }
-input { width: 100%; padding: 8px; margin-top: 4px; }
-button { margin-top: 20px; padding: 10px 20px; }
-#mensaje { text-align: center; margin-top: 20px; color: green; }
-</style>
+  <meta charset="UTF-8">
+  <title>Agregar Préstamo</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    body { font-family: Arial; margin: 20px; }
+    form { max-width: 600px; margin: auto; }
+    label { display: block; margin-top: 10px; }
+    input { width: 100%; padding: 8px; margin-top: 4px; }
+    button { margin-top: 20px; padding: 10px 20px; }
+    #mensaje { text-align: center; margin-top: 20px; color: green; }
+  </style>
 </head>
 <body>
 
 <h1>Agregar Préstamo</h1>
 
-<form id="formAgregar">
+<div id="g_id_signin"></div> <!-- Botón de login de Google -->
+
+<form id="formAgregar" style="display:none;">
   <label>Fecha: <input type="date" name="fecha" required></label>
   <label>Tipo documento: <input type="text" name="tipoDocumento" required></label>
   <label>Número de documento: <input type="text" name="numDocumento" required></label>
@@ -39,57 +41,54 @@ button { margin-top: 20px; padding: 10px 20px; }
 <div id="mensaje"></div>
 
 <script>
-const CLIENT_ID = '257644747195-10it3ejvfcj6i7pifc5vqjp8r3bjptu6.apps.googleusercontent.com';
-const SCOPES = 'https://www.googleapis.com/auth/spreadsheets';
-const SPREADSHEET_ID = '1jcP5Kwh903YSN4sXV4CCC6EAUOwxM1rTmk339Evlh-I';
-const RANGE = 'prestamosnivel6!A1:Z1000';
+  const CLIENT_ID = '257644747195-10it3ejvfcj6i7pifc5vqjp8r3bjptu6.apps.googleusercontent.com';
+  const SPREADSHEET_ID = '1jcP5Kwh903YSN4sXV4CCC6EAUOwxM1rTmk339Evlh-I';
+  const RANGE = 'prestamosnivel6!A1:Z1000';
+  let accessToken = '';
 
-function gapiLoaded() {
-  gapi.load('client:auth2', initClient);
-}
-
-async function initClient() {
-  await gapi.client.init({
-    clientId: CLIENT_ID,
-    scope: SCOPES,
-    discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"]
-  });
-}
-
-async function signIn() {
-  const GoogleAuth = gapi.auth2.getAuthInstance();
-  if (!GoogleAuth.isSignedIn.get()) {
-    await GoogleAuth.signIn();
-  }
-}
-
-document.getElementById('formAgregar').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  
-  // Capturar todos los inputs del formulario
-  const datos = Array.from(e.target.elements)
-                     .filter(el => el.tagName === "INPUT")
-                     .map(el => el.value);
-
-  try {
-    await signIn(); // Solicitar autorización al usuario
-    await gapi.client.sheets.spreadsheets.values.append({
-      spreadsheetId: SPREADSHEET_ID,
-      range: RANGE,
-      valueInputOption: 'RAW',
-      insertDataOption: 'INSERT_ROWS',
-      resource: { values: [datos] }
+  // Inicializar botón de Google Sign-In
+  window.onload = function() {
+    google.accounts.id.initialize({
+      client_id: CLIENT_ID,
+      callback: handleCredentialResponse
     });
-    document.getElementById('mensaje').textContent = '✅ Registro agregado correctamente';
-    e.target.reset();
-  } catch (err) {
-    console.error(err);
-    document.getElementById('mensaje').textContent = '❌ Error al agregar registro';
+    google.accounts.id.renderButton(
+      document.getElementById("g_id_signin"),
+      { theme: "outline", size: "large" }
+    );
   }
-});
 
-gapiLoaded();
+  function handleCredentialResponse(response) {
+    // Aquí obtenemos el token JWT
+    accessToken = response.credential;
+    document.getElementById("g_id_signin").style.display = "none";
+    document.getElementById("formAgregar").style.display = "block";
+  }
+
+  // Función para agregar registro a Sheets
+  document.getElementById("formAgregar").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const datos = Array.from(e.target.elements)
+                       .filter(el => el.tagName === "INPUT")
+                       .map(el => el.value);
+
+    try {
+      const res = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}:append?valueInputOption=RAW`, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ values: [datos] })
+      });
+      if (!res.ok) throw new Error(await res.text());
+      document.getElementById("mensaje").textContent = "✅ Registro agregado correctamente";
+      e.target.reset();
+    } catch (err) {
+      console.error(err);
+      document.getElementById("mensaje").textContent = "❌ Error al agregar registro";
+    }
+  });
 </script>
-
 </body>
 </html>
