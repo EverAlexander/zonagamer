@@ -205,10 +205,11 @@
       }
     }
 
+    
     function abrirModal(fila) {
       document.getElementById("filaEditar").value = fila;
       const valorActual = datosGlobal[fila][indiceDescripcion];
-      document.getElementById("selectDescripcion").value = valorActual || "En uso";
+      document.getElementById("selectDescripcion").value = valorActual || "Otro";
       const modal = new bootstrap.Modal(document.getElementById("editarModal"));
       modal.show();
     }
