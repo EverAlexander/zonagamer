@@ -4,12 +4,18 @@
 <head>
   <meta charset="utf-8">
   <title>Lista de Préstamos</title>
+  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
   <div class="container mt-4">
     <h1 class="h3 mb-4 text-gray-800">Lista de Préstamos</h1>
+
+    <!-- Botón agregar (mismo estilo que agregar.html) -->
+    <div class="mb-3">
+      <a href="agregarPrestamos.html" class="btn btn-success">➕ Agregar Préstamo</a>
+    </div>
 
     <!-- Tabla -->
     <div class="card shadow mb-4">
@@ -29,17 +35,17 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="editarLabel">Editar Recibido</h5>
+          <h5 class="modal-title" id="editarLabel">Editar Descripción</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
           <form id="formEditar">
             <div class="mb-3">
-              <label for="selectRecibido" class="form-label">Recibido por:</label>
-              <select class="form-select" id="selectRecibido">
-                <option value="En uso">En uso</option>
-                <option value="Finalizo">Finalizo</option>
-                <option value="Espera">Espera</option>
+              <label for="selectDescripcion" class="form-label">Descripción:</label>
+              <select class="form-select" id="selectDescripcion">
+                <option value="Alexander">Alexander</option>
+                <option value="Lexander">Lexander</option>
+                <option value="Otro">Otro</option>
               </select>
             </div>
             <input type="hidden" id="filaEditar">
@@ -67,11 +73,11 @@
       "Lugar de estudio",
       "Prestamo de",
       "Estado",
-      "Descripcion"
+      "Descripcion" // 🔹 corregido aquí
     ];
 
     let datosGlobal = [];
-    let indiceRecibido = -1;
+    let indiceDescripcion = -1;
 
     async function obtenerDatos() {
       const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}?key=${API_KEY}`;
@@ -96,7 +102,7 @@
 
       const encabezados = datos[0];
       const indices = columnasDeseadas.map(col => encabezados.indexOf(col));
-      indiceRecibido = encabezados.indexOf("Recibido");
+      indiceDescripcion = encabezados.indexOf("Descripcion"); // 🔹 corregido aquí
 
       // Encabezados + columna acción
       const trHead = document.createElement("tr");
@@ -134,21 +140,21 @@
 
     function abrirModal(fila) {
       document.getElementById("filaEditar").value = fila;
-      const valorActual = datosGlobal[fila][indiceRecibido];
-      document.getElementById("selectRecibido").value = valorActual || "Otro";
+      const valorActual = datosGlobal[fila][indiceDescripcion];
+      document.getElementById("selectDescripcion").value = valorActual || "Otro";
       const modal = new bootstrap.Modal(document.getElementById("editarModal"));
       modal.show();
     }
 
     document.getElementById("guardarCambio").onclick = async () => {
       const fila = parseInt(document.getElementById("filaEditar").value);
-      const nuevoValor = document.getElementById("selectRecibido").value;
+      const nuevoValor = document.getElementById("selectDescripcion").value;
 
       // Aquí deberías usar Google Sheets API con OAuth para update:
       console.log(`Actualizar fila ${fila + 1}, columna Descripcion => ${nuevoValor}`);
 
       // Simulación de cambio local
-      datosGlobal[fila][indiceRecibido] = nuevoValor;
+      datosGlobal[fila][indiceDescripcion] = nuevoValor;
       mostrarDatos(datosGlobal);
 
       bootstrap.Modal.getInstance(document.getElementById("editarModal")).hide();
