@@ -4,7 +4,6 @@
 <head>
   <meta charset="utf-8">
   <title>Lista de Préstamos</title>
-  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
@@ -12,12 +11,10 @@
   <div class="container mt-4">
     <h1 class="h3 mb-4 text-gray-800">Lista de Préstamos</h1>
 
-    <!-- Botón agregar (mismo estilo que agregar.html) -->
     <div class="mb-3">
       <a href="agregarPrestamos.html" class="btn btn-success">➕ Agregar Préstamo</a>
     </div>
 
-    <!-- Tabla -->
     <div class="card shadow mb-4">
       <div class="card-body">
         <div class="table-responsive">
@@ -45,7 +42,7 @@
               <select class="form-select" id="selectDescripcion">
                 <option value="En uso">En uso</option>
                 <option value="Finalizo">Finalizo</option>
-                <option value="Reservado">Reservado</option>
+                <option value="Reservado">Reserbado</option>
               </select>
             </div>
             <input type="hidden" id="filaEditar">
@@ -62,7 +59,6 @@
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    const API_KEY = "AIzaSyAs8iEM2khSPKICutk0A-Zf7EulMpq5c1I";
     const SPREADSHEET_ID = "1jcP5Kwh903YSN4sXV4CCC6EAUOwxM1rTmk339Evlh-I";
     const RANGE = "prestamosnivel6!A1:Z1000";
 
@@ -73,15 +69,18 @@
       "Lugar de estudio",
       "Prestamo de",
       "Estado",
-      "Descripcion" // 🔹 corregido aquí
+      "Descripcion"
     ];
 
     let datosGlobal = [];
     let indiceDescripcion = -1;
 
     async function obtenerDatos() {
-      const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}?key=${API_KEY}`;
-      const res = await fetch(url);
+      const accessToken = sessionStorage.getItem("accessToken"); // 🔑 usamos token de login
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}`;
+      const res = await fetch(url, {
+        headers: { Authorization: `Bearer ${accessToken}` }
+      });
       const data = await res.json();
       return data.values || [];
     }
@@ -102,9 +101,8 @@
 
       const encabezados = datos[0];
       const indices = columnasDeseadas.map(col => encabezados.indexOf(col));
-      indiceDescripcion = encabezados.indexOf("Descripcion"); // 🔹 corregido aquí
+      indiceDescripcion = encabezados.indexOf("Descripcion");
 
-      // Encabezados + columna acción
       const trHead = document.createElement("tr");
       columnasDeseadas.forEach(h => {
         const th = document.createElement("th");
@@ -116,7 +114,6 @@
       trHead.appendChild(thAccion);
       thead.appendChild(trHead);
 
-      // Filas
       for (let i = 1; i < datos.length; i++) {
         const tr = document.createElement("tr");
         indices.forEach(idx => {
@@ -125,7 +122,6 @@
           tr.appendChild(td);
         });
 
-        // Botón Editar
         const tdAccion = document.createElement("td");
         const btn = document.createElement("button");
         btn.textContent = "Editar";
@@ -150,14 +146,38 @@
       const fila = parseInt(document.getElementById("filaEditar").value);
       const nuevoValor = document.getElementById("selectDescripcion").value;
 
-      // Aquí deberías usar Google Sheets API con OAuth para update:
-      console.log(`Actualizar fila ${fila + 1}, columna Descripcion => ${nuevoValor}`);
+      const accessToken = sessionStorage.getItem("accessToken"); // 🔑
+      if (!accessToken) {
+        alert("No hay sesión activa. Inicie sesión de nuevo.");
+        return;
+      }
 
-      // Simulación de cambio local
-      datosGlobal[fila][indiceDescripcion] = nuevoValor;
-      mostrarDatos(datosGlobal);
+      const rangoCelda = `prestamosnivel6!${String.fromCharCode(65 + indiceDescripcion)}${fila + 1}`;
 
-      bootstrap.Modal.getInstance(document.getElementById("editarModal")).hide();
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${rangoCelda}?valueInputOption=USER_ENTERED`;
+
+      const res = await fetch(url, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          range: rangoCelda,
+          majorDimension: "ROWS",
+          values: [[nuevoValor]]
+        })
+      });
+
+      if (res.ok) {
+        datosGlobal[fila][indiceDescripcion] = nuevoValor;
+        mostrarDatos(datosGlobal);
+        bootstrap.Modal.getInstance(document.getElementById("editarModal")).hide();
+      } else {
+        const err = await res.json();
+        console.error("Error al actualizar:", err);
+        alert("No se pudo actualizar en la hoja. Revisa permisos de Google Sheets API.");
+      }
     };
 
     obtenerDatos().then(mostrarDatos);
