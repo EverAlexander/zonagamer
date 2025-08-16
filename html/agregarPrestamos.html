@@ -228,12 +228,11 @@
 
                       <div class="col">
                         <div class="form-outline">
-                          <label class="form-label" for="recibe">Recibe</label>
-                          <select id="recibe" name="recibe" class="form-control">
+                          <label class="form-label" for="recibe">Condicion</label>
+                          <select id="condicion" name="condicion" class="form-control">
                             <option value="" disabled selected>Seleccionar</option>
-                            <option value="Andres Valdez">Andres Valdez</option>
-                            <option value="Alexander Garcia">Alexander Garcia</option>
-                            <option value="Alejandra Castaneda">Alejandra Castaneda</option>
+                            <option value="En uso">En uso</option>
+                            <option value="Espera"></option>
                           </select>
                         </div>
                       </div>
@@ -333,7 +332,7 @@
         fd.get("inicio") || "",
         fd.get("finalizacion") || "",
         fd.get("asignadoPor") || "",
-        fd.get("recibe") || ""
+        fd.get("condicion") || ""
       ];
 
       try {
