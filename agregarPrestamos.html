@@ -1,23 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <title>Agregar Préstamo</title>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
     body { font-family: Arial; margin: 20px; }
+    h1 { text-align: center; }
     form { max-width: 600px; margin: auto; }
     label { display: block; margin-top: 10px; }
     input { width: 100%; padding: 8px; margin-top: 4px; }
-    button { margin-top: 20px; padding: 10px 20px; }
+    button { margin-top: 20px; padding: 10px 20px; font-size: 16px; }
     #mensaje { text-align: center; margin-top: 20px; color: green; }
   </style>
 </head>
 <body>
 
 <h1>Agregar Préstamo</h1>
-
-<div id="g_id_signin"></div> <!-- Botón de login de Google -->
 
 <form id="formAgregar" style="display:none;">
   <label>Fecha: <input type="date" name="fecha" required></label>
@@ -41,36 +40,44 @@
 <div id="mensaje"></div>
 
 <script>
-  const CLIENT_ID = '257644747195-10it3ejvfcj6i7pifc5vqjp8r3bjptu6.apps.googleusercontent.com';
-  const SPREADSHEET_ID = '1jcP5Kwh903YSN4sXV4CCC6EAUOwxM1rTmk339Evlh-I';
-  const RANGE = 'prestamosnivel6!A1:Z1000';
-  let accessToken = '';
+  const CLIENT_ID = "257644747195-10it3ejvfcj6i7pifc5vqjp8r3bjptu6.apps.googleusercontent.com";
+  const SCOPES = "https://www.googleapis.com/auth/spreadsheets";
+  const SPREADSHEET_ID = "1jcP5Kwh903YSN4sXV4CCC6EAUOwxM1rTmk339Evlh-I";
+  const RANGE = "prestamosnivel6!A1:Z1000";
 
-  // Inicializar botón de Google Sign-In
+  let tokenClient;
+  let accessToken = "";
+
   window.onload = function() {
-    google.accounts.id.initialize({
+    // Inicializar OAuth2
+    tokenClient = google.accounts.oauth2.initTokenClient({
       client_id: CLIENT_ID,
-      callback: handleCredentialResponse
+      scope: SCOPES,
+      callback: (tokenResponse) => {
+        accessToken = tokenResponse.access_token;
+        document.getElementById("formAgregar").style.display = "block";
+      },
     });
-    google.accounts.id.renderButton(
-      document.getElementById("g_id_signin"),
-      { theme: "outline", size: "large" }
-    );
-  }
 
-  function handleCredentialResponse(response) {
-    // Aquí obtenemos el token JWT
-    accessToken = response.credential;
-    document.getElementById("g_id_signin").style.display = "none";
-    document.getElementById("formAgregar").style.display = "block";
-  }
+    // Botón de login
+    const btn = document.createElement("button");
+    btn.textContent = "Iniciar sesión con Google";
+    btn.style.display = "block";
+    btn.style.margin = "20px auto";
+    btn.onclick = () => tokenClient.requestAccessToken();
+    document.body.insertBefore(btn, document.getElementById("formAgregar"));
+  };
 
-  // Función para agregar registro a Sheets
   document.getElementById("formAgregar").addEventListener("submit", async (e) => {
     e.preventDefault();
     const datos = Array.from(e.target.elements)
                        .filter(el => el.tagName === "INPUT")
                        .map(el => el.value);
+
+    if (!accessToken) {
+      alert("Primero inicia sesión con Google");
+      return;
+    }
 
     try {
       const res = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}:append?valueInputOption=RAW`, {
@@ -81,7 +88,9 @@
         },
         body: JSON.stringify({ values: [datos] })
       });
+
       if (!res.ok) throw new Error(await res.text());
+
       document.getElementById("mensaje").textContent = "✅ Registro agregado correctamente";
       e.target.reset();
     } catch (err) {
@@ -90,5 +99,6 @@
     }
   });
 </script>
+
 </body>
 </html>
