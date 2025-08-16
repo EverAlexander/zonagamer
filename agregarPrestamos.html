@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <title>Agregar Préstamo</title>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
   body { font-family: Arial; margin: 20px; }
   form { max-width: 600px; margin: auto; }
   label { display: block; margin-top: 10px; }
   input { width: 100%; padding: 8px; margin-top: 4px; }
   button { margin-top: 20px; padding: 10px 20px; }
-  #mensaje { text-align: center; margin-top: 20px; color: green; }
 </style>
 </head>
 <body>
@@ -36,8 +36,6 @@
   <label>Recibe: <input type="text" name="recibe"></label>
   <button type="submit">Agregar Registro</button>
 </form>
-
-<div id="mensaje"></div>
 
 <script>
   const SPREADSHEET_ID = "1jcP5Kwh903YSN4sXV4CCC6EAUOwxM1rTmk339Evlh-I";
@@ -74,11 +72,22 @@
 
       if (!res.ok) throw new Error(await res.text());
 
-      document.getElementById("mensaje").textContent = "✅ Registro agregado correctamente";
+      Swal.fire({
+        icon: 'success',
+        title: '¡Registro agregado!',
+        text: '✅ Registro agregado correctamente',
+        confirmButtonText: 'OK'
+      });
+
       e.target.reset();
     } catch (err) {
       console.error(err);
-      document.getElementById("mensaje").textContent = "❌ Error al agregar registro";
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: '❌ Error al agregar registro',
+        confirmButtonText: 'OK'
+      });
     }
   });
 </script>
