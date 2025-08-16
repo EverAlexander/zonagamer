@@ -130,6 +130,13 @@
                                         <div class="row mb-4">
                                             <div class="col">
                                                 <div class="form-outline">
+                                                    <label class="form-label" for="fecha">Fecha</label>
+                                                    <input type="date" id="fecha" name="fecha" class="form-control"
+                                                        required>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-outline">
                                                     <label class="form-label" for="consola">Tipo documento</label>
                                                     <select id="tipoDocumento" name="tipoDocumento"
                                                         class="form-control">
@@ -334,6 +341,60 @@
                     window.location.href = "../index.html";
                 }
             });
+        });
+    </script>
+    <script>
+        const SPREADSHEET_ID = "1jcP5Kwh903YSN4sXV4CCC6EAUOwxM1rTmk339Evlh-I";
+        const RANGE = "prestamosnivel6!A1:Z1000";
+        let accessToken = sessionStorage.getItem("accessToken");
+
+        // Verificar si hay token activo
+        if (!accessToken) {
+            window.location.href = "index.html"; // Redirige al login
+        }
+
+        document.getElementById("btnLogout").onclick = () => {
+            sessionStorage.removeItem("accessToken");
+            window.location.href = "index.html";
+        };
+
+        document.getElementById("formAgregar").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            // Obtener valores de todos los campos
+            const datos = Array.from(e.target.elements)
+                .filter(el => el.tagName === "INPUT")
+                .map(el => el.value);
+
+            try {
+                const res = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}:append?valueInputOption=RAW`, {
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Bearer ${accessToken}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ values: [datos] })
+                });
+
+                if (!res.ok) throw new Error(await res.text());
+
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Registro agregado!',
+                    text: '✅ Registro agregado correctamente',
+                    confirmButtonText: 'OK'
+                });
+
+                e.target.reset();
+            } catch (err) {
+                console.error(err);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: '❌ Error al agregar registro',
+                    confirmButtonText: 'OK'
+                });
+            }
         });
     </script>
 </body>
