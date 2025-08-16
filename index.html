@@ -1,72 +1,30 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>Lista de Préstamos</title>
-  <style>
-    table { border-collapse: collapse; width: 100%; }
-    th, td { border: 1px solid #ccc; padding: 8px; }
-    th { background: #f2f2f2; }
-  </style>
-  <script src="https://apis.google.com/js/api.js"></script>
-</head>
-<body>
-  <h1>Lista de Préstamos</h1>
-  <button id="login">Conectar Google</button>
-  <table id="tabla">
-    <thead></thead>
-    <tbody></tbody>
-  </table>
+  <head>
+    <meta charset="UTF-8">
+    <title>Lista de Préstamos</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 20px; }
+      h1 { text-align: center; }
+      table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+      th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+      th { background-color: #f2f2f2; }
+      tr:nth-child(even) { background-color: #f9f9f9; }
+      #mensaje { text-align: center; margin-top: 20px; color: red; }
+      #login { margin-top: 10px; display: block; }
+    </style>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <h1>Lista de Préstamos</h1>
+    <button id="login">Iniciar sesión</button>
+    <div id="mensaje"></div>
+    <table id="tabla">
+      <thead></thead>
+      <tbody></tbody>
+    </table>
 
-  <script>
-    const CLIENT_ID = '257644747195-10it3ejvfcj6i7pifc5vqjp8r3bjptu6.apps.googleusercontent.com';
-    const API_KEY = 'AIzaSyAs8iEM2khSPKICutk0A-Zf7EulMpq5c1I';
-    const SPREADSHEET_ID = '1jcP5Kwh903YSN4sXV4CCC6EAUOwxM1rTmk339Evlh-I';
-    const RANGE = 'prestamosnivel6!A1:Z1000';
-
-    function start() {
-      gapi.client.init({
-        apiKey: API_KEY,
-        clientId: CLIENT_ID,
-        discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
-        scope: "https://www.googleapis.com/auth/spreadsheets.readonly"
-      }).then(() => {
-        document.getElementById("login").onclick = () => gapi.auth2.getAuthInstance().signIn().then(cargarDatos);
-      });
-    }
-
-    function cargarDatos() {
-      gapi.client.sheets.spreadsheets.values.get({
-        spreadsheetId: SPREADSHEET_ID,
-        range: RANGE
-      }).then(response => {
-        const datos = response.result.values;
-        mostrarDatos(datos);
-      }, error => console.error(error));
-    }
-
-    function mostrarDatos(datos) {
-      const tabla = document.getElementById("tabla");
-      const thead = tabla.querySelector("thead");
-      const tbody = tabla.querySelector("tbody");
-      thead.innerHTML = "";
-      tbody.innerHTML = "";
-      if (!datos || datos.length === 0) return;
-      // encabezados
-      const trHead = document.createElement("tr");
-      datos[0].forEach(h => { const th = document.createElement("th"); th.textContent = h; trHead.appendChild(th); });
-      thead.appendChild(trHead);
-      // filas
-      for (let i=1; i<datos.length; i++){
-        const tr = document.createElement("tr");
-        datos[i].forEach(c => { const td = document.createElement("td"); td.textContent = c; tr.appendChild(td); });
-        tbody.appendChild(tr);
-      }
-    }
-
-    gapi.load('client:auth2', start);
-  </script>
-</body>
+    
+  </body>
 </html>
-
-
