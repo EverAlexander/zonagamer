@@ -18,10 +18,22 @@ button { margin-top: 20px; padding: 10px 20px; }
 <h1>Agregar Préstamo</h1>
 
 <form id="formAgregar">
-  <label>Nombre completo: <input type="text" name="nombre" required></label>
-  <label>Documento: <input type="text" name="documento" required></label>
-  <label>Fecha: <input type="date" name="fecha"></label>
-  <button type="submit">Agregar</button>
+  <label>Fecha: <input type="date" name="fecha" required></label>
+  <label>Tipo documento: <input type="text" name="tipoDocumento" required></label>
+  <label>Número de documento: <input type="text" name="numDocumento" required></label>
+  <label>Nombre completo: <input type="text" name="nombreCompleto" required></label>
+  <label>Lugar de estudio: <input type="text" name="lugarEstudio"></label>
+  <label>Carnet: <input type="text" name="carnet"></label>
+  <label>Propósito: <input type="text" name="proposito"></label>
+  <label>Préstamo de: <input type="text" name="prestamoDe"></label>
+  <label>Estado: <input type="text" name="estado"></label>
+  <label>Cantidad: <input type="number" name="cantidad" required></label>
+  <label>Fecha efectiva: <input type="date" name="fechaEfectiva"></label>
+  <label>Inicio: <input type="date" name="inicio"></label>
+  <label>Finalización: <input type="date" name="finalizacion"></label>
+  <label>Asignado por: <input type="text" name="asignadoPor"></label>
+  <label>Recibe: <input type="text" name="recibe"></label>
+  <button type="submit">Agregar Registro</button>
 </form>
 
 <div id="mensaje"></div>
@@ -53,6 +65,8 @@ async function signIn() {
 
 document.getElementById('formAgregar').addEventListener('submit', async (e) => {
   e.preventDefault();
+  
+  // Capturar todos los inputs del formulario
   const datos = Array.from(e.target.elements)
                      .filter(el => el.tagName === "INPUT")
                      .map(el => el.value);
