@@ -1,1 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Préstamos</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    th { background-color: #f2f2f2; }
+    tr:nth-child(even) { background-color: #f9f9f9; }
+  </style>
+</head>
+<body>
+  <a class="collapse-item" href="agregarPrestamos.html">Agregar Eventos</a>
+  <h1>Lista de Préstamos</h1>
+  <table id="tabla">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    const CLIENT_ID = '257644747195-10it3ejvfcj6i7pifc5vqjp8r3bjptu6.apps.googleusercontent.com';
+    const API_KEY = 'AIzaSyAs8iEM2khSPKICutk0A-Zf7EulMpq5c1I';
+    const SPREADSHEET_ID = '1jcP5Kwh903YSN4sXV4CCC6EAUOwxM1rTmk339Evlh-I';
+    const RANGE = 'prestamosnivel6!A1:Z1000';
+
+    async function obtenerDatos() {
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}?key=${API_KEY}`;
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        return data.values || [];
+      } catch(e) {
+        console.error('Error obteniendo datos:', e);
+        return [];
+      }
+    }
+
+    function mostrarDatos(datos) {
+      const tabla = document.getElementById('tabla');
+      const thead = tabla.querySelector('thead');
+      const tbody = tabla.querySelector('tbody');
+
+      thead.innerHTML = '';
+      tbody.innerHTML = '';
+
+      if (!datos || datos.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="20">No hay datos para mostrar</td></tr>';
+        return;
+      }
+
+      // Encabezados
+      const trHead = document.createElement('tr');
+      datos[0].forEach(h => {
+        const th = document.createElement('th');
+        th.textContent = h;
+        trHead.appendChild(th);
+      });
+      thead.appendChild(trHead);
+
+      // Filas de datos
+      for (let i = 1; i < datos.length; i++) {
+        const tr = document.createElement('tr');
+        datos[i].forEach(cell => {
+          const td = document.createElement('td');
+          td.textContent = cell;
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      }
+    }
+
+    // Ejecutar
+    obtenerDatos().then(mostrarDatos);
+  </script>
+</body>
+</html>
+
+
 
