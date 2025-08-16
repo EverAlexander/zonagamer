@@ -132,14 +132,65 @@
                                         <div class="row mb-4">
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <label class="form-label" for="consola">Tipo documento</label>
-                                                    <select id="consola" name="tipoDocumento" class="form-control">
+                                                    <label class="form-label" for="carnet">Carnet</label>
+                                                    <input type="text" id="carnet" name="carnet" class="form-control"
+                                                        required>
+                                                </div>
+                                            </div>
+
+                                            <div class="col">
+                                                <div class="form-outline">
+                                                    <label class="form-label" for="proposito">Propósito</label>
+                                                    <input type="text" id="proposito" name="proposito"
+                                                        class="form-control" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="col">
+                                                <div class="form-outline">
+                                                    <label class="form-label" for="prestamoDe">Préstamo de</label>
+                                                    <select id="prestamoDe" name="prestamoDe" class="form-control">
                                                         <option value="" disabled selected>Seleccionar</option>
-                                                        <option value="Llave del saber" disabled selected>Llave del saber</option>
-                                                        <option value="DUI" disabled selected>DUI</option>
-                                                        <option value="Pasaporte" disabled selected>Pasaporte</option>
-                                                        <option value="Otro" disabled selected></option>
+                                                        <option value="PC - 1">PC - 1</option>
+                                                        <option value="PC - 2">PC - 2</option>
+                                                        <option value="PC - 3">PC - 3</option>
+                                                        <option value="PC - 4">PC - 4</option>
+                                                        <option value="PC - 5">PC - 5</option>
+                                                        <option value="PC - 6">PC - 6</option>
+                                                        <option value="PC - 7">PC - 7</option>
+                                                        <option value="PC - 8">PC - 8</option>
+                                                        <option value="Sala 1">Sala 1</option>
                                                         
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-outline">
+                                                    <label class="form-label" for="estado">Estado</label>
+                                                    <select id="estado" name="estado" class="form-control">
+                                                        <option value="" disabled selected>Seleccionar</option>
+                                                        <option value="Colocado">Colocado</option>
+                                                        <option value="Resevado">Resevado</option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+                                        <div class="row mb-4">
+                                            <div class="col">
+                                                <div class="form-outline">
+                                                    <label class="form-label" for="consola">Tipo documento</label>
+                                                    <select id="tipoDocumento" name="tipoDocumento"
+                                                        class="form-control">
+                                                        <option value="" disabled selected>Seleccionar</option>
+                                                        <option value="Llave del saber">Llave del saber</option>
+                                                        <option value="DUI">DUI</option>
+                                                        <option value="Pasaporte">Pasaporte</option>
+                                                        <option value="Otro"></option>
+
                                                     </select>
                                                 </div>
                                             </div>
@@ -152,14 +203,16 @@
                                             </div>
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <label class="form-label" for="nombreCompleto">Nombre completo</label>
-                                                    <input type="text" id="nombreCompleto" name="nombreCompleto" class="form-control"
-                                                        required>
+                                                    <label class="form-label" for="nombreCompleto">Nombre
+                                                        completo</label>
+                                                    <input type="text" id="nombreCompleto" name="nombreCompleto"
+                                                        class="form-control" required>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="form-outline">
-                                                    <label class="form-label" for="lugarEstudio">Lugar de estudio</label>
+                                                    <label class="form-label" for="lugarEstudio">Lugar de
+                                                        estudio</label>
                                                     <input type="time" id="lugarEstudio" name="lugarEstudio"
                                                         class="form-control" required>
                                                 </div>
