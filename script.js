@@ -1,4 +1,4 @@
-const CLIENT_ID = '257644747195-10it3ejvfcj6i7pifc5vqjp8r3bjptu6.apps.googleusercontent.com';
+const CLIENT_ID = '199068632078-jqqce2lab71plomvblqlj60p05d7siam.apps.googleusercontent.com';
 const API_KEY = 'AIzaSyAs8iEM2khSPKICutk0A-Zf7EulMpq5c1I'; // opcional para hojas públicas
 const SPREADSHEET_ID = '1jcP5Kwh903YSN4sXV4CCC6EAUOwxM1rTmk339Evlh-I';
 const RANGE = 'prestamosnivel6!A1:Z1000';
