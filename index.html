@@ -47,15 +47,26 @@
     window.onload = () => {
       tokenClient = google.accounts.oauth2.initTokenClient({
         client_id: CLIENT_ID,
-        scope: "https://www.googleapis.com/auth/spreadsheets",
+        scope: "openid profile email https://www.googleapis.com/auth/spreadsheets",
         callback: (tokenResponse) => {
-          // Guardar token en sessionStorage
+          // Guardar token
           sessionStorage.setItem("accessToken", tokenResponse.access_token);
-          // Mensaje de login correcto
-          Swal.fire("✅ Bienvenido", "Inicio de sesión exitoso", "success")
-            .then(() => {
-              // Redirigir a la página principal
-              window.location.href = "html/home.html";
+
+          // Pedir datos del usuario
+          fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+            headers: { Authorization: `Bearer ${tokenResponse.access_token}` }
+          })
+            .then(res => res.json())
+            .then(user => {
+              // Guardar en sessionStorage
+              sessionStorage.setItem("userName", user.name);
+              sessionStorage.setItem("userEmail", user.email);
+              sessionStorage.setItem("userPicture", user.picture);
+
+              Swal.fire("✅ Bienvenido", `Hola ${user.name}`, "success")
+                .then(() => {
+                  window.location.href = "html/home.html";
+                });
             });
         }
       });
@@ -68,7 +79,3 @@
 </body>
 
 </html>
-
-
-
-
