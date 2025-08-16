@@ -1,0 +1,19 @@
+.form-outline {
+  position: relative;
+}
+
+.form-outline .form-label {
+  position: absolute;
+  top: 0.5rem;
+  left: 1rem;
+  transition: all 0.2s ease-in-out;
+  pointer-events: none;
+  color: #6c757d;
+}
+
+.form-outline input:focus~.form-label,
+.form-outline input:not(:placeholder-shown)~.form-label {
+  top: -1rem;
+  font-size: 0.85rem;
+  color: #495057;
+}
