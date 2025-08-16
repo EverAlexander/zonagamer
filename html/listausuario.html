@@ -51,14 +51,13 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Opciones:</h6>
-            <a class="collapse-item" href="#">Agregar Prestamos</a>
+            <a class="collapse-item" href="agregar.html">Agregar Prestamos</a>
             <a class="collapse-item" href="#">Reservas</a>
             <a class="collapse-item" href="listausuario.html">Prestamos activos</a>
             <a class="collapse-item" href="#">Lista de usuarios</a>
           </div>
         </div>
       </li>
-
 
       <hr class="sidebar-divider">
     </ul>
@@ -122,7 +121,7 @@
                               <select class="form-select" id="selectDescripcion">
                                 <option value="En uso">En uso</option>
                                 <option value="Finalizo">Finalizo</option>
-                                <option value="Reservado">Reserbado</option>
+                                <option value="Reservado">Reservado</option>
                               </select>
                             </div>
                             <input type="hidden" id="filaEditar">
@@ -244,7 +243,7 @@
     function abrirModal(fila) {
       document.getElementById("filaEditar").value = fila;
       const valorActual = datosGlobal[fila][indiceDescripcion];
-      document.getElementById("selectDescripcion").value = valorActual || "Otro";
+      document.getElementById("selectDescripcion").value = valorActual || "En uso";
       const modal = new bootstrap.Modal(document.getElementById("editarModal"));
       modal.show();
     }
@@ -255,16 +254,17 @@
 
       const accessToken = sessionStorage.getItem("accessToken"); // 🔑
       if (!accessToken) {
-        alert("No hay sesión activa. Inicie sesión de nuevo.");
+        Swal.fire("Error", "No hay sesión activa. Inicie sesión de nuevo.", "error");
         return;
       }
 
+      // ⚠️ Google Sheets empieza en fila 1
       const rangoCelda = `prestamosnivel6!${String.fromCharCode(65 + indiceDescripcion)}${fila + 1}`;
 
-      const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${rangoCelda}?valueInputOption=USER_ENTERED`;
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${rangoCelda}:update?valueInputOption=USER_ENTERED`;
 
       const res = await fetch(url, {
-        method: "PUT",
+        method: "PATCH",   // ✅ USAR PATCH, no PUT
         headers: {
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json"
@@ -280,10 +280,11 @@
         datosGlobal[fila][indiceDescripcion] = nuevoValor;
         mostrarDatos(datosGlobal);
         bootstrap.Modal.getInstance(document.getElementById("editarModal")).hide();
+        Swal.fire("Éxito", "La descripción se actualizó correctamente.", "success");
       } else {
         const err = await res.json();
         console.error("Error al actualizar:", err);
-        alert("No se pudo actualizar en la hoja. Revisa permisos de Google Sheets API.");
+        Swal.fire("Error", "No se pudo actualizar en la hoja. Revisa permisos de Google Sheets API.", "error");
       }
     };
 
@@ -291,4 +292,3 @@
   </script>
 </body>
 </html>
-
