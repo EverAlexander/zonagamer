@@ -278,7 +278,13 @@
 
             const encabezados = datos[0];
             const indices = columnasDeseadas.map(col => encabezados.indexOf(col));
-            indiceDescripcion = encabezados.indexOf("Descripcion");
+            const indiceDescripcion = encabezados.indexOf("Descripcion");
+
+            // 🔹 Filtrar solo los registros que digan "en uso"
+            const datosFiltrados = datos.filter((fila, idx) => {
+                if (idx === 0) return true; // conservar encabezados
+                return fila[indiceDescripcion] === "En uso";
+            });
 
             const trHead = document.createElement("tr");
             columnasDeseadas.forEach(h => {
@@ -291,11 +297,11 @@
             trHead.appendChild(thAccion);
             thead.appendChild(trHead);
 
-            for (let i = 1; i < datos.length; i++) {
+            for (let i = 1; i < datosFiltrados.length; i++) {
                 const tr = document.createElement("tr");
                 indices.forEach(idx => {
                     const td = document.createElement("td");
-                    td.textContent = idx >= 0 ? datos[i][idx] || "" : "";
+                    td.textContent = idx >= 0 ? datosFiltrados[i][idx] || "" : "";
                     tr.appendChild(td);
                 });
 
