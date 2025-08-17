@@ -140,7 +140,7 @@
                                     </div>
 
                                     <!-- Modal -->
-                                    <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarLabel"
+                                    <div class="modal fade" id="editarModal2" tabindex="-1" aria-labelledby="editarLabel"
                                         aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
@@ -325,7 +325,7 @@
             document.getElementById("filaEditar").value = fila;
             const valorActual = datosGlobal[fila][indiceDescripcion];
             document.getElementById("selectDescripcion").value = valorActual || "Otro";
-            const modal = new bootstrap.Modal(document.getElementById("editarModal"));
+            const modal = new bootstrap.Modal(document.getElementById("editarModal2"));
             modal.show();
         }
 
@@ -359,7 +359,7 @@
             if (res.ok) {
                 datosGlobal[fila][indiceDescripcion] = nuevoValor;
                 mostrarDatos(datosGlobal);
-                bootstrap.Modal.getInstance(document.getElementById("editarModal")).hide();
+                bootstrap.Modal.getInstance(document.getElementById("editarModal2")).hide();
             } else {
                 const err = await res.json();
                 console.error("Error al actualizar:", err);
