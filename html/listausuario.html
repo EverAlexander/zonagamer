@@ -44,10 +44,7 @@
 </head>
 
 <body id="page-top">
-    <!-- Page Wrapper -->
     <div id="wrapper">
-
-        <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
             <a class="sidebar-brand d-flex align-items-center justify-content-center">
                 <div class="sidebar-brand-icon rotate-n-15">
@@ -55,20 +52,15 @@
                 </div>
                 <div class="sidebar-brand-text mx-3">Nivel 6</div>
             </a>
-
             <hr class="sidebar-divider my-0">
-
             <li class="nav-item active">
                 <a class="nav-link" href="?route=home">
                     <i class="fas fa-home"></i>
                     <span>Inicio</span>
                 </a>
             </li>
-
             <hr class="sidebar-divider">
-
             <div class="sidebar-heading">Menu Prestamos</div>
-
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -85,12 +77,9 @@
                     </div>
                 </div>
             </li>
-
             <hr class="sidebar-divider">
         </ul>
-        <!-- End of Sidebar -->
 
-        <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
                 <div class="container-fluid">
@@ -98,13 +87,10 @@
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><span id="horaActual"></span>
-                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><span id="horaActual"></span></div>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Usuario -->
                         <div class="dropdown">
                             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown"
                                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -129,8 +115,18 @@
                                         <h1 class="h3 mb-4 text-gray-800">Lista de Préstamos</h1>
 
                                         <div class="mb-3">
-                                            <a href="agregarPrestamos.html" class="btn btn-success">➕ Agregar
-                                                Préstamo</a>
+                                            <a href="agregarPrestamos.html" class="btn btn-success">➕ Agregar Préstamo</a>
+                                        </div>
+
+                                        <!-- FILTRO POR DESCRIPCIÓN -->
+                                        <div class="mb-3">
+                                            <label for="filtroDescripcion" class="form-label">Filtrar por Descripción:</label>
+                                            <select id="filtroDescripcion" class="form-select" style="width:200px;">
+                                                <option value="Todos">Todos</option>
+                                                <option value="En uso">En uso</option>
+                                                <option value="Finalizo">Finalizo</option>
+                                                <option value="Reservado">Reservado</option>
+                                            </select>
                                         </div>
 
                                         <div class="card shadow mb-4">
@@ -158,12 +154,11 @@
                                                 <div class="modal-body">
                                                     <form id="formEditar">
                                                         <div class="mb-3">
-                                                            <label for="selectDescripcion"
-                                                                class="form-label">Descripción:</label>
+                                                            <label for="selectDescripcion" class="form-label">Descripción:</label>
                                                             <select class="form-select" id="selectDescripcion">
                                                                 <option value="En uso">En uso</option>
                                                                 <option value="Finalizo">Finalizo</option>
-                                                                <option value="Reservado">Reserbado</option>
+                                                                <option value="Reservado">Reservado</option>
                                                             </select>
                                                         </div>
                                                         <input type="hidden" id="filaEditar">
@@ -184,91 +179,44 @@
                     </div>
                 </div>
             </div>
-
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        ©
-                        <script>document.write(new Date().getFullYear());</script>, The_Alexander
+                        © <script>document.write(new Date().getFullYear());</script>, The_Alexander
                     </div>
                 </div>
             </footer>
         </div>
     </div>
 
-    <!-- Bootstrap core JavaScript -->
+    <!-- Bootstrap y JS -->
     <script src="../public/vendor/jquery/jquery.min.js"></script>
     <script src="../public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../public/vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="../public/js/sb-admin-2.min.js"></script>
-    <script src="../public/vendor/chart.js/Chart.min.js"></script>
-    <script src="../public/js/demo/chart-area-demo.js"></script>
-    <script src="../public/js/demo/chart-pie-demo.js"></script>
 
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
-
-    <script>
-        // Verificar sesión
-        const token = sessionStorage.getItem("accessToken");
-        if (!token) {
-            Swal.fire("⚠️ Sesión expirada", "Por favor inicia sesión nuevamente", "warning")
-                .then(() => {
-                    window.location.href = "../index.html";
-                });
-        } else {
-            // Cargar datos de usuario
-            document.getElementById("userName").textContent = sessionStorage.getItem("userName");
-            document.getElementById("userImage").src = sessionStorage.getItem("userPicture");
-        }
-
-        // Logout
-        document.getElementById("logoutBtn").addEventListener("click", () => {
-            Swal.fire({
-                title: "¿Cerrar sesión?",
-                text: "Se cerrará tu cuenta de Google",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Sí, salir",
-                cancelButtonText: "Cancelar"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    sessionStorage.clear();
-                    window.location.href = "../index.html";
-                }
-            });
-        });
-    </script>
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
         const SPREADSHEET_ID = "1jcP5Kwh903YSN4sXV4CCC6EAUOwxM1rTmk339Evlh-I";
-        const RANGE = "prestamosnivel6!A1:Z1000";
-
-        const columnasDeseadas = [
-            "Tipo documento",
-            "Num documento",
-            "Nombre completo",
-            "Lugar de estudio",
-            "Prestamo de",
-            "Estado",
-            "Descripcion"
-        ];
-
+        const RANGE = "prestamosnivel6!A:H";
         let datosGlobal = [];
         let indiceDescripcion = -1;
+        const columnasDeseadas = ["Usuario", "Id", "Descripcion", "Equipo", "Marca", "Modelo", "Serie"];
 
         async function obtenerDatos() {
-            const accessToken = sessionStorage.getItem("accessToken"); // 🔑 usamos token de login
-            const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}`;
-            const res = await fetch(url, {
-                headers: { Authorization: `Bearer ${accessToken}` }
-            });
-            const data = await res.json();
-            return data.values || [];
+            try {
+                const response = await fetch(`https://opensheet.elk.sh/${SPREADSHEET_ID}/${RANGE}`);
+                const datos = await response.json();
+                mostrarDatos(datos);
+            } catch (error) {
+                console.error("Error al obtener los datos:", error);
+            }
         }
 
-        function mostrarDatos(datos) {
+        function mostrarDatos(datos, filtro = "Todos") {
             datosGlobal = datos;
             const tabla = document.getElementById("tabla");
             const thead = tabla.querySelector("thead");
@@ -298,6 +246,9 @@
             thead.appendChild(trHead);
 
             for (let i = 1; i < datos.length; i++) {
+                const descripcionActual = datos[i][indiceDescripcion] || "";
+                if (filtro !== "Todos" && descripcionActual !== filtro) continue;
+
                 const tr = document.createElement("tr");
                 indices.forEach(idx => {
                     const td = document.createElement("td");
@@ -317,53 +268,26 @@
             }
         }
 
-        function abrirModal(fila) {
-            document.getElementById("filaEditar").value = fila;
-            const valorActual = datosGlobal[fila][indiceDescripcion];
-            document.getElementById("selectDescripcion").value = valorActual || "Otro";
-            const modal = new bootstrap.Modal(document.getElementById("editarModal"));
+        function abrirModal(indice) {
+            document.getElementById("selectDescripcion").value = datosGlobal[indice][indiceDescripcion];
+            document.getElementById("filaEditar").value = indice;
+            const modal = new bootstrap.Modal(document.getElementById('editarModal'));
             modal.show();
         }
 
-        document.getElementById("guardarCambio").onclick = async () => {
-            const fila = parseInt(document.getElementById("filaEditar").value);
-            const nuevoValor = document.getElementById("selectDescripcion").value;
+        document.getElementById("guardarCambio").addEventListener("click", () => {
+            const fila = document.getElementById("filaEditar").value;
+            const nuevaDescripcion = document.getElementById("selectDescripcion").value;
+            datosGlobal[fila][indiceDescripcion] = nuevaDescripcion;
+            mostrarDatos(datosGlobal, document.getElementById("filtroDescripcion").value);
+            bootstrap.Modal.getInstance(document.getElementById('editarModal')).hide();
+        });
 
-            const accessToken = sessionStorage.getItem("accessToken"); // 🔑
-            if (!accessToken) {
-                alert("No hay sesión activa. Inicie sesión de nuevo.");
-                return;
-            }
+        document.getElementById("filtroDescripcion").addEventListener("change", (e) => {
+            mostrarDatos(datosGlobal, e.target.value);
+        });
 
-            const rangoCelda = `prestamosnivel6!${String.fromCharCode(65 + indiceDescripcion)}${fila + 1}`;
-
-            const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${rangoCelda}?valueInputOption=USER_ENTERED`;
-
-            const res = await fetch(url, {
-                method: "PUT",
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    range: rangoCelda,
-                    majorDimension: "ROWS",
-                    values: [[nuevoValor]]
-                })
-            });
-
-            if (res.ok) {
-                datosGlobal[fila][indiceDescripcion] = nuevoValor;
-                mostrarDatos(datosGlobal);
-                bootstrap.Modal.getInstance(document.getElementById("editarModal")).hide();
-            } else {
-                const err = await res.json();
-                console.error("Error al actualizar:", err);
-                alert("No se pudo actualizar en la hoja. Revisa permisos de Google Sheets API.");
-            }
-        };
-
-        obtenerDatos().then(mostrarDatos);
+        obtenerDatos();
     </script>
 </body>
 
