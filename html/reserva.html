@@ -5,29 +5,18 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <title>Reservaciones</title>
 
-    <!-- Fuente Nunito -->
+    <!-- Fuentes y estilos -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
-
-    <!-- Estilos de la plantilla -->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
     <link href="../css/estilo.css" rel="stylesheet">
-
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-    <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- SweetAlert2 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
-    <!-- jQuery -->
+    <!-- jQuery y Moment.js -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-    <!-- Moment.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
     <script>
@@ -36,17 +25,14 @@
             const horas = ahora.getHours().toString().padStart(2, '0');
             const minutos = ahora.getMinutes().toString().padStart(2, '0');
             const segundos = ahora.getSeconds().toString().padStart(2, '0');
-            const horaFormateada = `${horas}:${minutos}:${segundos}`;
-            document.getElementById('horaActual').textContent = horaFormateada;
+            document.getElementById('horaActual').textContent = `${horas}:${minutos}:${segundos}`;
         }
         setInterval(actualizarHora, 1000);
     </script>
 </head>
 
 <body id="page-top">
-    <!-- Page Wrapper -->
     <div id="wrapper">
-
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
             <a class="sidebar-brand d-flex align-items-center justify-content-center">
@@ -55,20 +41,15 @@
                 </div>
                 <div class="sidebar-brand-text mx-3">Nivel 6</div>
             </a>
-
             <hr class="sidebar-divider my-0">
-
             <li class="nav-item active">
                 <a class="nav-link" href="home.html">
                     <i class="fas fa-home"></i>
                     <span>Inicio</span>
                 </a>
             </li>
-
             <hr class="sidebar-divider">
-
             <div class="sidebar-heading">Menu Prestamos</div>
-
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -85,10 +66,8 @@
                     </div>
                 </div>
             </li>
-
             <hr class="sidebar-divider">
         </ul>
-        <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -126,7 +105,6 @@
                             <div class="card h-100">
                                 <div class="card-body">
                                     <div class="container mt-4">
-
                                         <div class="card shadow mb-4">
                                             <div class="card-body">
                                                 <div class="table-responsive">
@@ -172,51 +150,40 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- Fin Modal -->
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        ©
-                        <script>document.write(new Date().getFullYear());</script>, The_Alexander
+                        © <script>document.write(new Date().getFullYear());</script>, The_Alexander
                     </div>
                 </div>
             </footer>
         </div>
     </div>
 
-    <!-- Bootstrap core JavaScript -->
+    <!-- Scripts Bootstrap y complementos -->
     <script src="../public/vendor/jquery/jquery.min.js"></script>
     <script src="../public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../public/vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="../public/js/sb-admin-2.min.js"></script>
-    <script src="../public/vendor/chart.js/Chart.min.js"></script>
-    <script src="../public/js/demo/chart-area-demo.js"></script>
-    <script src="../public/js/demo/chart-pie-demo.js"></script>
-
-    <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
     <script>
-        // Verificar sesión
         const token = sessionStorage.getItem("accessToken");
         if (!token) {
             Swal.fire("⚠️ Sesión expirada", "Por favor inicia sesión nuevamente", "warning")
-                .then(() => {
-                    window.location.href = "../index.html";
-                });
+                .then(() => window.location.href = "../index.html");
         } else {
-            // Cargar datos de usuario
             document.getElementById("userName").textContent = sessionStorage.getItem("userName");
             document.getElementById("userImage").src = sessionStorage.getItem("userPicture");
         }
 
-        // Logout
         document.getElementById("logoutBtn").addEventListener("click", () => {
             Swal.fire({
                 title: "¿Cerrar sesión?",
@@ -232,30 +199,17 @@
                 }
             });
         });
-    </script>
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
+
+        // Google Sheets
         const SPREADSHEET_ID = "1jcP5Kwh903YSN4sXV4CCC6EAUOwxM1rTmk339Evlh-I";
         const RANGE = "prestamosnivel6!A1:Z1000";
-
-        const columnasDeseadas = [
-            "Tipo documento",
-            "Num documento",
-            "Nombre completo",
-            "Lugar de estudio",
-            "Prestamo de",
-            "Estado",
-            "Descripcion"
-        ];
-
+        const columnasDeseadas = ["Tipo documento","Num documento","Nombre completo","Lugar de estudio","Prestamo de","Estado","Descripcion"];
         let datosGlobal = [];
         let indiceDescripcion = -1;
 
         async function obtenerDatos() {
-            const accessToken = sessionStorage.getItem("accessToken"); // 🔑 usamos token de login
-            const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}`;
-            const res = await fetch(url, {
+            const accessToken = sessionStorage.getItem("accessToken");
+            const res = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}`, {
                 headers: { Authorization: `Bearer ${accessToken}` }
             });
             const data = await res.json();
@@ -277,33 +231,32 @@
             }
 
             const encabezados = datos[0];
-            const indices = columnasDeseadas.map(col => encabezados.indexOf(col));
             indiceDescripcion = encabezados.indexOf("Descripcion");
 
+            // Crear encabezado filtrado
             const trHead = document.createElement("tr");
-            columnasDeseadas.forEach(h => {
-                const th = document.createElement("th");
-                th.textContent = h;
-                trHead.appendChild(th);
+            columnasDeseadas.forEach(col => {
+                const idx = encabezados.indexOf(col);
+                if (idx >= 0) {
+                    const th = document.createElement("th");
+                    th.textContent = col;
+                    trHead.appendChild(th);
+                }
             });
             const thAccion = document.createElement("th");
-            thAccion.textContent = "Acción";
+            thAccion.textContent = "Acciones";
             trHead.appendChild(thAccion);
             thead.appendChild(trHead);
 
-            // Filtrar solo los registros "En uso"
+            // Filtrar solo "Reservado"
             const datosFiltrados = datos.slice(1).filter(fila => fila[indiceDescripcion] === "Reservado");
 
-            if (datosFiltrados.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8">No hay reservaciones</td></tr>';
-                return;
-            }
-
-            datosFiltrados.forEach((fila, index) => {
+            datosFiltrados.forEach(fila => {
                 const tr = document.createElement("tr");
-                indices.forEach(idx => {
+                columnasDeseadas.forEach(col => {
+                    const idx = encabezados.indexOf(col);
                     const td = document.createElement("td");
-                    td.textContent = idx >= 0 ? fila[idx] || "" : "";
+                    td.textContent = fila[idx] || "";
                     tr.appendChild(td);
                 });
 
@@ -311,61 +264,45 @@
                 const btn = document.createElement("button");
                 btn.textContent = "Editar";
                 btn.className = "btn btn-sm btn-primary";
-                // Ajustar index: sumar 1 para coincidir con fila real en Google Sheets
-                btn.onclick = () => abrirModal(index + 1);
+
+                const indiceReal = datosGlobal.indexOf(fila); // <-- índice real
+                btn.onclick = () => abrirModal(indiceReal);
+
                 tdAccion.appendChild(btn);
                 tr.appendChild(tdAccion);
-
                 tbody.appendChild(tr);
             });
         }
 
-
-        function abrirModal(fila) {
-            document.getElementById("filaEditar").value = fila;
-            const valorActual = datosGlobal[fila][indiceDescripcion];
-            document.getElementById("selectDescripcion").value = valorActual || "Otro";
-            const modal = new bootstrap.Modal(document.getElementById("editarModal2"));
-            modal.show();
+        function abrirModal(indice) {
+            document.getElementById("filaEditar").value = indice;
+            document.getElementById("selectDescripcion").value = datosGlobal[indice][indiceDescripcion];
+            new bootstrap.Modal(document.getElementById("editarModal2")).show();
         }
 
-        document.getElementById("guardarCambio").onclick = async () => {
-            const fila = parseInt(document.getElementById("filaEditar").value);
+        document.getElementById("guardarCambio").addEventListener("click", async () => {
+            const fila = document.getElementById("filaEditar").value;
             const nuevoValor = document.getElementById("selectDescripcion").value;
+            const accessToken = sessionStorage.getItem("accessToken");
 
-            const accessToken = sessionStorage.getItem("accessToken"); // 🔑
-            if (!accessToken) {
-                alert("No hay sesión activa. Inicie sesión de nuevo.");
-                return;
-            }
+            const rango = `prestamosnivel6!G${parseInt(fila) + 1}`;
+            const body = {
+                values: [[nuevoValor]]
+            };
 
-            const rangoCelda = `prestamosnivel6!${String.fromCharCode(65 + indiceDescripcion)}${fila + 1}`;
-
-            const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${rangoCelda}?valueInputOption=USER_ENTERED`;
-
-            const res = await fetch(url, {
+            await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${rango}?valueInputOption=RAW`, {
                 method: "PUT",
                 headers: {
-                    Authorization: `Bearer ${accessToken}`,
+                    "Authorization": `Bearer ${accessToken}`,
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({
-                    range: rangoCelda,
-                    majorDimension: "ROWS",
-                    values: [[nuevoValor]]
-                })
+                body: JSON.stringify(body)
             });
 
-            if (res.ok) {
-                datosGlobal[fila][indiceDescripcion] = nuevoValor;
-                mostrarDatos(datosGlobal);
-                bootstrap.Modal.getInstance(document.getElementById("editarModal2")).hide();
-            } else {
-                const err = await res.json();
-                console.error("Error al actualizar:", err);
-                alert("No se pudo actualizar en la hoja. Revisa permisos de Google Sheets API.");
-            }
-        };
+            datosGlobal[fila][indiceDescripcion] = nuevoValor;
+            mostrarDatos(datosGlobal);
+            bootstrap.Modal.getInstance(document.getElementById("editarModal2")).hide();
+        });
 
         obtenerDatos().then(mostrarDatos);
     </script>
