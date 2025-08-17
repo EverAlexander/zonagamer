@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Lista de usuario</title>
+    <title>Lista de Prestamos</title>
 
     <!-- Fuente Nunito -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
@@ -36,15 +36,13 @@
             const horas = ahora.getHours().toString().padStart(2, '0');
             const minutos = ahora.getMinutes().toString().padStart(2, '0');
             const segundos = ahora.getSeconds().toString().padStart(2, '0');
-            const horaFormateada = `${horas}:${minutos}:${segundos}`;
-            document.getElementById('horaActual').textContent = horaFormateada;
+            document.getElementById('horaActual').textContent = `${horas}:${minutos}:${segundos}`;
         }
         setInterval(actualizarHora, 1000);
     </script>
 </head>
 
 <body id="page-top">
-    <!-- Page Wrapper -->
     <div id="wrapper">
 
         <!-- Sidebar -->
@@ -55,20 +53,15 @@
                 </div>
                 <div class="sidebar-brand-text mx-3">Nivel 6</div>
             </a>
-
             <hr class="sidebar-divider my-0">
-
             <li class="nav-item active">
                 <a class="nav-link" href="?route=home">
                     <i class="fas fa-home"></i>
                     <span>Inicio</span>
                 </a>
             </li>
-
             <hr class="sidebar-divider">
-
             <div class="sidebar-heading">Menu Prestamos</div>
-
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -85,15 +78,14 @@
                     </div>
                 </div>
             </li>
-
             <hr class="sidebar-divider">
         </ul>
         <!-- End of Sidebar -->
 
-        <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
                 <div class="container-fluid">
+
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
@@ -126,7 +118,6 @@
                             <div class="card h-100">
                                 <div class="card-body">
                                     <div class="container mt-4">
-
                                         <div class="card shadow mb-4">
                                             <div class="card-body">
                                                 <div class="table-responsive">
@@ -157,7 +148,7 @@
                                                             <select class="form-control" id="selectDescripcion">
                                                                 <option value="En uso">En uso</option>
                                                                 <option value="Finalizo">Finalizo</option>
-                                                                <option value="Reservado">Reserbado</option>
+                                                                <option value="Reservado">Reservado</option>
                                                             </select>
                                                         </div>
                                                         <input type="hidden" id="filaEditar">
@@ -182,41 +173,31 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        ©
-                        <script>document.write(new Date().getFullYear());</script>, The_Alexander
+                        © <script>document.write(new Date().getFullYear());</script>, The_Alexander
                     </div>
                 </div>
             </footer>
         </div>
     </div>
 
-    <!-- Bootstrap core JavaScript -->
+    <!-- Scripts -->
     <script src="../public/vendor/jquery/jquery.min.js"></script>
     <script src="../public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../public/vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="../public/js/sb-admin-2.min.js"></script>
-    <script src="../public/vendor/chart.js/Chart.min.js"></script>
-    <script src="../public/js/demo/chart-area-demo.js"></script>
-    <script src="../public/js/demo/chart-pie-demo.js"></script>
-
-    <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
     <script>
-        // Verificar sesión
+        // Sesión y logout
         const token = sessionStorage.getItem("accessToken");
         if (!token) {
             Swal.fire("⚠️ Sesión expirada", "Por favor inicia sesión nuevamente", "warning")
-                .then(() => {
-                    window.location.href = "../index.html";
-                });
+                .then(() => window.location.href = "../index.html");
         } else {
-            // Cargar datos de usuario
             document.getElementById("userName").textContent = sessionStorage.getItem("userName");
             document.getElementById("userImage").src = sessionStorage.getItem("userPicture");
         }
 
-        // Logout
         document.getElementById("logoutBtn").addEventListener("click", () => {
             Swal.fire({
                 title: "¿Cerrar sesión?",
@@ -232,32 +213,18 @@
                 }
             });
         });
-    </script>
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
+
+        // Datos de Google Sheets
         const SPREADSHEET_ID = "1jcP5Kwh903YSN4sXV4CCC6EAUOwxM1rTmk339Evlh-I";
         const RANGE = "prestamosnivel6!A1:Z1000";
-
-        const columnasDeseadas = [
-            "Tipo documento",
-            "Num documento",
-            "Nombre completo",
-            "Lugar de estudio",
-            "Prestamo de",
-            "Estado",
-            "Descripcion"
-        ];
-
+        const columnasDeseadas = ["Tipo documento","Num documento","Nombre completo","Lugar de estudio","Prestamo de","Estado","Descripcion"];
         let datosGlobal = [];
         let indiceDescripcion = -1;
 
         async function obtenerDatos() {
-            const accessToken = sessionStorage.getItem("accessToken"); // 🔑 usamos token de login
+            const accessToken = sessionStorage.getItem("accessToken");
             const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}`;
-            const res = await fetch(url, {
-                headers: { Authorization: `Bearer ${accessToken}` }
-            });
+            const res = await fetch(url, { headers: { Authorization: `Bearer ${accessToken}` } });
             const data = await res.json();
             return data.values || [];
         }
@@ -291,7 +258,11 @@
             trHead.appendChild(thAccion);
             thead.appendChild(trHead);
 
+            // Filtrar solo los préstamos "En uso"
             for (let i = 1; i < datos.length; i++) {
+                const descripcion = datos[i][indiceDescripcion] || "";
+                if (descripcion !== "En uso") continue;
+
                 const tr = document.createElement("tr");
                 indices.forEach(idx => {
                     const td = document.createElement("td");
@@ -312,53 +283,22 @@
         }
 
         function abrirModal(fila) {
+            const descripcionActual = datosGlobal[fila][indiceDescripcion];
+            document.getElementById("selectDescripcion").value = descripcionActual;
             document.getElementById("filaEditar").value = fila;
-            const valorActual = datosGlobal[fila][indiceDescripcion];
-            document.getElementById("selectDescripcion").value = valorActual || "Otro";
-            const modal = new bootstrap.Modal(document.getElementById("editarModal"));
-            modal.show();
+            $('#editarModal').modal('show');
         }
 
-        document.getElementById("guardarCambio").onclick = async () => {
-            const fila = parseInt(document.getElementById("filaEditar").value);
-            const nuevoValor = document.getElementById("selectDescripcion").value;
+        document.getElementById("guardarCambio").addEventListener("click", async () => {
+            const fila = document.getElementById("filaEditar").value;
+            const nuevaDescripcion = document.getElementById("selectDescripcion").value;
+            datosGlobal[fila][indiceDescripcion] = nuevaDescripcion;
 
-            const accessToken = sessionStorage.getItem("accessToken"); // 🔑
-            if (!accessToken) {
-                alert("No hay sesión activa. Inicie sesión de nuevo.");
-                return;
-            }
+            mostrarDatos(datosGlobal); // refresca la tabla
+            $('#editarModal').modal('hide');
+        });
 
-            const rangoCelda = `prestamosnivel6!${String.fromCharCode(65 + indiceDescripcion)}${fila + 1}`;
-
-            const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${rangoCelda}?valueInputOption=USER_ENTERED`;
-
-            const res = await fetch(url, {
-                method: "PUT",
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    range: rangoCelda,
-                    majorDimension: "ROWS",
-                    values: [[nuevoValor]]
-                })
-            });
-
-            if (res.ok) {
-                datosGlobal[fila][indiceDescripcion] = nuevoValor;
-                mostrarDatos(datosGlobal);
-                bootstrap.Modal.getInstance(document.getElementById("editarModal")).hide();
-            } else {
-                const err = await res.json();
-                console.error("Error al actualizar:", err);
-                alert("No se pudo actualizar en la hoja. Revisa permisos de Google Sheets API.");
-            }
-        };
-
-        obtenerDatos().then(mostrarDatos);
+        obtenerDatos().then(mostrarDatos).catch(err => console.error(err));
     </script>
 </body>
-
 </html>
