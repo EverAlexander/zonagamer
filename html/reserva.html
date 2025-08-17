@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Lista de usuario</title>
+    <title>Reservaciones</title>
 
     <!-- Fuente Nunito -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
@@ -295,7 +295,7 @@
             const datosFiltrados = datos.slice(1).filter(fila => fila[indiceDescripcion] === "Reservado");
 
             if (datosFiltrados.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8">No hay registros "En uso"</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="8">No hay reservaciones</td></tr>';
                 return;
             }
 
