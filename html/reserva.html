@@ -5,18 +5,29 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <title>Reservaciones</title>
 
-    <!-- Fuentes y estilos -->
+    <!-- Fuente Nunito -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
+
+    <!-- Estilos de la plantilla -->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
     <link href="../css/estilo.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- SweetAlert2 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
-    <!-- jQuery y Moment.js -->
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Moment.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
     <script>
@@ -33,6 +44,7 @@
 
 <body id="page-top">
     <div id="wrapper">
+
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
             <a class="sidebar-brand d-flex align-items-center justify-content-center">
@@ -69,7 +81,6 @@
             <hr class="sidebar-divider">
         </ul>
 
-        <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
                 <div class="container-fluid">
@@ -77,13 +88,13 @@
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><span id="horaActual"></span>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        <span id="horaActual"></span>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Usuario -->
                         <div class="dropdown">
                             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown"
                                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -150,13 +161,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- Fin Modal -->
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
@@ -167,14 +179,32 @@
         </div>
     </div>
 
-    <!-- Scripts Bootstrap y complementos -->
+    <!-- Scripts -->
     <script src="../public/vendor/jquery/jquery.min.js"></script>
     <script src="../public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../public/vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="../public/js/sb-admin-2.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        const SPREADSHEET_ID = "1jcP5Kwh903YSN4sXV4CCC6EAUOwxM1rTmk339Evlh-I";
+        const RANGE = "prestamosnivel6!A1:Z1000";
+        const columnasDeseadas = [
+            "Tipo documento",
+            "Num documento",
+            "Nombre completo",
+            "Lugar de estudio",
+            "Prestamo de",
+            "Estado",
+            "Descripcion"
+        ];
+
+        let datosGlobal = [];
+        let indiceDescripcion = -1;
+
+        // Verificar sesión
         const token = sessionStorage.getItem("accessToken");
         if (!token) {
             Swal.fire("⚠️ Sesión expirada", "Por favor inicia sesión nuevamente", "warning")
@@ -192,7 +222,7 @@
                 showCancelButton: true,
                 confirmButtonText: "Sí, salir",
                 cancelButtonText: "Cancelar"
-            }).then((result) => {
+            }).then(result => {
                 if (result.isConfirmed) {
                     sessionStorage.clear();
                     window.location.href = "../index.html";
@@ -200,112 +230,86 @@
             });
         });
 
-        // Google Sheets
-        const SPREADSHEET_ID = "1jcP5Kwh903YSN4sXV4CCC6EAUOwxM1rTmk339Evlh-I";
-        const RANGE = "prestamosnivel6!A1:Z1000";
-        const columnasDeseadas = ["Tipo documento","Num documento","Nombre completo","Lugar de estudio","Prestamo de","Estado","Descripcion"];
-        let datosGlobal = [];
-        let indiceDescripcion = -1;
+        async function cargarDatos() {
+            try {
+                const res = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}`, {
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+                const data = await res.json();
+                if (!data.values) return;
 
-        async function obtenerDatos() {
-            const accessToken = sessionStorage.getItem("accessToken");
-            const res = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}`, {
-                headers: { Authorization: `Bearer ${accessToken}` }
-            });
-            const data = await res.json();
-            return data.values || [];
+                const encabezados = data.values[0];
+                const indices = columnasDeseadas.map(col => encabezados.indexOf(col));
+                indiceDescripcion = indices[6];
+
+                datosGlobal = data.values.slice(1).map(fila => fila);
+                mostrarDatos(datosGlobal);
+            } catch (err) {
+                console.error(err);
+                Swal.fire("Error", "No se pudieron cargar los datos", "error");
+            }
         }
 
         function mostrarDatos(datos) {
-            datosGlobal = datos;
-            const tabla = document.getElementById("tabla");
-            const thead = tabla.querySelector("thead");
-            const tbody = tabla.querySelector("tbody");
-
-            thead.innerHTML = "";
-            tbody.innerHTML = "";
-
-            if (!datos || datos.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8">No hay datos para mostrar</td></tr>';
-                return;
-            }
-
-            const encabezados = datos[0];
-            indiceDescripcion = encabezados.indexOf("Descripcion");
-
-            // Crear encabezado filtrado
-            const trHead = document.createElement("tr");
-            columnasDeseadas.forEach(col => {
-                const idx = encabezados.indexOf(col);
-                if (idx >= 0) {
-                    const th = document.createElement("th");
-                    th.textContent = col;
-                    trHead.appendChild(th);
-                }
-            });
-            const thAccion = document.createElement("th");
-            thAccion.textContent = "Acciones";
-            trHead.appendChild(thAccion);
-            thead.appendChild(trHead);
-
-            // Filtrar solo "Reservado"
-            const datosFiltrados = datos.slice(1).filter(fila => fila[indiceDescripcion] === "Reservado");
-
-            datosFiltrados.forEach(fila => {
+            const tabla = document.querySelector("#tabla tbody");
+            tabla.innerHTML = "";
+            datos.forEach((fila, index) => {
                 const tr = document.createElement("tr");
-                columnasDeseadas.forEach(col => {
-                    const idx = encabezados.indexOf(col);
+                columnasDeseadas.forEach((col, i) => {
                     const td = document.createElement("td");
-                    td.textContent = fila[idx] || "";
+                    td.textContent = fila[i] || "";
                     tr.appendChild(td);
                 });
-
                 const tdAccion = document.createElement("td");
                 const btn = document.createElement("button");
+                btn.className = "btn btn-primary btn-sm";
                 btn.textContent = "Editar";
-                btn.className = "btn btn-sm btn-primary";
-
-                const indiceReal = datosGlobal.indexOf(fila); // <-- índice real
-                btn.onclick = () => abrirModal(indiceReal);
-
+                btn.addEventListener("click", () => abrirModal(index));
                 tdAccion.appendChild(btn);
                 tr.appendChild(tdAccion);
-                tbody.appendChild(tr);
+                tabla.appendChild(tr);
             });
         }
 
-        function abrirModal(indice) {
-            document.getElementById("filaEditar").value = indice;
-            document.getElementById("selectDescripcion").value = datosGlobal[indice][indiceDescripcion];
-            new bootstrap.Modal(document.getElementById("editarModal2")).show();
+        function abrirModal(fila) {
+            document.getElementById("filaEditar").value = fila;
+            document.getElementById("selectDescripcion").value = datosGlobal[fila][indiceDescripcion];
+            const modal = new bootstrap.Modal(document.getElementById("editarModal2"));
+            modal.show();
         }
 
         document.getElementById("guardarCambio").addEventListener("click", async () => {
-            const fila = document.getElementById("filaEditar").value;
+            const filaTabla = parseInt(document.getElementById("filaEditar").value);
             const nuevoValor = document.getElementById("selectDescripcion").value;
-            const accessToken = sessionStorage.getItem("accessToken");
 
-            const rango = `prestamosnivel6!G${parseInt(fila) + 1}`;
-            const body = {
-                values: [[nuevoValor]]
-            };
+            const filaHoja = filaTabla + 2; // +1 por encabezado, +1 porque Sheets empieza en 1
+            const rango = `prestamosnivel6!G${filaHoja}`;
+            const body = { values: [[nuevoValor]] };
 
-            await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${rango}?valueInputOption=RAW`, {
-                method: "PUT",
-                headers: {
-                    "Authorization": `Bearer ${accessToken}`,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(body)
-            });
+            try {
+                const res = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${rango}?valueInputOption=RAW`, {
+                    method: "PUT",
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(body)
+                });
 
-            datosGlobal[fila][indiceDescripcion] = nuevoValor;
-            mostrarDatos(datosGlobal);
-            bootstrap.Modal.getInstance(document.getElementById("editarModal2")).hide();
+                if (!res.ok) throw new Error("Error al actualizar la hoja");
+
+                datosGlobal[filaTabla][indiceDescripcion] = nuevoValor;
+                mostrarDatos(datosGlobal);
+
+                bootstrap.Modal.getInstance(document.getElementById("editarModal2")).hide();
+                Swal.fire("¡Éxito!", "Descripción actualizada correctamente", "success");
+            } catch (err) {
+                console.error(err);
+                Swal.fire("Error", "No se pudo actualizar la hoja", "error");
+            }
         });
 
-        obtenerDatos().then(mostrarDatos);
+        cargarDatos();
     </script>
 </body>
-
 </html>
