@@ -263,53 +263,63 @@
         }
 
         function mostrarDatos(datos) {
-            datosGlobal = datos;
-            const tabla = document.getElementById("tabla");
-            const thead = tabla.querySelector("thead");
-            const tbody = tabla.querySelector("tbody");
+    datosGlobal = datos;
+    const tabla = document.getElementById("tabla");
+    const thead = tabla.querySelector("thead");
+    const tbody = tabla.querySelector("tbody");
 
-            thead.innerHTML = "";
-            tbody.innerHTML = "";
+    thead.innerHTML = "";
+    tbody.innerHTML = "";
 
-            if (!datos || datos.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8">No hay datos para mostrar</td></tr>';
-                return;
-            }
+    if (!datos || datos.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8">No hay datos para mostrar</td></tr>';
+        return;
+    }
 
-            const encabezados = datos[0];
-            const indices = columnasDeseadas.map(col => encabezados.indexOf(col));
-            indiceDescripcion = encabezados.indexOf("Descripcion");
+    const encabezados = datos[0];
+    const indices = columnasDeseadas.map(col => encabezados.indexOf(col));
+    indiceDescripcion = encabezados.indexOf("Descripcion");
 
-            const trHead = document.createElement("tr");
-            columnasDeseadas.forEach(h => {
-                const th = document.createElement("th");
-                th.textContent = h;
-                trHead.appendChild(th);
-            });
-            const thAccion = document.createElement("th");
-            thAccion.textContent = "Acción";
-            trHead.appendChild(thAccion);
-            thead.appendChild(trHead);
+    const trHead = document.createElement("tr");
+    columnasDeseadas.forEach(h => {
+        const th = document.createElement("th");
+        th.textContent = h;
+        trHead.appendChild(th);
+    });
+    const thAccion = document.createElement("th");
+    thAccion.textContent = "Acción";
+    trHead.appendChild(thAccion);
+    thead.appendChild(trHead);
 
-            for (let i = 1; i < datos.length; i++) {
-                const tr = document.createElement("tr");
-                indices.forEach(idx => {
-                    const td = document.createElement("td");
-                    td.textContent = idx >= 0 ? datos[i][idx] || "" : "";
-                    tr.appendChild(td);
-                });
+    // Filtrar solo los registros "En uso"
+    const datosFiltrados = datos.slice(1).filter(fila => fila[indiceDescripcion] === "En uso");
 
-                const tdAccion = document.createElement("td");
-                const btn = document.createElement("button");
-                btn.textContent = "Editar";
-                btn.className = "btn btn-sm btn-primary";
-                btn.onclick = () => abrirModal(i);
-                tdAccion.appendChild(btn);
-                tr.appendChild(tdAccion);
+    if (datosFiltrados.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8">No hay registros "En uso"</td></tr>';
+        return;
+    }
 
-                tbody.appendChild(tr);
-            }
-        }
+    datosFiltrados.forEach((fila, index) => {
+        const tr = document.createElement("tr");
+        indices.forEach(idx => {
+            const td = document.createElement("td");
+            td.textContent = idx >= 0 ? fila[idx] || "" : "";
+            tr.appendChild(td);
+        });
+
+        const tdAccion = document.createElement("td");
+        const btn = document.createElement("button");
+        btn.textContent = "Editar";
+        btn.className = "btn btn-sm btn-primary";
+        // Ajustar index: sumar 1 para coincidir con fila real en Google Sheets
+        btn.onclick = () => abrirModal(index + 1);
+        tdAccion.appendChild(btn);
+        tr.appendChild(tdAccion);
+
+        tbody.appendChild(tr);
+    });
+}
+
 
         function abrirModal(fila) {
             document.getElementById("filaEditar").value = fila;
