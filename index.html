@@ -1,81 +1,384 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bienvenido nivel 6</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.css" />
-  <link href="css/login.css" rel="stylesheet">
 
-  <!-- Google Identity Services -->
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Menu principal</title>
+    <style>
+        .contenedor {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        canvas {
+            border: 5px solid #333;
+            border-radius: 50%;
+            background: #fff;
+            position: relative;
+        }
+
+        .panel {
+            width: 250px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: left;
+            background: #f9f9f9;
+            height: 500px;
+        }
+
+        .panel h2 {
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 20px;
+            width: 100%;
+        }
+    </style>
+    <!-- Custom fonts for this template-->
+    <link href="/juegosInteractivos/public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="/juegosInteractivos/public/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/juegosInteractivos/public/css/estilo.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script>
+        function actualizarHora() {
+            // Obtener la fecha y hora actual
+            const ahora = new Date();
+
+            // Formatear la hora en HH:mm:ss
+            const horas = ahora.getHours().toString().padStart(2, '0');
+            const minutos = ahora.getMinutes().toString().padStart(2, '0');
+            const segundos = ahora.getSeconds().toString().padStart(2, '0');
+            const horaFormateada = `${horas}:${minutos}:${segundos}`;
+
+            // Asignar la hora al elemento con el id "horaActual"
+            document.getElementById('horaActual').textContent = horaFormateada;
+        }
+
+        // Ejecutar la función cada segundo (1000 ms)
+        setInterval(actualizarHora, 1000);
+    </script>
+
 </head>
 
-<body>
-  <section class="vh-100" style="background-color: #508bfc;">
-    <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-          <div class="card shadow-2-strong" style="border-radius: 1rem;">
-            <!-- Contenedor del logotipo -->
-            <div class="d-flex justify-content-center mt-4">
-              <div class="brand_logo_container"
-                style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden;">
-                <img src="imagenes/lg.png" class="brand_logo img-fluid" alt="Logo"
-                  style="width: 100%; height: 100%; object-fit: cover;">
-              </div>
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+                <!-- Navbar Superior -->
+                <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-primary mb-4">
+                    <a class="navbar-brand" href="?route=home">
+                        <i class="fas fa-gamepad"></i> Zona Gamer
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarGamer"
+                        aria-controls="navbarGamer" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarGamer">
+                        <ul class="navbar-nav ml-auto align-items-center">
+                            <!-- Links del menú -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"><i class="fas fa-home"></i> Inicio</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarGrupos" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-users"></i> Lista de juegos
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarGrupos">
+                                    <a class="dropdown-item" href="?route=ruleta">Ruleta</a>
+                                    <a class="dropdown-item" href="#">Pendiente</a>
+                                </div>
+                            </li>
+
+                            <!-- Reloj -->
+                            <li class="nav-item">
+                                <span class="nav-link font-weight-bold text-white" id="horaActual"></span>
+                            </li>
+
+                            <!-- Dropdown usuario -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown"
+                                    role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuNuWLCLLcxIOHZWSOPeGrmiBLf_fA9Cxqvw&s"
+                                        alt="Imagen de usuario" class="user-logo" width="40" height="40">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                    <span class="dropdown-item">
+                                        <i class="fas fa-user mr-2"></i> Administrador:
+                                        <?php echo htmlspecialchars($nombreUsuario); ?>
+                                    </span>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="/mvcPrueba/?route=logout">
+                                        <i class="fas fa-sign-out-alt mr-2"></i> Cerrar Sesión
+                                    </a>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </nav>
+
+                <!-- Fin Navbar Superior -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 order-2 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+
+                                    <h1>Gira y gana</h1>
+                                    <div class="contenedor">
+                                        <canvas id="ruletaCanvas" width="500" height="500"></canvas>
+                                        <div class="panel">
+                                            <h2>Resultado</h2>
+                                            <p><strong>Número:</strong> <span id="numero">-</span></p>
+                                            <p><strong>Pregunta:</strong></p>
+                                            <p id="pregunta">Gira la ruleta para ver la pregunta.</p>
+                                            <button id="girarBtn">Girar Ruleta</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
             </div>
-            <div class="card-body p-5 text-center">
-              <button id="btnLogin" class="btn btn-primary">Iniciar sesión con Google</button>
-            </div>
-          </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        ©
+                        <script>
+                            document.write(new Date().getFullYear());
+                        </script>
+                        ,The_Alexander
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
         </div>
-      </div>
+        <!-- End of Content Wrapper -->
+
     </div>
-  </section>
 
-  <!-- SweetAlert -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-  <script>
-    const CLIENT_ID = "257644747195-10it3ejvfcj6i7pifc5vqjp8r3bjptu6.apps.googleusercontent.com";
-    let tokenClient;
+    <!-- Bootstrap core JavaScript-->
+    <script src="/juegosInteractivos/public/vendor/jquery/jquery.min.js"></script>
+    <script src="/juegosInteractivos/public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    window.onload = () => {
-      tokenClient = google.accounts.oauth2.initTokenClient({
-        client_id: CLIENT_ID,
-        scope: "openid profile email https://www.googleapis.com/auth/spreadsheets",
-        callback: (tokenResponse) => {
-          // Guardar token
-          sessionStorage.setItem("accessToken", tokenResponse.access_token);
+    <!-- Core plugin JavaScript-->
+    <script src="/juegosInteractivos/public/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-          // Pedir datos del usuario
-          fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
-            headers: { Authorization: `Bearer ${tokenResponse.access_token}` }
-          })
-            .then(res => res.json())
-            .then(user => {
-              // Guardar en sessionStorage
-              sessionStorage.setItem("userName", user.name);
-              sessionStorage.setItem("userEmail", user.email);
-              sessionStorage.setItem("userPicture", user.picture);
+    <!-- Custom scripts for all pages-->
+    <script src="/juegosInteractivos/public/js/sb-admin-2.min.js"></script>
 
-              Swal.fire("✅ Bienvenido", `Hola ${user.name}`, "success")
-                .then(() => {
-                  window.location.href = "html/home.html";
-                });
-            });
+    <!-- Page level plugins -->
+    <script src="/juegosInteractivos/public/vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/juegosInteractivos/public/js/demo/chart-area-demo.js"></script>
+    <script src="/juegosInteractivos/public/js/demo/chart-pie-demo.js"></script>
+
+    <!-- SweetAlert2 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+    <script>
+        const canvas = document.getElementById("ruletaCanvas");
+        const ctx = canvas.getContext("2d");
+        const girarBtn = document.getElementById("girarBtn");
+        const numeroDisplay = document.getElementById("numero");
+        const preguntaDisplay = document.getElementById("pregunta");
+
+        const numSegmentos = 28;
+
+        // Tus 30 preguntas
+        const preguntas = [
+            "Pregunta 1: Menciona una comida típica de El Salvador?",
+            "Pregunta 2: ¿Cuál es la capital de El Salvador?",
+            "Pregunta 3: ¿Cual es el nombre de los controles de la Nintendo Switch?",
+            "Pregunta 4: Mencione un area de la Biblioteca Nacional?",
+            "Pregunta 5: ¿Como se llama el juego de Futbol?",
+            "Pregunta 6: ¿Como se llama el personaje que usa una máscara en Super Mario Bros?",
+            "Pregunta 7: ¿Cuál es la flor nacional de El Salvador?",
+            "Pregunta 8: ¿Cuántas personas pueden jugar Mario Kart?",
+            "Pregunta 9: Nombra un amigo de Mario.",
+            "Pregunta 10: ¿Qué objeto le da poderes a Mario?",
+            "Pregunta 11: Nombra una pista o circuito de Mario Kart.",
+            "Pregunta 12: Nombra un juego famoso de la saga de Mario.",
+            "Pregunta 13: Menciona una copa de Mario Kart.",
+            "Pregunta 14: Nombra un villano de Super Mario Bros.",
+            "Pregunta 15: ¿En qué año salió el primer juego de Super Mario Bros?",
+            "Pregunta 16: ¿Cuál es el enemigo que Mario aplasta saltando sobre él en casi todos los juegos?",
+            "Pregunta 17: ¿Cuál es el nombre del jefe final en Super Mario Bros?",
+            "Pregunta 18: En qué videojuego Mario es un bebé?",
+            "Pregunta 19: ¿En qué año salió Super Mario Odyssey?",
+            "Pregunta 20: Nombra un mundo o reino que Mario visita en Super Mario Bros. 3.",
+            "Pregunta 21: Como se llama el compañero de Mario en Odyssey.",
+            "Pregunta 22: ¿Cuál es el nombre del dinosaurio que acompaña a Mario en algunos juegos?",
+            "Pregunta 23: Menciona un personaje jugable de Mario Kart que no sea Mario, Luigi ni Peach.",
+            "Pregunta 24: Nombra un jefe que aparece en Super Mario 64.",
+            "Pregunta 25: ¿Qué ítem permite a Mario volar en algunos juegos?",
+            "Pregunta 26: ¿En qué juego Mario enfrenta a Bowser por primera vez?",
+            "Pregunta 27: ¿Qué juego de Mario se juega en 3D por primera vez?",
+            "Pregunta 28: ¿Que item puede usar Mario?",
+        ];
+
+        const radio = canvas.width / 2;
+        let angulo = 0;
+        let velocidad = 0;
+        let animando = false;
+        const preguntasUsadas = []; // Guardar preguntas ya usadas
+
+        // Dibujar la ruleta
+        function dibujarRuleta() {
+            const anguloSegmento = (2 * Math.PI) / numSegmentos;
+            for (let i = 0; i < numSegmentos; i++) {
+                const inicio = i * anguloSegmento;
+                const fin = inicio + anguloSegmento;
+
+                ctx.beginPath();
+                ctx.moveTo(radio, radio);
+                ctx.arc(radio, radio, radio - 5, inicio, fin);
+                ctx.closePath();
+                ctx.fillStyle = i % 2 === 0 ? `hsl(${i * 12},70%,50%)` : `hsl(${i * 12},70%,60%)`;
+                ctx.fill();
+                ctx.strokeStyle = "#000";
+                ctx.stroke();
+
+                // Número del segmento
+                const anguloTexto = inicio + anguloSegmento / 2;
+                ctx.save();
+                ctx.translate(radio + Math.cos(anguloTexto) * (radio - 40), radio + Math.sin(anguloTexto) * (radio - 40));
+                ctx.rotate(anguloTexto + Math.PI / 2);
+                ctx.fillStyle = "#fff";
+                ctx.font = "14px Arial";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillText(i + 1, 0, 0);
+                ctx.restore();
+            }
         }
-      });
-    };
 
-    document.getElementById("btnLogin").onclick = () => {
-      tokenClient.requestAccessToken();
-    };
-  </script>
+        // Dibujar flecha apuntando arriba
+        function dibujarFlecha() {
+            ctx.save();
+            ctx.translate(radio, radio);
+            ctx.beginPath();
+            ctx.moveTo(0, -radio + 5); // punta de la flecha
+            ctx.lineTo(-15, -radio + 25);
+            ctx.lineTo(15, -radio + 25);
+            ctx.closePath();
+            ctx.fillStyle = "red";
+            ctx.fill();
+            ctx.restore();
+        }
+
+        // Redibujar ruleta
+        function dibujar() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.save();
+            ctx.translate(radio, radio);
+            ctx.rotate(angulo);
+            ctx.translate(-radio, -radio);
+            dibujarRuleta();
+            ctx.restore();
+            dibujarFlecha();
+        }
+
+        // Función para girar ruleta
+        function girarRuleta() {
+            if (animando) return;
+            animando = true;
+            girarBtn.disabled = true;
+            numeroDisplay.textContent = "-";
+            preguntaDisplay.textContent = "Gira la ruleta...";
+
+            velocidad = Math.random() * 0.3 + 0.3;
+
+            function animar() {
+                velocidad *= 0.995;
+                angulo += velocidad;
+                dibujar();
+
+                if (velocidad > 0.001) {
+                    requestAnimationFrame(animar);
+                } else {
+                    if (preguntasUsadas.length === numSegmentos) {
+                        preguntaDisplay.textContent = "¡Todas las preguntas ya se usaron! Recarga la página para reiniciar.";
+                        numeroDisplay.textContent = "-";
+                        animando = false;
+                        return;
+                    }
+
+                    // Normalizamos ángulo y ajustamos para que la flecha arriba sea 0
+                    let anguloNormalizado = angulo % (2 * Math.PI);
+                    const anguloPorSegmento = (2 * Math.PI) / numSegmentos;
+                    anguloNormalizado = (anguloNormalizado + Math.PI / 2) % (2 * Math.PI); // ajustar 90° para flecha arriba
+                    let indice = Math.floor(numSegmentos - (anguloNormalizado / anguloPorSegmento));
+                    indice = indice % numSegmentos;
+
+                    // Validar que no se haya usado
+                    while (preguntasUsadas.includes(indice)) {
+                        indice = Math.floor(Math.random() * numSegmentos);
+                    }
+
+                    preguntasUsadas.push(indice);
+
+                    numeroDisplay.textContent = indice + 1;
+                    preguntaDisplay.textContent = preguntas[indice];
+                    animando = false;
+                    girarBtn.disabled = false;
+                }
+            }
+
+            requestAnimationFrame(animar);
+        }
+
+        girarBtn.addEventListener('click', girarRuleta);
+        dibujar();
+    </script>
 </body>
 
 </html>
