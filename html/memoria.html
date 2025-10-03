@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Menu principal</title>
+    <style>
+        #tablero {
+            display: grid;
+            grid-template-columns: repeat(8, 80px);
+            grid-gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .carta {
+            width: 80px;
+            height: 100px;
+            border-radius: 8px;
+            background: #007bff;
+            color: white;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .carta.oculta {
+            background: #343a40;
+            color: transparent;
+            cursor: pointer;
+        }
+
+        .carta.acertada {
+            background: #28a745 !important;
+            color: white !important;
+            cursor: default;
+        }
+    </style>
+
+    <!-- Custom fonts for this template-->
+    <link href="public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="css/estilo.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script>
+        function actualizarHora() {
+            // Obtener la fecha y hora actual
+            const ahora = new Date();
+
+            // Formatear la hora en HH:mm:ss
+            const horas = ahora.getHours().toString().padStart(2, '0');
+            const minutos = ahora.getMinutes().toString().padStart(2, '0');
+            const segundos = ahora.getSeconds().toString().padStart(2, '0');
+            const horaFormateada = `${horas}:${minutos}:${segundos}`;
+
+            // Asignar la hora al elemento con el id "horaActual"
+            document.getElementById('horaActual').textContent = horaFormateada;
+        }
+
+        // Ejecutar la función cada segundo (1000 ms)
+        setInterval(actualizarHora, 1000);
+    </script>
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+                <!-- Navbar Superior -->
+                <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-primary mb-4">
+                    <a class="navbar-brand" href="?route=home">
+                        <i class="fas fa-gamepad"></i> Zona Gamer
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarGamer"
+                        aria-controls="navbarGamer" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarGamer">
+                        <ul class="navbar-nav ml-auto align-items-center">
+                            <!-- Links del menú -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"><i class="fas fa-home"></i> Inicio</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarGrupos" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-users"></i> Lista de juegos
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarGrupos">
+                                    <a class="dropdown-item" href="?route=ruleta">Ruleta</a>
+                                    <a class="dropdown-item" href="#">Pendiente</a>
+                                </div>
+                            </li>
+
+                            <!-- Reloj -->
+                            <li class="nav-item">
+                                <span class="nav-link font-weight-bold text-white" id="horaActual"></span>
+                            </li>
+
+                            <!-- Dropdown usuario -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown"
+                                    role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuNuWLCLLcxIOHZWSOPeGrmiBLf_fA9Cxqvw&s"
+                                        alt="Imagen de usuario" class="user-logo" width="40" height="40">
+                                </a>
+
+                            </li>
+
+                        </ul>
+                    </div>
+                </nav>
+
+                <!-- Fin Navbar Superior -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 order-2 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+
+                                    <div class="contenedor-juego text-center">
+                                        <h2>Juego de Memoria</h2>
+                                        <p id="contador"></p>
+                                        <div id="tablero" class="d-flex flex-wrap justify-content-center"></div>
+                                        <button id="reiniciar" class="btn btn-primary mt-3" style="display:none;">🔄
+                                            Barajear</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        ©
+                        <script>
+                            document.write(new Date().getFullYear());
+                        </script>
+                        ,The_Alexander
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="public/vendor/jquery/jquery.min.js"></script>
+    <script src="public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="public/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="public/js/sb-admin-2.min.js"></script>
+
+
+    <!-- SweetAlert2 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+    <script>
+        const tablero = document.getElementById("tablero");
+        const contador = document.getElementById("contador");
+        const btnReiniciar = document.getElementById("reiniciar");
+
+        let cartas = [];
+        let seleccionadas = [];
+        let parejasEncontradas = 0;
+        let tiempoMemoria = 30;
+        let intervalo;
+
+        function generarCartas() {
+            tablero.innerHTML = "";
+            cartas = [];
+            seleccionadas = [];
+            parejasEncontradas = 0;
+            btnReiniciar.style.display = "none";
+
+            // Generar 16 pares = 32 cartas
+            let valores = [];
+            for (let i = 1; i <= 16; i++) {
+                valores.push(i, i);
+            }
+
+            // Mezclar
+            valores.sort(() => Math.random() - 0.5);
+
+            // Crear cartas
+            valores.forEach((valor, index) => {
+                let div = document.createElement("div");
+                div.classList.add("carta");
+                div.dataset.valor = valor;
+                div.textContent = valor;
+                div.addEventListener("click", () => seleccionarCarta(div));
+                tablero.appendChild(div);
+                cartas.push(div);
+            });
+
+            // Mostrar todas durante 30s
+            contador.textContent = "Memoriza las cartas, tienes 30s...";
+            tiempoMemoria = 30;
+            intervalo = setInterval(() => {
+                tiempoMemoria--;
+                contador.textContent = `Memoriza las cartas, tienes ${tiempoMemoria}s...`;
+                if (tiempoMemoria === 0) {
+                    clearInterval(intervalo);
+                    ocultarCartas();
+                    contador.textContent = "¡Encuentra las parejas!";
+                }
+            }, 1000);
+        }
+
+        function ocultarCartas() {
+            cartas.forEach(c => {
+                c.classList.add("oculta");
+                c.textContent = "?";
+            });
+        }
+
+        function seleccionarCarta(carta) {
+            if (!carta.classList.contains("oculta") || seleccionadas.length === 2) return;
+
+            carta.classList.remove("oculta");
+            carta.textContent = carta.dataset.valor;
+            seleccionadas.push(carta);
+
+            if (seleccionadas.length === 2) {
+                setTimeout(() => {
+                    verificarPareja();
+                }, 800);
+            }
+        }
+
+        function verificarPareja() {
+            const [c1, c2] = seleccionadas;
+            if (c1.dataset.valor === c2.dataset.valor) {
+                c1.classList.add("acertada");
+                c2.classList.add("acertada");
+                parejasEncontradas++;
+                if (parejasEncontradas === 16) {
+                    Swal.fire({
+                        title: "🎉 ¡Felicidades!",
+                        text: "Has encontrado todas las parejas",
+                        icon: "success",
+                        confirmButtonText: "Aceptar"
+                    });
+                    btnReiniciar.style.display = "block";
+                }
+            } else {
+                c1.classList.add("oculta");
+                c2.classList.add("oculta");
+                c1.textContent = "?";
+                c2.textContent = "?";
+            }
+            seleccionadas = [];
+        }
+
+        btnReiniciar.addEventListener("click", generarCartas);
+
+        // Iniciar juego al cargar
+        generarCartas();
+    </script>
+
+</body>
+
+</html>
