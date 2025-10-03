@@ -276,8 +276,8 @@
         }
 
         function iniciarContador() {
-            contador.textContent = "Memoriza las cartas, tienes 5s...";
-            tiempoMemoria = 5;
+            contador.textContent = "Memoriza las cartas, tienes 15s...";
+            tiempoMemoria = 15;
             intervalo = setInterval(() => {
                 tiempoMemoria--;
                 contador.textContent = `Memoriza las cartas, tienes ${tiempoMemoria}s...`;
@@ -314,12 +314,15 @@
             }
         }
 
+
         function verificarPareja() {
             const [c1, c2] = seleccionadas;
             if (c1.dataset.valor === c2.dataset.valor) {
+                // ✅ Mantener esas cartas visibles
                 c1.classList.add("acertada");
                 c2.classList.add("acertada");
                 parejasEncontradas++;
+
                 if (parejasEncontradas === 16) {
                     Swal.fire({
                         title: "🎉 ¡Felicidades!",
@@ -330,11 +333,13 @@
                     btnReiniciar.style.display = "block";
                 }
             } else {
-                // volver a poner dorso
-                c1.querySelector("img").src = dorso;
-                c2.querySelector("img").src = dorso;
-                c1.classList.add("oculta");
-                c2.classList.add("oculta");
+                // ❌ Si se equivoca → voltear TODAS las cartas
+                cartas.forEach(c => {
+                    if (!c.classList.contains("acertada")) {
+                        c.querySelector("img").src = dorso;
+                        c.classList.add("oculta");
+                    }
+                });
             }
             seleccionadas = [];
         }
