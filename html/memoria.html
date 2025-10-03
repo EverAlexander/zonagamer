@@ -10,6 +10,7 @@
     <meta name="author" content="">
 
     <title>Menu principal</title>
+
     <style>
         #tablero {
             display: grid;
@@ -19,45 +20,32 @@
             margin-top: 20px;
         }
 
-        .carta img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            /* mantiene proporción */
-            background: #fff;
-            /* opcional: un fondo blanco detrás */
-            padding: 5px;
-            /* espacio interior para que no quede pegado */
-        }
-
-
         .carta {
             width: 80px;
             height: 100px;
             border-radius: 8px;
-            background: #007bff;
-            color: white;
-            font-size: 2rem;
+            border: 2px solid #343a40;
+            background: #343a40;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            user-select: none;
+            overflow: hidden;
         }
 
-        .carta.oculta {
-            background: #343a40;
-            color: transparent;
-            cursor: pointer;
+        .carta img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #fff;
+            padding: 5px;
         }
 
         .carta.acertada {
-            background: #28a745 !important;
-            color: white !important;
+            border: 3px solid #28a745;
             cursor: default;
         }
     </style>
-
     <!-- Custom fonts for this template-->
     <link href="../public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -228,9 +216,12 @@
         let tiempoMemoria = 30;
         let intervalo;
 
-        // 🔹 Lista de imágenes (puedes cambiarlas por las que quieras)
+        // 🔹 Imagen de dorso (reverso de la carta)
+        const dorso = "https://i.ibb.co/4J5vPhW/back.png";
+
+        // 🔹 Lista de imágenes para las parejas (puedes cambiarlas)
         const imagenes = [
-            "../imagenes/mario.jpeg",
+             "../imagenes/mario.jpeg",
             "../imagenes/estrella.jpg",
             "../imagenes/hongo.png",
             "../imagenes/flor.jpg",
@@ -265,7 +256,7 @@
                 div.dataset.valor = valor;
 
                 let img = document.createElement("img");
-                img.src = valor;
+                img.src = valor; // al inicio, mostrar todas
                 div.appendChild(img);
 
                 div.addEventListener("click", () => seleccionarCarta(div));
@@ -289,14 +280,20 @@
 
         function ocultarCartas() {
             cartas.forEach(c => {
-                c.classList.add("oculta");
+                if (!c.classList.contains("acertada")) {
+                    c.querySelector("img").src = dorso; // mostrar dorso
+                    c.classList.add("oculta");
+                }
             });
         }
 
         function seleccionarCarta(carta) {
             if (!carta.classList.contains("oculta") || seleccionadas.length === 2) return;
 
+            // mostrar imagen real
+            carta.querySelector("img").src = carta.dataset.valor;
             carta.classList.remove("oculta");
+
             seleccionadas.push(carta);
 
             if (seleccionadas.length === 2) {
@@ -322,7 +319,9 @@
                     btnReiniciar.style.display = "block";
                 }
             } else {
-                // 🔹 Volver a mostrar dorso
+                // volver a poner dorso
+                c1.querySelector("img").src = dorso;
+                c2.querySelector("img").src = dorso;
                 c1.classList.add("oculta");
                 c2.classList.add("oculta");
             }
