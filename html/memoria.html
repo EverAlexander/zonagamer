@@ -164,8 +164,9 @@
                                         <h2>Juego de Memoria</h2>
                                         <p id="contador"></p>
                                         <div id="tablero" class="d-flex flex-wrap justify-content-center"></div>
+                                        <button id="btnBarajear" class="btn btn-success mt-3">🔄 Barajear</button>
                                         <button id="reiniciar" class="btn btn-primary mt-3" style="display:none;">🔄
-                                            Barajear</button>
+                                            Nueva Ronda</button>
                                     </div>
 
                                 </div>
@@ -217,6 +218,7 @@
         const tablero = document.getElementById("tablero");
         const contador = document.getElementById("contador");
         const btnReiniciar = document.getElementById("reiniciar");
+        const btnBarajear = document.getElementById("btnBarajear");
 
         let cartas = [];
         let seleccionadas = [];
@@ -227,7 +229,7 @@
         // 🔹 Imagen de dorso (reverso de la carta)
         const dorso = "../imagenes/busqueda.png";
 
-        // 🔹 Lista de imágenes para las parejas (puedes cambiarlas)
+        // 🔹 Lista de imágenes para las parejas
         const imagenes = [
             "../imagenes/mario.jpeg",
             "../imagenes/estrella.jpg",
@@ -264,17 +266,18 @@
                 div.dataset.valor = valor;
 
                 let img = document.createElement("img");
-                img.src = valor; // al inicio, mostrar todas
+                img.src = valor; // al inicio mostrar todas
                 div.appendChild(img);
 
                 div.addEventListener("click", () => seleccionarCarta(div));
                 tablero.appendChild(div);
                 cartas.push(div);
             });
+        }
 
-            // Mostrar todas durante 30s
-            contador.textContent = "Memoriza las cartas, tienes 5s...";
-            tiempoMemoria = 5;
+        function iniciarContador() {
+            contador.textContent = "Memoriza las cartas, tienes 15s...";
+            tiempoMemoria = 15;
             intervalo = setInterval(() => {
                 tiempoMemoria--;
                 contador.textContent = `Memoriza las cartas, tienes ${tiempoMemoria}s...`;
@@ -336,10 +339,20 @@
             seleccionadas = [];
         }
 
-        btnReiniciar.addEventListener("click", generarCartas);
+        // 🔹 Eventos de los botones
+        btnReiniciar.addEventListener("click", () => {
+            generarCartas();
+            iniciarContador();
+        });
 
-        // Iniciar juego al cargar
-        generarCartas();
+        btnBarajear.addEventListener("click", () => {
+            generarCartas();
+            iniciarContador();
+            btnBarajear.style.display = "none"; // ocultamos Barajear una vez que arranca
+        });
+
+        // 🚫 Ya no iniciamos el juego automáticamente
+        // generarCartas();
     </script>
 
 </body>
