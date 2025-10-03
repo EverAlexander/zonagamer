@@ -47,14 +47,14 @@
     </style>
 
     <!-- Custom fonts for this template-->
-    <link href="../public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="../css/estilo.css" rel="stylesheet">
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="css/estilo.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
@@ -113,8 +113,8 @@
                                     <i class="fas fa-users"></i> Lista de juegos
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarGrupos">
-                                    <a class="dropdown-item" href="../index.html">Ruleta</a>
-                                    <a class="dropdown-item" href="#">Memoria</a>
+                                    <a class="dropdown-item" href="?route=ruleta">Ruleta</a>
+                                    <a class="dropdown-item" href="#">Pendiente</a>
                                 </div>
                             </li>
 
@@ -192,14 +192,14 @@
 
 
     <!-- Bootstrap core JavaScript-->
-    <script src="../public/vendor/jquery/jquery.min.js"></script>
-    <script src="../public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="public/vendor/jquery/jquery.min.js"></script>
+    <script src="public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="../public/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="public/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="../public/js/sb-admin-2.min.js"></script>
+    <script src="public/js/sb-admin-2.min.js"></script>
 
 
     <!-- SweetAlert2 JavaScript -->
@@ -216,6 +216,26 @@
         let tiempoMemoria = 30;
         let intervalo;
 
+        // 🔹 Lista de imágenes (puedes cambiarlas por las que quieras)
+        const imagenes = [
+            "https://i.ibb.co/2yJpF3B/img1.png",
+            "https://i.ibb.co/V9kTxYr/img2.png",
+            "https://i.ibb.co/3vw5B8m/img3.png",
+            "https://i.ibb.co/f0QdVqg/img4.png",
+            "https://i.ibb.co/ncKphsX/img5.png",
+            "https://i.ibb.co/GnVshWp/img6.png",
+            "https://i.ibb.co/h1BRmN6/img7.png",
+            "https://i.ibb.co/ScXjvqV/img8.png",
+            "https://i.ibb.co/GJk5CwM/img9.png",
+            "https://i.ibb.co/sPC7wMS/img10.png",
+            "https://i.ibb.co/RSh9R9Q/img11.png",
+            "https://i.ibb.co/dk8VgBn/img12.png",
+            "https://i.ibb.co/3dYxhbk/img13.png",
+            "https://i.ibb.co/Jr6V9bG/img14.png",
+            "https://i.ibb.co/wM8y9dS/img15.png",
+            "https://i.ibb.co/g6HxtjQ/img16.png"
+        ];
+
         function generarCartas() {
             tablero.innerHTML = "";
             cartas = [];
@@ -223,21 +243,19 @@
             parejasEncontradas = 0;
             btnReiniciar.style.display = "none";
 
-            // Generar 16 pares = 32 cartas
-            let valores = [];
-            for (let i = 1; i <= 16; i++) {
-                valores.push(i, i);
-            }
-
-            // Mezclar
+            // Generar pares
+            let valores = [...imagenes, ...imagenes];
             valores.sort(() => Math.random() - 0.5);
 
-            // Crear cartas
-            valores.forEach((valor, index) => {
+            valores.forEach((valor) => {
                 let div = document.createElement("div");
                 div.classList.add("carta");
                 div.dataset.valor = valor;
-                div.textContent = valor;
+
+                let img = document.createElement("img");
+                img.src = valor;
+                div.appendChild(img);
+
                 div.addEventListener("click", () => seleccionarCarta(div));
                 tablero.appendChild(div);
                 cartas.push(div);
@@ -260,7 +278,6 @@
         function ocultarCartas() {
             cartas.forEach(c => {
                 c.classList.add("oculta");
-                c.textContent = "?";
             });
         }
 
@@ -268,7 +285,6 @@
             if (!carta.classList.contains("oculta") || seleccionadas.length === 2) return;
 
             carta.classList.remove("oculta");
-            carta.textContent = carta.dataset.valor;
             seleccionadas.push(carta);
 
             if (seleccionadas.length === 2) {
@@ -294,10 +310,9 @@
                     btnReiniciar.style.display = "block";
                 }
             } else {
+                // 🔹 Volver a mostrar dorso
                 c1.classList.add("oculta");
                 c2.classList.add("oculta");
-                c1.textContent = "?";
-                c2.textContent = "?";
             }
             seleccionadas = [];
         }
