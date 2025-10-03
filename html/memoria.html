@@ -14,16 +14,19 @@
     <style>
         #tablero {
             display: grid;
-            grid-template-columns: repeat(8, 80px);
-            grid-gap: 10px;
+            grid-template-columns: repeat(8, 100px);
+            /* 🔹 8 columnas */
+            grid-auto-rows: 120px;
+            /* 🔹 altura de cada fila */
+            gap: 12px;
             justify-content: center;
             margin-top: 20px;
         }
 
         .carta {
-            width: 80px;
-            height: 100px;
-            border-radius: 8px;
+            width: 100px;
+            height: 120px;
+            border-radius: 10px;
             border: 2px solid #343a40;
             background: #343a40;
             cursor: pointer;
@@ -31,6 +34,11 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .carta:hover {
+            transform: scale(1.05);
         }
 
         .carta img {
@@ -221,7 +229,7 @@
 
         // 🔹 Lista de imágenes para las parejas (puedes cambiarlas)
         const imagenes = [
-             "../imagenes/mario.jpeg",
+            "../imagenes/mario.jpeg",
             "../imagenes/estrella.jpg",
             "../imagenes/hongo.png",
             "../imagenes/flor.jpg",
@@ -266,7 +274,7 @@
 
             // Mostrar todas durante 30s
             contador.textContent = "Memoriza las cartas, tienes 30s...";
-            tiempoMemoria = 30;
+            tiempoMemoria = 15;
             intervalo = setInterval(() => {
                 tiempoMemoria--;
                 contador.textContent = `Memoriza las cartas, tienes ${tiempoMemoria}s...`;
