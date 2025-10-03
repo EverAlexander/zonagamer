@@ -221,7 +221,7 @@
         let cartas = [];
         let seleccionadas = [];
         let parejasEncontradas = 0;
-        let tiempoMemoria = 10;
+        let tiempoMemoria = 8;
         let intervalo;
 
         // 🔹 Imagen de dorso (reverso de la carta)
@@ -274,7 +274,7 @@
 
             // Mostrar todas durante 30s
             contador.textContent = "Memoriza las cartas, tienes 10s...";
-            tiempoMemoria = 10;
+            tiempoMemoria = 8;
             intervalo = setInterval(() => {
                 tiempoMemoria--;
                 contador.textContent = `Memoriza las cartas, tienes ${tiempoMemoria}s...`;
