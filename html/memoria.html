@@ -214,7 +214,7 @@
     <!-- SweetAlert2 JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
-   
+
     <script>
         const tablero = document.getElementById("tablero");
         const contador = document.getElementById("contador");
@@ -285,7 +285,7 @@
         // Inicia el contador de memorización (muestra imágenes durante tiempoMemoria segundos)
         function iniciarContador() {
             clearInterval(intervalo);
-            tiempoMemoria = 8; // o el valor que prefieras
+            tiempoMemoria = 10; // o el valor que prefieras
             contador.textContent = `Memoriza las cartas, tienes ${tiempoMemoria}s...`;
 
             intervalo = setInterval(() => {
@@ -356,6 +356,22 @@
                     btnReiniciar.style.display = "inline-block";
                     btnBarajear.style.display = "inline-block";
                 }
+                if (parejasEncontradas === 16) {
+                    contador.textContent = "¡Completado!";
+                    Swal.fire({
+                        title: "🎉 ¡Felicidades!",
+                        text: "Has encontrado todas las parejas",
+                        icon: "success",
+                        confirmButtonText: "Aceptar",
+                        imageUrl: "../imagenes/encu.jpg",   // 👈 aquí tu imagen
+                        imageWidth: 120,                      // ancho en px
+                        imageHeight: 120,                     // alto en px
+                        imageAlt: "Trofeo"
+                    });
+                    btnReiniciar.style.display = "inline-block";
+                    btnBarajear.style.display = "inline-block";
+                }
+
                 // desbloqueamos
                 seleccionadas = [];
                 bloqueo = false;
