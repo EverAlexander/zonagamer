@@ -265,6 +265,9 @@
         let animando = false;
         const preguntasUsadas = []; // Guardar preguntas ya usadas
 
+        // Cargar el audio
+        const audioGiro = new Audio('audio/Merry-Go-Round.mp3');  // Asegúrate de que el archivo esté en la ruta correcta
+
         // Dibujar la ruleta
         function dibujarRuleta() {
             const anguloSegmento = (2 * Math.PI) / numSegmentos;
@@ -329,7 +332,10 @@
             numeroDisplay.textContent = "-";
             preguntaDisplay.textContent = "Gira la ruleta...";
 
-            velocidad = Math.random() * 0.3 + 0.3;
+            velocidad = Math.random() * 0.4 + 0.6;  // Hacer la ruleta más rápida
+
+            // Reproducir el sonido
+            audioGiro.play();
 
             function animar() {
                 velocidad *= 0.995;
@@ -373,8 +379,7 @@
         girarBtn.addEventListener('click', girarRuleta);
         dibujar();
     </script>
+
 </body>
 
 </html>
-
-
