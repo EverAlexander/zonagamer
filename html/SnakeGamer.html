@@ -52,62 +52,76 @@
   </div>
   <button id="btn">Detener</button>
   <h2 id="resultado"></h2>
+<script>
+  const imagenes = [
+    "../imagenes/estrella012.png",
+    "../imagenes/hondo.png",
+    "../imagenes/moneda12.png",
+    "../imagenes/flor.png"
+  ];
 
-  <script>
-    const imagenes = [
-      "../imagenes/estrella012.png",
-      "../imagenes/hondo.png",
-      "../imagenes/moneda12.png",
-      "../imagenes/flor.png"
-    ];
+  const slots = [
+    document.getElementById("slot1"),
+    document.getElementById("slot2"),
+    document.getElementById("slot3")
+  ];
+  const resultado = document.getElementById("resultado");
+  const btn = document.getElementById("btn");
 
-    const slots = [
-      document.getElementById("slot1"),
-      document.getElementById("slot2"),
-      document.getElementById("slot3")
-    ];
-    const resultado = document.getElementById("resultado");
-    const btn = document.getElementById("btn");
+  let turno = 0; // cuántos se han detenido
+  let intervalos = []; // para guardar los intervalos de cada slot
 
-    let intervalos = [];
-    let turno = 0;
+  // función para iniciar el giro de un slot
+  function iniciarGiro(slot, index) {
+    intervalos[index] = setInterval(() => {
+      slot.src = imagenes[Math.floor(Math.random() * imagenes.length)];
+    }, 100);
+  }
 
-    // función para iniciar el giro infinito de cada slot
-    function iniciarGiro(slot, index) {
-      intervalos[index] = setInterval(() => {
-        slot.src = imagenes[Math.floor(Math.random() * imagenes.length)];
-      }, 100);
-    }
+  // función para detener el giro de un slot
+  function detenerGiro(index) {
+    clearInterval(intervalos[index]);
+    turno++;
 
-    // iniciar todos los slots girando
-    slots.forEach((slot, i) => iniciarGiro(slot, i));
+    if (turno === slots.length) {
+      // cuando se detienen los 3, comprobar el resultado
+      const r1 = slots[0].src;
+      const r2 = slots[1].src;
+      const r3 = slots[2].src;
 
-    btn.addEventListener("click", () => {
-      if (turno < slots.length) {
-        clearInterval(intervalos[turno]); // detener el slot actual
-        turno++;
+      if (r1 === r2 && r2 === r3) {
+        resultado.textContent = "🎉 ¡Ganaste! 🎉";
 
-        if (turno === slots.length) {
-          // cuando se detienen los 3, comprobar el resultado
-          const r1 = slots[0].src;
-          const r2 = slots[1].src;
-          const r3 = slots[2].src;
+        // esperar unos segundos y reiniciar
+        setTimeout(() => {
+          resultado.textContent = "";
+          turno = 0;
+          slots.forEach((slot, i) => iniciarGiro(slot, i));
+        }, 4000);
 
-          if (r1 === r2 && r2 === r3) {
-            resultado.textContent = "🎉 ¡Ganaste! 🎉";
-          } else {
-            resultado.textContent = "😅 Intenta de nuevo";
-          }
+      } else {
+        resultado.textContent = "😅 Intenta de nuevo";
 
-          // reiniciar después de unos segundos
-          setTimeout(() => {
-            resultado.textContent = "";
-            turno = 0;
-            slots.forEach((slot, i) => iniciarGiro(slot, i));
-          }, 3000);
-        }
+        // reiniciar más rápido si pierde
+        setTimeout(() => {
+          resultado.textContent = "";
+          turno = 0;
+          slots.forEach((slot, i) => iniciarGiro(slot, i));
+        }, 3000);
       }
-    });
-  </script>
+    }
+  }
+
+  // botón para detener de a uno
+  btn.addEventListener("click", () => {
+    if (turno < slots.length) {
+      detenerGiro(turno);
+    }
+  });
+
+  // arrancar el giro inicial
+  slots.forEach((slot, i) => iniciarGiro(slot, i));
+</script>
+
 </body>
 </html>
