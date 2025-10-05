@@ -266,7 +266,8 @@
         const preguntasUsadas = []; // Guardar preguntas ya usadas
 
         // Cargar el audio
-        const audioGiro = new Audio('audio/Merry-Go-Round.mp3');  // Asegúrate de que el archivo esté en la ruta correcta
+        const audioGiro = new Audio('audio/giro.mp3'); // Ruta del audio
+        audioGiro.loop = true; // Hacer que el audio se repita mientras gira
 
         // Dibujar la ruleta
         function dibujarRuleta() {
@@ -332,10 +333,10 @@
             numeroDisplay.textContent = "-";
             preguntaDisplay.textContent = "Gira la ruleta...";
 
-            velocidad = Math.random() * 0.4 + 0.6;  // Hacer la ruleta más rápida
-
-            // Reproducir el sonido
+            // Iniciar audio de giro
             audioGiro.play();
+
+            velocidad = Math.random() * 0.5 + 0.5; // Mayor velocidad
 
             function animar() {
                 velocidad *= 0.995;
@@ -345,6 +346,10 @@
                 if (velocidad > 0.001) {
                     requestAnimationFrame(animar);
                 } else {
+                    // 🔇 Detener el audio de giro
+                    audioGiro.pause();
+                    audioGiro.currentTime = 0; // Reiniciar el audio
+
                     if (preguntasUsadas.length === numSegmentos) {
                         preguntaDisplay.textContent = "¡Todas las preguntas ya se usaron! Recarga la página para reiniciar.";
                         numeroDisplay.textContent = "-";
@@ -379,6 +384,7 @@
         girarBtn.addEventListener('click', girarRuleta);
         dibujar();
     </script>
+
 
 </body>
 
