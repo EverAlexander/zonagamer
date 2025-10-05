@@ -61,37 +61,39 @@
       "../imagenes/flor.png"
     ];
 
-    const slot1 = document.getElementById("slot1");
-    const slot2 = document.getElementById("slot2");
-    const slot3 = document.getElementById("slot3");
+    const slots = [
+      document.getElementById("slot1"),
+      document.getElementById("slot2"),
+      document.getElementById("slot3")
+    ];
+
     const resultado = document.getElementById("resultado");
     const btn = document.getElementById("btn");
 
-    function girarSlot(slot) {
-      return new Promise(resolve => {
-        let vueltas = 15 + Math.floor(Math.random() * 10);
-        let i = 0;
-        const intervalo = setInterval(() => {
-          slot.src = imagenes[Math.floor(Math.random() * imagenes.length)];
-          i++;
-          if (i >= vueltas) {
-            clearInterval(intervalo);
-            resolve(slot.src);
+    let turno = 0; // controla cuál slot se está girando
+
+    btn.addEventListener("click", () => {
+      if (turno < slots.length) {
+        // asignar imagen aleatoria al slot actual
+        const randomImg = imagenes[Math.floor(Math.random() * imagenes.length)];
+        slots[turno].src = randomImg;
+        turno++;
+
+        // cuando ya giraron los 3 slots
+        if (turno === slots.length) {
+          const r1 = slots[0].src;
+          const r2 = slots[1].src;
+          const r3 = slots[2].src;
+
+          if (r1 === r2 && r2 === r3) {
+            resultado.textContent = "🎉 ¡Ganaste! 🎉";
+          } else {
+            resultado.textContent = "😅 Intenta de nuevo";
           }
-        }, 100);
-      });
-    }
 
-    btn.addEventListener("click", async () => {
-      resultado.textContent = "";
-      const r1 = await girarSlot(slot1);
-      const r2 = await girarSlot(slot2);
-      const r3 = await girarSlot(slot3);
-
-      if (r1 === r2 && r2 === r3) {
-        resultado.textContent = "🎉 ¡Ganaste! 🎉";
-      } else {
-        resultado.textContent = "😅 Intenta de nuevo";
+          // resetear para volver a jugar
+          turno = 0;
+        }
       }
     });
   </script>
