@@ -50,7 +50,7 @@
     <div class="slot"><img id="slot2" src="../imagenes/hondo.png"></div>
     <div class="slot"><img id="slot3" src="../imagenes/flor.png"></div>
   </div>
-  <button id="btn">Girar</button>
+  <button id="btn">Detener</button>
   <h2 id="resultado"></h2>
 
   <script>
@@ -66,21 +66,29 @@
       document.getElementById("slot2"),
       document.getElementById("slot3")
     ];
-
     const resultado = document.getElementById("resultado");
     const btn = document.getElementById("btn");
 
-    let turno = 0; // controla cuál slot se está girando
+    let intervalos = [];
+    let turno = 0;
+
+    // función para iniciar el giro infinito de cada slot
+    function iniciarGiro(slot, index) {
+      intervalos[index] = setInterval(() => {
+        slot.src = imagenes[Math.floor(Math.random() * imagenes.length)];
+      }, 100);
+    }
+
+    // iniciar todos los slots girando
+    slots.forEach((slot, i) => iniciarGiro(slot, i));
 
     btn.addEventListener("click", () => {
       if (turno < slots.length) {
-        // asignar imagen aleatoria al slot actual
-        const randomImg = imagenes[Math.floor(Math.random() * imagenes.length)];
-        slots[turno].src = randomImg;
+        clearInterval(intervalos[turno]); // detener el slot actual
         turno++;
 
-        // cuando ya giraron los 3 slots
         if (turno === slots.length) {
+          // cuando se detienen los 3, comprobar el resultado
           const r1 = slots[0].src;
           const r2 = slots[1].src;
           const r3 = slots[2].src;
@@ -91,8 +99,12 @@
             resultado.textContent = "😅 Intenta de nuevo";
           }
 
-          // resetear para volver a jugar
-          turno = 0;
+          // reiniciar después de unos segundos
+          setTimeout(() => {
+            resultado.textContent = "";
+            turno = 0;
+            slots.forEach((slot, i) => iniciarGiro(slot, i));
+          }, 3000);
         }
       }
     });
