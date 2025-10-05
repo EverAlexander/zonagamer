@@ -1,229 +1,99 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Snake Gamer</title>
-
-    <style>
-        #juego {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        canvas {
-            background: #000;
-            border: 5px solid #28a745;
-            border-radius: 10px;
-        }
-
-        #puntaje {
-            font-size: 20px;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-    </style>
-
-    <!-- Bootstrap y fuentes -->
-    <link href="../public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet">
-    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="../css/estilo.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <meta charset="UTF-8">
+  <title>Slot Machine Mario</title>
+  <style>
+    body {
+      background: #111;
+      color: white;
+      font-family: "Press Start 2P", monospace;
+      text-align: center;
+    }
+    .slot-machine {
+      display: flex;
+      justify-content: center;
+      margin: 40px auto;
+    }
+    .slot {
+      width: 120px;
+      height: 120px;
+      margin: 0 10px;
+      border: 5px solid #28a745;
+      border-radius: 10px;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .slot img {
+      width: 100px;
+      height: 100px;
+    }
+    #btn {
+      padding: 15px 25px;
+      font-size: 18px;
+      margin-top: 20px;
+      cursor: pointer;
+      border: none;
+      background: #28a745;
+      color: white;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+  </style>
 </head>
+<body>
+  <h1>🎰 Slot Machine Mario 🎰</h1>
+  <div class="slot-machine">
+    <div class="slot"><img id="slot1" src="../imagenes/estrella.png"></div>
+    <div class="slot"><img id="slot2" src="../imagenes/hongo.png"></div>
+    <div class="slot"><img id="slot3" src="../imagenes/hoja.png"></div>
+  </div>
+  <button id="btn">Girar</button>
+  <h2 id="resultado"></h2>
 
-<body id="page-top">
+  <script>
+    const imagenes = [
+      "../imagenes/estrella.png",
+      "../imagenes/hongo.png",
+      "../imagenes/hoja.png",
+      "../imagenes/flor.png"
+    ];
 
-    <div id="wrapper">
-        <div id="content-wrapper" class="d-flex flex-column">
-            <div id="content">
+    const slot1 = document.getElementById("slot1");
+    const slot2 = document.getElementById("slot2");
+    const slot3 = document.getElementById("slot3");
+    const resultado = document.getElementById("resultado");
+    const btn = document.getElementById("btn");
 
-                <!-- Navbar -->
-                <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-primary mb-4">
-                    <a class="navbar-brand" href="?route=home">
-                        <i class="fas fa-gamepad"></i> Zona Gamer
-                    </a>
-                    <div class="collapse navbar-collapse">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item"><a class="nav-link" href="Portada.html"><i class="fas fa-home"></i>
-                                    Inicio</a></li>
-                            <li class="nav-item"><a class="nav-link" href="memoria.html"><i class="fas fa-brain"></i>
-                                    Memoria</a></li>
-                            <li class="nav-item"><a class="nav-link" href="snake.html"><i class="fas fa-apple-alt"></i>
-                                    Snake</a></li>
-                        </ul>
-                    </div>
-                </nav>
+    function girarSlot(slot) {
+      return new Promise(resolve => {
+        let vueltas = 15 + Math.floor(Math.random() * 10);
+        let i = 0;
+        const intervalo = setInterval(() => {
+          slot.src = imagenes[Math.floor(Math.random() * imagenes.length)];
+          i++;
+          if (i >= vueltas) {
+            clearInterval(intervalo);
+            resolve(slot.src);
+          }
+        }, 100);
+      });
+    }
 
-                <!-- Contenido -->
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card shadow mb-4">
-                                <div class="card-body text-center" id="juego">
-                                    <h2>🐍 Snake Gamer</h2>
-                                    <canvas id="snakeCanvas" width="400" height="400"></canvas>
-                                    <div id="puntaje">Puntos: 0</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    btn.addEventListener("click", async () => {
+      resultado.textContent = "";
+      const r1 = await girarSlot(slot1);
+      const r2 = await girarSlot(slot2);
+      const r3 = await girarSlot(slot3);
 
-            </div>
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="text-center my-auto">
-                        ©
-                        <script>document.write(new Date().getFullYear());</script>, The_Alexander
-                    </div>
-                </div>
-            </footer>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    <script src="../public/vendor/jquery/jquery.min.js"></script>
-    <script src="../public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
-
-    <script>
-        const canvas = document.getElementById("snakeCanvas");
-        const ctx = canvas.getContext("2d");
-        const puntajeEl = document.getElementById("puntaje");
-
-        const box = 20; // tamaño de cada cuadrito
-        let snake = [{ x: 9 * box, y: 10 * box }];
-        let direction;
-        let score = 0;
-
-        // Imagen de comida (moneda Mario)
-        const foodImg = new Image();
-        foodImg.src = "../imagenes/moneda12.png";
-
-        let food = {
-            x: Math.floor(Math.random() * 19) * box,
-            y: Math.floor(Math.random() * 19) * box
-        };
-
-        // Controles con teclado
-        document.addEventListener("keydown", dir);
-
-        function dir(event) {
-            if (event.keyCode == 37 && direction != "RIGHT") direction = "LEFT";
-            else if (event.keyCode == 38 && direction != "DOWN") direction = "UP";
-            else if (event.keyCode == 39 && direction != "LEFT") direction = "RIGHT";
-            else if (event.keyCode == 40 && direction != "UP") direction = "DOWN";
-        }
-
-        // Controles táctiles (swipe en la pantalla)
-        let touchStartX = 0;
-        let touchStartY = 0;
-
-        canvas.addEventListener("touchstart", function (e) {
-            let touch = e.touches[0];
-            touchStartX = touch.clientX;
-            touchStartY = touch.clientY;
-        }, false);
-
-        canvas.addEventListener("touchend", function (e) {
-            let touch = e.changedTouches[0];
-            let touchEndX = touch.clientX;
-            let touchEndY = touch.clientY;
-
-            let dx = touchEndX - touchStartX;
-            let dy = touchEndY - touchStartY;
-
-            if (Math.abs(dx) > Math.abs(dy)) {
-                // Movimiento horizontal
-                if (dx > 0 && direction != "LEFT") {
-                    direction = "RIGHT";
-                } else if (dx < 0 && direction != "RIGHT") {
-                    direction = "LEFT";
-                }
-            } else {
-                // Movimiento vertical
-                if (dy > 0 && direction != "UP") {
-                    direction = "DOWN";
-                } else if (dy < 0 && direction != "DOWN") {
-                    direction = "UP";
-                }
-            }
-        }, false);
-
-        // Dibujar juego
-        function draw() {
-            ctx.fillStyle = "#000"; // fondo negro retro
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // Dibujar serpiente
-            for (let i = 0; i < snake.length; i++) {
-                ctx.fillStyle = (i == 0) ? "#28a745" : "#6f42c1";
-                ctx.fillRect(snake[i].x, snake[i].y, box, box);
-
-                ctx.strokeStyle = "#000";
-                ctx.strokeRect(snake[i].x, snake[i].y, box, box);
-            }
-
-            // Dibujar comida
-            ctx.drawImage(foodImg, food.x, food.y, box, box);
-
-            // posición cabeza
-            let snakeX = snake[0].x;
-            let snakeY = snake[0].y;
-
-            if (direction == "LEFT") snakeX -= box;
-            if (direction == "UP") snakeY -= box;
-            if (direction == "RIGHT") snakeX += box;
-            if (direction == "DOWN") snakeY += box;
-
-            // Comer
-            if (snakeX == food.x && snakeY == food.y) {
-                score++;
-                food = {
-                    x: Math.floor(Math.random() * 19) * box,
-                    y: Math.floor(Math.random() * 19) * box
-                };
-            } else {
-                snake.pop();
-            }
-
-            // Nueva cabeza
-            const newHead = { x: snakeX, y: snakeY };
-
-            // Game Over
-            if (snakeX < 0 || snakeY < 0 || snakeX >= canvas.width || snakeY >= canvas.height || colision(newHead, snake)) {
-                clearInterval(juego);
-                Swal.fire({
-                    title: "💀 ¡Perdiste!",
-                    text: "Puntaje final: " + score,
-                    icon: "error",
-                    confirmButtonText: "Reintentar"
-                }).then(() => location.reload());
-            }
-
-            snake.unshift(newHead);
-
-            puntajeEl.textContent = "Puntos: " + score;
-        }
-
-        function colision(head, arr) {
-            for (let i = 0; i < arr.length; i++) {
-                if (head.x == arr[i].x && head.y == arr[i].y) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        let juego = setInterval(draw, 100);
-    </script>
-
+      if (r1 === r2 && r2 === r3) {
+        resultado.textContent = "🎉 ¡Ganaste! 🎉";
+      } else {
+        resultado.textContent = "😅 Intenta de nuevo";
+      }
+    });
+  </script>
 </body>
-
 </html>
