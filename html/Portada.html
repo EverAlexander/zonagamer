@@ -9,16 +9,19 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Menu principal</title>
+    <title>Portada Mario - Zona Gamer</title>
 
     <style>
         body {
             margin: 0;
             padding: 0;
-            overflow: hidden;
-            font-family: "Press Start 2P", cursive;
+        }
+
+        /* Fondo cielo para la card */
+        .card-body {
             background: #5c94fc;
-            /* Cielo azul tipo Mario */
+            position: relative;
+            overflow: hidden;
         }
 
         /* Cielo con nubes animadas */
@@ -69,9 +72,17 @@
         }
 
         .portada h1 {
-            font-size: 40px;
+            font-size: 32px;
             margin-bottom: 20px;
             animation: parpadeo 1.2s infinite;
+            font-family: "Press Start 2P", cursive;
+            text-align: center;
+        }
+
+        .portada p {
+            font-family: "Press Start 2P", cursive;
+            font-size: 14px;
+            margin-bottom: 15px;
         }
 
         @keyframes parpadeo {
@@ -107,7 +118,7 @@
 
         /* QR */
         .qr {
-            margin-top: 20px;
+            margin-top: 10px;
             width: 150px;
             height: 150px;
             border: 5px solid white;
@@ -117,8 +128,8 @@
         }
     </style>
 
-
-    <!-- Custom fonts for this template-->
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link href="../public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -134,20 +145,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script>
         function actualizarHora() {
-            // Obtener la fecha y hora actual
             const ahora = new Date();
-
-            // Formatear la hora en HH:mm:ss
             const horas = ahora.getHours().toString().padStart(2, '0');
             const minutos = ahora.getMinutes().toString().padStart(2, '0');
             const segundos = ahora.getSeconds().toString().padStart(2, '0');
             const horaFormateada = `${horas}:${minutos}:${segundos}`;
-
-            // Asignar la hora al elemento con el id "horaActual"
             document.getElementById('horaActual').textContent = horaFormateada;
         }
-
-        // Ejecutar la función cada segundo (1000 ms)
         setInterval(actualizarHora, 1000);
     </script>
 
@@ -175,7 +179,6 @@
 
                     <div class="collapse navbar-collapse" id="navbarGamer">
                         <ul class="navbar-nav ml-auto align-items-center">
-                            <!-- Links del menú -->
                             <li class="nav-item">
                                 <a class="nav-link" href="#"><i class="fas fa-home"></i> Inicio</a>
                             </li>
@@ -188,53 +191,44 @@
                                     <a class="dropdown-item" href="../index.html">Ruleta</a>
                                     <a class="dropdown-item" href="memoria.html">Memoria</a>
                                     <a class="dropdown-item" href="Portada.html">Portada</a>
-
                                 </div>
                             </li>
-
-                            <!-- Reloj -->
                             <li class="nav-item">
                                 <span class="nav-link font-weight-bold text-white" id="horaActual"></span>
                             </li>
-
-                            <!-- Dropdown usuario -->
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown"
                                     role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuNuWLCLLcxIOHZWSOPeGrmiBLf_fA9Cxqvw&s"
                                         alt="Imagen de usuario" class="user-logo" width="40" height="40">
                                 </a>
-
                             </li>
-
                         </ul>
                     </div>
                 </nav>
 
-                <!-- Fin Navbar Superior -->
-
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-
-
-                    </div>
-
                     <div class="row">
                         <div class="col-lg-12 col-md-12 order-2 mb-4">
                             <div class="card h-100">
                                 <div class="card-body">
 
+                                    <!-- Nubes -->
                                     <img src="../imagenes/nube.png" alt="nube" class="nube">
                                     <img src="../imagenes/nube.png" alt="nube" class="nube nube2">
 
-                                    <!-- Contenido central -->
+                                    <!-- Portada central -->
                                     <div class="portada">
-                                        <img src="../imagenes/mario.jpeg" alt="Mario" class="mario">
+                                        <img src="../imagenes/mario.png" alt="Mario" class="mario">
                                         <h1>Bienvenido a Zona Gamer</h1>
                                         <p>Escanea el QR para más diversión</p>
                                         <img src="../imagenes/encu.png" alt="Código QR" class="qr">
+
+                                        <!-- Botón Start -->
+                                        <a href="memoria.html" class="btn btn-success btn-lg mt-3">
+                                            <i class="fas fa-play"></i> Start
+                                        </a>
                                     </div>
 
                                     <!-- Suelo -->
@@ -244,7 +238,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <!-- /.container-fluid -->
 
@@ -256,10 +249,8 @@
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
                         ©
-                        <script>
-                            document.write(new Date().getFullYear());
-                        </script>
-                        ,The_Alexander
+                        <script>document.write(new Date().getFullYear());</script>
+                        , The_Alexander
                     </div>
                 </div>
             </footer>
@@ -270,23 +261,12 @@
 
     </div>
 
-
     <!-- Bootstrap core JavaScript-->
     <script src="../public/vendor/jquery/jquery.min.js"></script>
     <script src="../public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
     <script src="../public/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
     <script src="../public/js/sb-admin-2.min.js"></script>
-
-
-    <!-- SweetAlert2 JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
-
-
 </body>
-
 </html>
