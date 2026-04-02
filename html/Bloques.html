@@ -212,34 +212,31 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-
-
-                    </div>
                     <div class="row justify-content-center">
-                        <div class="col-md-8 text-center">
 
-                            <h3>🏃‍♂️ Salto infinito</h3>
-                            <p>Presiona ESPACIO para saltar</p>
+    <!-- 🎮 JUEGO -->
+    <div class="col-md-6 text-center">
+        <button id="startBtn" class="btn btn-success mb-2">▶ Iniciar</button>
 
-                            <button id="startBtn" class="btn btn-success mb-2">▶ Iniciar</button>
+        <div id="score">Tiempo: 0</div>
 
-                            <div id="score">Tiempo: 0</div>
+        <div id="game" class="mt-3">
+            <img id="player" src="../imagenes/yosshi.png">
+            <img id="obstacle" src="../imagenes/bloque.png">
+        </div>
+    </div>
 
-                            <h5 class="mt-3">🏆 Historial</h5>
-                            <ul id="history" class="list-unstyled"></ul>
+    <!-- 📊 PANEL LATERAL -->
+    <div class="col-md-4">
+        <h5>🏆 Historial</h5>
+        <ul id="history" class="list-group mb-2"></ul>
 
-                            <button id="clearBtn" class="btn btn-danger btn-sm mt-2">
-                                🗑 Limpiar historial
-                            </button>
+        <button id="clearBtn" class="btn btn-danger btn-sm">
+            🗑 Limpiar historial
+        </button>
+    </div>
 
-                            <div id="game" class="mt-3">
-                                <img id="player" src="../imagenes/yosshi.png">
-                                <img id="obstacle" src="../imagenes/bloque.png">
-                            </div>
-
-                        </div>
-                    </div>
+</div>
 
                 </div>
                 <!-- /.container-fluid -->
