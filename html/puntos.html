@@ -161,7 +161,8 @@
                                     <a class="dropdown-item" href="../index.html">Ruleta</a>
                                     <a class="dropdown-item" href="memoria.html">Memoria</a>
                                     <a class="dropdown-item" href="moneda.html">Monedas</a>
-                                    <a class="dropdown-item" href="#">Saltos</a>
+                                    <a class="dropdown-item" href="Bloques.html">Saltos</a>
+                                    <a class="dropdown-item" href="#">Puntos</a>
                                     <a class="dropdown-item" href="Portada.html">Portada</a>
 
                                 </div>
@@ -204,7 +205,7 @@
 
                         <div class="col-12">
                             <div id="score">Puntos: 0</div>
-                            <div id="timer">Tiempo: 115</div>
+                            <div id="timer">Tiempo: 60</div>
                             <button id="startBtn">Iniciar Juego</button>
                         </div>
 
@@ -256,7 +257,7 @@
 
     <script>
         let score = 0;
-        let timeLeft = 115; // 3 minutos
+        let timeLeft = 60; // 3 minutos
         let gameInterval;
         let coinInterval;
         let gameActive = false;
@@ -291,11 +292,11 @@
         function startGame() {
             // Reiniciar valores
             score = 0;
-            timeLeft = 115;
+            timeLeft = 60;
             gameActive = true;
 
             scoreText.innerText = "Puntos: 0";
-            timerText.innerText = "Tiempo: 115";
+            timerText.innerText = "Tiempo: 60";
             startBtn.style.display = "none";
 
             // Limpiar monedas anteriores
