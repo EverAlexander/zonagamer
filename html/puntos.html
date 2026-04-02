@@ -48,13 +48,19 @@
 
         #game-area {
             position: relative;
-            height: 80vh;
+            height: 60vh;
             border: 3px solid #333;
             overflow: hidden;
             background: #87CEEB;
+            margin-top: 20px;
         }
 
-        
+        .coin {
+            position: absolute;
+            width: 60px;
+            cursor: pointer;
+            animation: fall 3s linear;
+        }
 
         @keyframes fall {
             from {
@@ -66,29 +72,20 @@
             }
         }
 
-        #score {
-            font-size: 24px;
+        #score,
+        #timer {
+            font-size: 22px;
             font-weight: bold;
         }
 
-        .coin {
-            position: absolute;
-            width: 60px;
-            /* antes 40px */
-            cursor: pointer;
-            animation: fall 3s linear;
-        }
-
         #startBtn {
-            padding: 15px 25px;
+            padding: 12px 25px;
             font-size: 18px;
-            margin-top: 15px;
-            cursor: pointer;
+            margin-top: 10px;
             border: none;
             background: #007bff;
             color: white;
             border-radius: 8px;
-            font-weight: bold;
         }
     </style>
 
