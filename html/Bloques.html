@@ -46,6 +46,7 @@
             font-weight: bold;
         }
 
+        /* 🎮 JUEGO */
         #game {
             position: relative;
             width: 100%;
@@ -80,9 +81,10 @@
             }
 
             50% {
-                bottom: 120px;
+                bottom: 160px;
             }
 
+            /* 🔥 MÁS ALTO */
             100% {
                 bottom: 0;
             }
@@ -279,144 +281,144 @@
     <!-- SweetAlert2 JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
-    <script>
-        const player = document.getElementById("player");
-        const obstacle = document.getElementById("obstacle");
-        const game = document.getElementById("game");
-        const startBtn = document.getElementById("startBtn");
-        const historyList = document.getElementById("history");
-        const clearBtn = document.getElementById("clearBtn");
+<script>
+const player = document.getElementById("player");
+const obstacle = document.getElementById("obstacle");
+const game = document.getElementById("game");
+const startBtn = document.getElementById("startBtn");
+const historyList = document.getElementById("history");
+const clearBtn = document.getElementById("clearBtn");
 
-        let score = 0;
-        let isGameOver = false;
-        let speed = 2;
-        let gameStarted = false;
+let score = 0;
+let isGameOver = false;
+let speed = 2;
+let gameStarted = false;
 
-        // 🔊 SONIDO
-        const jumpSound = new Audio("../audio/salto.mp3");
+// 🔊 SONIDO
+const jumpSound = new Audio("../audio/salto.mp3");
 
-        // 📊 HISTORIAL
-        let history = JSON.parse(localStorage.getItem("scores")) || [];
-        renderHistory();
+// 📊 HISTORIAL
+let history = JSON.parse(localStorage.getItem("scores")) || [];
+renderHistory();
 
-        function renderHistory() {
-            historyList.innerHTML = "";
-            history.forEach(s => {
-                let li = document.createElement("li");
-                li.className = "list-group-item";
-                li.textContent = "⏱ " + s + " seg";
-                historyList.appendChild(li);
-            });
+function renderHistory() {
+    historyList.innerHTML = "";
+    history.forEach(s => {
+        let li = document.createElement("li");
+        li.className = "list-group-item";
+        li.textContent = "⏱ " + s + " seg";
+        historyList.appendChild(li);
+    });
+}
+
+// 🗑 LIMPIAR
+clearBtn.addEventListener("click", () => {
+    Swal.fire({
+        title: "¿Eliminar historial?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Sí"
+    }).then((r) => {
+        if (r.isConfirmed) {
+            localStorage.removeItem("scores");
+            history = [];
+            renderHistory();
         }
+    });
+});
 
-        // 🗑 LIMPIAR
-        clearBtn.addEventListener("click", () => {
-            Swal.fire({
-                title: "¿Eliminar historial?",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Sí"
-            }).then((r) => {
-                if (r.isConfirmed) {
-                    localStorage.removeItem("scores");
-                    history = [];
-                    renderHistory();
-                }
-            });
-        });
+// ▶ INICIAR
+startBtn.addEventListener("click", () => {
+    game.style.display = "block";
+    startBtn.style.display = "none";
+    gameStarted = true;
+    startGame();
+});
 
-        // ▶ INICIAR
-        startBtn.addEventListener("click", () => {
-            game.style.display = "block";
-            startBtn.style.display = "none";
-            gameStarted = true;
-            startGame();
-        });
+// 🦘 SALTO
+document.addEventListener("keydown", (e) => {
+    if (!gameStarted) return;
 
-        // 🦘 SALTO
-        document.addEventListener("keydown", (e) => {
-            if (!gameStarted) return;
+    if (e.code === "Space") {
+        if (!player.classList.contains("jump")) {
 
-            if (e.code === "Space") {
-                if (!player.classList.contains("jump")) {
+            jumpSound.currentTime = 0;
+            jumpSound.play();
 
-                    jumpSound.currentTime = 0;
-                    jumpSound.play();
-
-                    player.classList.add("jump");
-
-                    setTimeout(() => {
-                        player.classList.remove("jump");
-                    }, 500);
-                }
-            }
-        });
-
-        // 🚧 MOVIMIENTO
-        function moveObstacle() {
-            obstacle.style.animation = `move ${speed}s linear`;
+            player.classList.add("jump");
 
             setTimeout(() => {
-                obstacle.style.animation = "none";
-                obstacle.offsetHeight;
-                if (!isGameOver) moveObstacle();
-            }, speed * 1000);
+                player.classList.remove("jump");
+            }, 500);
         }
+    }
+});
 
-        // ⚡ DIFICULTAD
-        function increaseDifficulty() {
-            setInterval(() => {
-                if (!isGameOver && speed > 0.8) {
-                    speed -= 0.1;
-                }
-            }, 5000);
-        }
+// 🚧 MOVIMIENTO + VELOCIDAD PROGRESIVA
+function moveObstacle() {
+    obstacle.style.animation = `move ${speed}s linear`;
 
-        // 💥 COLISIÓN (CORREGIDA)
-        function checkCollision() {
-            const playerRect = player.getBoundingClientRect();
-            const obstacleRect = obstacle.getBoundingClientRect();
+    setTimeout(() => {
+        obstacle.style.animation = "none";
+        obstacle.offsetHeight;
 
-            const padding = 10;
+        if (!isGameOver) {
 
-            const isColliding =
-                playerRect.right - padding > obstacleRect.left &&
-                playerRect.left + padding < obstacleRect.right &&
-                playerRect.bottom - padding > obstacleRect.top &&
-                playerRect.top + padding < obstacleRect.bottom;
-
-            if (isColliding && !isGameOver) {
-                isGameOver = true;
-
-                history.push(score);
-                localStorage.setItem("scores", JSON.stringify(history));
-
-                Swal.fire({
-                    icon: "error",
-                    title: "💀 Game Over",
-                    text: "Tiempo: " + score
-                }).then(() => location.reload());
+            // 🔥 AUMENTA VELOCIDAD
+            if (speed > 0.7) {
+                speed -= 0.05;
             }
-        }
 
-        // ⏱ SCORE
-        function startScore() {
-            setInterval(() => {
-                if (!isGameOver) {
-                    score++;
-                    document.getElementById("score").innerText = "Tiempo: " + score;
-                }
-            }, 1000);
-        }
-
-        // 🚀 START
-        function startGame() {
             moveObstacle();
-            increaseDifficulty();
-            startScore();
-            setInterval(checkCollision, 50);
         }
-    </script>
+
+    }, speed * 1000);
+}
+
+// 💥 COLISIÓN CORREGIDA
+function checkCollision() {
+    const playerRect = player.getBoundingClientRect();
+    const obstacleRect = obstacle.getBoundingClientRect();
+
+    const padding = 10;
+
+    const isColliding =
+        playerRect.right - padding > obstacleRect.left &&
+        playerRect.left + padding < obstacleRect.right &&
+        playerRect.bottom - padding > obstacleRect.top &&
+        playerRect.top + padding < obstacleRect.bottom;
+
+    if (isColliding && !isGameOver) {
+        isGameOver = true;
+
+        history.push(score);
+        localStorage.setItem("scores", JSON.stringify(history));
+
+        Swal.fire({
+            icon: "error",
+            title: "💀 Game Over",
+            text: "Tiempo: " + score
+        }).then(() => location.reload());
+    }
+}
+
+// ⏱ SCORE
+function startScore() {
+    setInterval(() => {
+        if (!isGameOver) {
+            score++;
+            document.getElementById("score").innerText = "Tiempo: " + score;
+        }
+    }, 1000);
+}
+
+// 🚀 START
+function startGame() {
+    moveObstacle();
+    startScore();
+    setInterval(checkCollision, 50);
+}
+</script>
 
 </body>
 
