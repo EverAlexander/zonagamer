@@ -4,268 +4,225 @@
 <head>
 
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zona Gamer</title>
 
-    <title>Menu principal</title>
+    <!-- Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- SweetAlert -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
     <style>
-        .slot-machine {
-            display: flex;
-            justify-content: center;
-            margin: 40px auto;
+        body {
+            background: #87CEEB;
         }
 
-        .slot {
-            width: 120px;
-            height: 120px;
-            margin: 0 10px;
-            border: 5px solid #28a745;
-            border-radius: 10px;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* 🎮 JUEGO */
+        #game {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            border: 3px solid black;
+            overflow: hidden;
+            background: linear-gradient(#5c94fc, #cceeff);
+            display: none;
         }
 
-        .slot img {
-            width: 100px;
-            height: 100px;
+        #player {
+            position: absolute;
+            bottom: 0;
+            left: 50px;
+            width: 50px;
         }
 
-        #btn {
-            padding: 15px 25px;
-            font-size: 18px;
-            margin-top: 20px;
-            cursor: pointer;
-            border: none;
-            background: #28a745;
-            color: white;
-            border-radius: 8px;
-            font-weight: bold;
+        .jump {
+            animation: jump 0.5s ease;
+        }
+
+        @keyframes jump {
+            0% { bottom: 0; }
+            50% { bottom: 120px; }
+            100% { bottom: 0; }
+        }
+
+        #obstacle {
+            position: absolute;
+            bottom: 0;
+            right: -50px;
+            width: 50px;
+        }
+
+        @keyframes move {
+            from { right: -50px; }
+            to { right: 100%; }
         }
     </style>
 
-    <!-- Custom fonts for this template-->
-    <link href="public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="../css/estilo.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script>
-        function actualizarHora() {
-            // Obtener la fecha y hora actual
-            const ahora = new Date();
-
-            // Formatear la hora en HH:mm:ss
-            const horas = ahora.getHours().toString().padStart(2, '0');
-            const minutos = ahora.getMinutes().toString().padStart(2, '0');
-            const segundos = ahora.getSeconds().toString().padStart(2, '0');
-            const horaFormateada = `${horas}:${minutos}:${segundos}`;
-
-            // Asignar la hora al elemento con el id "horaActual"
-            document.getElementById('horaActual').textContent = horaFormateada;
-        }
-
-        // Ejecutar la función cada segundo (1000 ms)
-        setInterval(actualizarHora, 1000);
-    </script>
-
 </head>
 
-<body id="page-top">
+<body>
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark bg-primary">
+    <div class="container">
+        <span class="navbar-brand">🎮 Zona Gamer</span>
+    </div>
+</nav>
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+<div class="container mt-4 text-center">
 
-            <!-- Main Content -->
-            <div id="content">
-                <!-- Navbar Superior -->
-                <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-primary mb-4">
-                    <a class="navbar-brand" href="?route=home">
-                        <i class="fas fa-gamepad"></i> Zona Gamer
-                    </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarGamer"
-                        aria-controls="navbarGamer" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+    <h3>🏃‍♂️ Salto infinito</h3>
+    <p>Presiona ESPACIO para saltar</p>
 
-                    <div class="collapse navbar-collapse" id="navbarGamer">
-                        <ul class="navbar-nav ml-auto align-items-center">
-                            <!-- Links del menú -->
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fas fa-home"></i> Inicio</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarGrupos" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-users"></i> Lista de juegos
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarGrupos">
-                                    <a class="dropdown-item" href="../index.html">Ruleta</a>
-                                    <a class="dropdown-item" href="memoria.html">Memoria</a>
-                                    <a class="dropdown-item" href="#">Monedas</a>
-                                    <a class="dropdown-item" href="Portada.html">Portada</a>
+    <button id="startBtn" class="btn btn-success mb-2">▶ Iniciar</button>
 
-                                </div>
-                            </li>
+    <div id="score">Tiempo: 0</div>
 
-                            <!-- Reloj -->
-                            <li class="nav-item">
-                                <span class="nav-link font-weight-bold text-white" id="horaActual"></span>
-                            </li>
+    <h5 class="mt-3">🏆 Historial</h5>
+    <ul id="history" class="list-unstyled"></ul>
 
-                            <!-- Dropdown usuario -->
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown"
-                                    role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuNuWLCLLcxIOHZWSOPeGrmiBLf_fA9Cxqvw&s"
-                                        alt="Imagen de usuario" class="user-logo" width="40" height="40">
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                    <span class="dropdown-item">
-                                        <i class="fas fa-user mr-2"></i> Administrador:
-                                        <?php echo htmlspecialchars($nombreUsuario); ?>
-                                    </span>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="/mvcPrueba/?route=logout">
-                                        <i class="fas fa-sign-out-alt mr-2"></i> Cerrar Sesión
-                                    </a>
-                                </div>
-                            </li>
+    <button id="clearBtn" class="btn btn-danger btn-sm mt-2">
+        🗑 Limpiar historial
+    </button>
 
-                        </ul>
-                    </div>
-                </nav>
-
-                <!-- Fin Navbar Superior -->
-
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-
-
-                    </div>
-
-                    <div class="row">
-                       
-                    </div>
-
-                </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        ©
-                        <script>
-                            document.write(new Date().getFullYear());
-                        </script>
-                        ,The_Alexander
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
+    <div id="game" class="mt-3">
+        <img id="player" src="imagenes/yosshi.png">
+        <img id="obstacle" src="imagenes/bloque.png">
     </div>
 
+</div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="../public/vendor/jquery/jquery.min.js"></script>
-    <script src="../public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="../public/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script>
+const player = document.getElementById("player");
+const obstacle = document.getElementById("obstacle");
+const game = document.getElementById("game");
+const startBtn = document.getElementById("startBtn");
+const historyList = document.getElementById("history");
+const clearBtn = document.getElementById("clearBtn");
 
-    <!-- Custom scripts for all pages-->
-    <script src="../public/js/sb-admin-2.min.js"></script>
+let score = 0;
+let isGameOver = false;
+let speed = 2;
+let gameStarted = false;
 
+// 🔊 sonido
+const jumpSound = new Audio("audio/salto.mp3");
 
-    <!-- SweetAlert2 JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+// historial
+let history = JSON.parse(localStorage.getItem("scores")) || [];
+renderHistory();
 
-    <script>
-        const imagenes = [
-            "../imagenes/estrella012.png",
-            "../imagenes/hondo.png",
-            "../imagenes/moneda12.png",
-            "../imagenes/flor.png"
-        ];
+function renderHistory() {
+    historyList.innerHTML = "";
+    history.forEach(s => {
+        let li = document.createElement("li");
+        li.textContent = s;
+        historyList.appendChild(li);
+    });
+}
 
-        const slots = [
-            document.getElementById("slot1"),
-            document.getElementById("slot2"),
-            document.getElementById("slot3")
-        ];
-        const resultado = document.getElementById("resultado");
-        const btn = document.getElementById("btn");
+// limpiar historial
+clearBtn.addEventListener("click", () => {
+    if (confirm("¿Seguro que quieres borrar el historial?")) {
+        localStorage.removeItem("scores");
+        history = [];
+        renderHistory();
+    }
+});
 
-        let turno = 0;
-        let intervalos = [];
-        let jugando = false;
+// iniciar
+startBtn.addEventListener("click", () => {
+    game.style.display = "block";
+    startBtn.style.display = "none";
+    gameStarted = true;
+    startGame();
+});
 
-        function iniciarGiro(slot, index) {
-            intervalos[index] = setInterval(() => {
-                slot.src = imagenes[Math.floor(Math.random() * imagenes.length)];
-            }, 100);
+// salto
+document.addEventListener("keydown", function (e) {
+    if (!gameStarted) return;
+
+    if (e.code === "Space") {
+        if (!player.classList.contains("jump")) {
+
+            jumpSound.currentTime = 0;
+            jumpSound.play();
+
+            player.classList.add("jump");
+
+            setTimeout(() => {
+                player.classList.remove("jump");
+            }, 500);
         }
+    }
+});
 
-        function detenerGiro(index) {
-            clearInterval(intervalos[index]);
-            turno++;
+// movimiento
+function moveObstacle() {
+    obstacle.style.animation = `move ${speed}s linear`;
 
-            if (turno === slots.length) {
-                const r1 = slots[0].src;
-                const r2 = slots[1].src;
-                const r3 = slots[2].src;
+    setTimeout(() => {
+        obstacle.style.animation = "none";
+        obstacle.offsetHeight;
+        if (!isGameOver) moveObstacle();
+    }, speed * 1000);
+}
 
-                if (r1 === r2 && r2 === r3) {
-                    resultado.textContent = "🎉 ¡Ganaste! 🎉";
-                } else {
-                    resultado.textContent = "😅 Intenta de nuevo";
-                }
-
-                // Cambiar botón a "Nueva Ronda"
-                btn.textContent = "Nueva Ronda";
-                jugando = false;
-            }
+// dificultad
+function increaseDifficulty() {
+    return setInterval(() => {
+        if (!isGameOver && speed > 0.8) {
+            speed -= 0.1;
         }
+    }, 5000);
+}
 
-        btn.addEventListener("click", () => {
-            if (!jugando) {
-                // iniciar la ronda
-                turno = 0;
-                resultado.textContent = "";
-                slots.forEach((slot, i) => iniciarGiro(slot, i));
-                btn.textContent = "Detener";
-                jugando = true;
-            } else if (jugando && turno < slots.length) {
-                // detener un slot por vez
-                detenerGiro(turno);
-            }
-        });
-    </script>
+// colisión
+function checkCollision() {
+    const playerRect = player.getBoundingClientRect();
+    const obstacleRect = obstacle.getBoundingClientRect();
+
+    const isColliding =
+        playerRect.right > obstacleRect.left &&
+        playerRect.left < obstacleRect.right &&
+        playerRect.bottom > obstacleRect.top;
+
+    if (isColliding && !isGameOver) {
+        isGameOver = true;
+
+        history.push(score);
+        localStorage.setItem("scores", JSON.stringify(history));
+
+        Swal.fire({
+            icon: "error",
+            title: "💀 Game Over",
+            text: "Tiempo: " + score
+        }).then(() => location.reload());
+    }
+}
+
+// puntos
+function startScore() {
+    return setInterval(() => {
+        if (!isGameOver) {
+            score++;
+            document.getElementById("score").innerText = "Tiempo: " + score;
+        }
+    }, 1000);
+}
+
+// iniciar todo
+function startGame() {
+    moveObstacle();
+    increaseDifficulty();
+    startScore();
+    setInterval(checkCollision, 50);
+}
+</script>
 
 </body>
-
 </html>
