@@ -45,7 +45,8 @@
             border-radius: 8px;
             font-weight: bold;
         }
-                #game {
+
+        #game {
             position: relative;
             width: 100%;
             height: 300px;
@@ -215,30 +216,28 @@
 
 
                     </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-8 text-center">
 
-                    <div class="row">
-                        <div class="row">
-                            <div class="col-12 text-center">
+                            <h3>🏃‍♂️ Salto infinito</h3>
+                            <p>Presiona ESPACIO para saltar</p>
 
-                                <p>Presiona ESPACIO para saltar</p>
+                            <button id="startBtn" class="btn btn-success mb-2">▶ Iniciar</button>
 
-                                <button id="startBtn" class="btn btn-success mb-2">▶ Iniciar</button>
+                            <div id="score">Tiempo: 0</div>
 
-                                <div id="score">Tiempo: 0</div>
+                            <h5 class="mt-3">🏆 Historial</h5>
+                            <ul id="history" class="list-unstyled"></ul>
 
-                                <h5 class="mt-3">🏆 Historial</h5>
-                                <ul id="history" class="list-unstyled"></ul>
+                            <button id="clearBtn" class="btn btn-danger btn-sm mt-2">
+                                🗑 Limpiar historial
+                            </button>
 
-                                <button id="clearBtn" class="btn btn-danger btn-sm mt-2">
-                                    🗑 Limpiar historial
-                                </button>
-
-                                <div id="game" class="mt-3">
-                                    <img id="player" src="../imagenes/yosshi.png">
-                                    <img id="obstacle" src="../imagenes/bloque.png">
-                                </div>
-
+                            <div id="game" class="mt-3">
+                                <img id="player" src="../imagenes/yosshi.png">
+                                <img id="obstacle" src="../imagenes/bloque.png">
                             </div>
+
                         </div>
                     </div>
 
@@ -295,8 +294,8 @@
         let speed = 2;
         let gameStarted = false;
 
-        // 🔊 SONIDO
-        const jumpSound = new Audio("salto.mp3");
+        // 🔊 SONIDO (AJUSTA RUTA SI ES NECESARIO)
+        const jumpSound = new Audio("../audio/salto.mp3");
 
         // 📊 HISTORIAL
         let history = JSON.parse(localStorage.getItem("scores")) || [];
@@ -311,13 +310,21 @@
             });
         }
 
-        // 🗑 LIMPIAR HISTORIAL
+        // 🗑 LIMPIAR
         clearBtn.addEventListener("click", () => {
-            if (confirm("¿Seguro que quieres borrar el historial?")) {
-                localStorage.removeItem("scores");
-                history = [];
-                renderHistory();
-            }
+            Swal.fire({
+                title: "¿Eliminar historial?",
+                text: "No se podrá recuperar",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Sí, borrar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    localStorage.removeItem("scores");
+                    history = [];
+                    renderHistory();
+                }
+            });
         });
 
         // ▶ INICIAR
@@ -380,16 +387,18 @@
             if (isColliding && !isGameOver) {
                 isGameOver = true;
 
-                // guardar puntaje
                 history.push(score);
                 localStorage.setItem("scores", JSON.stringify(history));
 
-                alert("💀 Game Over - Tiempo: " + score);
-                location.reload();
+                Swal.fire({
+                    icon: "error",
+                    title: "💀 Game Over",
+                    text: "Tiempo: " + score
+                }).then(() => location.reload());
             }
         }
 
-        // ⏱ PUNTOS
+        // ⏱ SCORE
         function startScore() {
             return setInterval(() => {
                 if (!isGameOver) {
@@ -399,7 +408,7 @@
             }, 1000);
         }
 
-        // 🚀 INICIAR TODO
+        // 🚀 START
         function startGame() {
             moveObstacle();
             increaseDifficulty();
