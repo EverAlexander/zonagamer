@@ -2,420 +2,276 @@
 <html lang="es">
 
 <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zona Gamer</title>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
-    <title>Menu principal</title>
-    <style>
-        .slot-machine {
-            display: flex;
-            justify-content: center;
-            margin: 40px auto;
-        }
+<style>
+body {
+    background: #f8f9fc;
+}
 
-        .slot {
-            width: 120px;
-            height: 120px;
-            margin: 0 10px;
-            border: 5px solid #28a745;
-            border-radius: 10px;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+/* 🎮 BOTÓN */
+#startBtn {
+    font-size: 20px;
+}
 
-        .slot img {
-            width: 100px;
-            height: 100px;
-        }
+/* 🌑 OVERLAY */
+#gameOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
 
-        #btn {
-            padding: 15px 25px;
-            font-size: 18px;
-            margin-top: 20px;
-            cursor: pointer;
-            border: none;
-            background: #28a745;
-            color: white;
-            border-radius: 8px;
-            font-weight: bold;
-        }
+/* 🎮 CONTENEDOR */
+#gameContainer {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    position: relative;
+}
 
-        #game {
-            position: relative;
-            width: 100%;
-            height: 300px;
-            border: 3px solid black;
-            overflow: hidden;
-            background: linear-gradient(#5c94fc, #cceeff);
-            display: none;
-        }
+/* ❌ BOTÓN SALIR */
+#closeBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
 
-        #player {
-            position: absolute;
-            bottom: 0;
-            left: 50px;
-            width: 50px;
-        }
+/* 🎮 JUEGO */
+#game {
+    position: relative;
+    width: 500px;
+    height: 200px;
+    border: 3px solid black;
+    overflow: hidden;
+    background: linear-gradient(#5c94fc, #cceeff);
+    margin: 10px auto;
+}
 
-        .jump {
-            animation: jump 0.5s ease;
-        }
+#player {
+    position: absolute;
+    bottom: 0;
+    left: 50px;
+    width: 50px;
+}
 
-        @keyframes jump {
-            0% {
-                bottom: 0;
-            }
+.jump {
+    animation: jump 0.5s ease;
+}
 
-            50% {
-                bottom: 120px;
-            }
+@keyframes jump {
+    0% { bottom: 0; }
+    50% { bottom: 120px; }
+    100% { bottom: 0; }
+}
 
-            100% {
-                bottom: 0;
-            }
-        }
+#obstacle {
+    position: absolute;
+    bottom: 0;
+    right: -50px;
+    width: 50px;
+}
 
-        #obstacle {
-            position: absolute;
-            bottom: 0;
-            right: -50px;
-            width: 50px;
-        }
-
-        @keyframes move {
-            from {
-                right: -50px;
-            }
-
-            to {
-                right: 100%;
-            }
-        }
-
-        #score {
-            font-size: 20px;
-            margin-top: 10px;
-        }
-    </style>
-
-    <!-- Custom fonts for this template-->
-    <link href="public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="../css/estilo.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script>
-        function actualizarHora() {
-            // Obtener la fecha y hora actual
-            const ahora = new Date();
-
-            // Formatear la hora en HH:mm:ss
-            const horas = ahora.getHours().toString().padStart(2, '0');
-            const minutos = ahora.getMinutes().toString().padStart(2, '0');
-            const segundos = ahora.getSeconds().toString().padStart(2, '0');
-            const horaFormateada = `${horas}:${minutos}:${segundos}`;
-
-            // Asignar la hora al elemento con el id "horaActual"
-            document.getElementById('horaActual').textContent = horaFormateada;
-        }
-
-        // Ejecutar la función cada segundo (1000 ms)
-        setInterval(actualizarHora, 1000);
-    </script>
-
+@keyframes move {
+    from { right: -50px; }
+    to { right: 100%; }
+}
+</style>
 </head>
 
-<body id="page-top">
+<body>
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark bg-primary">
+    <div class="container">
+        <span class="navbar-brand">🎮 Zona Gamer</span>
+    </div>
+</nav>
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+<div class="container text-center mt-5">
 
-            <!-- Main Content -->
-            <div id="content">
-                <!-- Navbar Superior -->
-                <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-primary mb-4">
-                    <a class="navbar-brand" href="?route=home">
-                        <i class="fas fa-gamepad"></i> Zona Gamer
-                    </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarGamer"
-                        aria-controls="navbarGamer" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+    <h2>Bienvenido a la Zona Gamer</h2>
 
-                    <div class="collapse navbar-collapse" id="navbarGamer">
-                        <ul class="navbar-nav ml-auto align-items-center">
-                            <!-- Links del menú -->
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fas fa-home"></i> Inicio</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarGrupos" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-users"></i> Lista de juegos
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarGrupos">
-                                    <a class="dropdown-item" href="../index.html">Ruleta</a>
-                                    <a class="dropdown-item" href="memoria.html">Memoria</a>
-                                    <a class="dropdown-item" href="#">Monedas</a>
-                                    <a class="dropdown-item" href="Portada.html">Portada</a>
+    <button id="startBtn" class="btn btn-success mt-3">
+        🎮 Jugar Salto Infinito
+    </button>
 
-                                </div>
-                            </li>
+</div>
 
-                            <!-- Reloj -->
-                            <li class="nav-item">
-                                <span class="nav-link font-weight-bold text-white" id="horaActual"></span>
-                            </li>
+<!-- 🎮 OVERLAY -->
+<div id="gameOverlay">
 
-                            <!-- Dropdown usuario -->
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown"
-                                    role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuNuWLCLLcxIOHZWSOPeGrmiBLf_fA9Cxqvw&s"
-                                        alt="Imagen de usuario" class="user-logo" width="40" height="40">
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                    <span class="dropdown-item">
-                                        <i class="fas fa-user mr-2"></i> Administrador:
-                                        <?php echo htmlspecialchars($nombreUsuario); ?>
-                                    </span>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="/mvcPrueba/?route=logout">
-                                        <i class="fas fa-sign-out-alt mr-2"></i> Cerrar Sesión
-                                    </a>
-                                </div>
-                            </li>
+    <div id="gameContainer">
 
-                        </ul>
-                    </div>
-                </nav>
+        <button id="closeBtn" class="btn btn-danger btn-sm">✖</button>
 
-                <!-- Fin Navbar Superior -->
+        <h4>🏃‍♂️ Salto infinito</h4>
+        <p>Presiona ESPACIO para saltar</p>
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
+        <div id="score">Tiempo: 0</div>
 
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-
-
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-md-8 text-center">
-
-                            <h3>🏃‍♂️ Salto infinito</h3>
-                            <p>Presiona ESPACIO para saltar</p>
-
-                            <button id="startBtn" class="btn btn-success mb-2">▶ Iniciar</button>
-
-                            <div id="score">Tiempo: 0</div>
-
-                            <h5 class="mt-3">🏆 Historial</h5>
-                            <ul id="history" class="list-unstyled"></ul>
-
-                            <button id="clearBtn" class="btn btn-danger btn-sm mt-2">
-                                🗑 Limpiar historial
-                            </button>
-
-                            <div id="game" class="mt-3">
-                                <img id="player" src="../imagenes/yosshi.png">
-                                <img id="obstacle" src="../imagenes/bloque.png">
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        ©
-                        <script>
-                            document.write(new Date().getFullYear());
-                        </script>
-                        ,The_Alexander
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
+        <div id="game">
+            <img id="player" src="imagenes/yosshi.png">
+            <img id="obstacle" src="imagenes/bloque.png">
         </div>
-        <!-- End of Content Wrapper -->
+
+        <h6>🏆 Historial</h6>
+        <ul id="history" class="list-unstyled"></ul>
+
+        <button id="clearBtn" class="btn btn-warning btn-sm">
+            🗑 Limpiar
+        </button>
 
     </div>
 
+</div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="../public/vendor/jquery/jquery.min.js"></script>
-    <script src="../public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="../public/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script>
+const player = document.getElementById("player");
+const obstacle = document.getElementById("obstacle");
+const startBtn = document.getElementById("startBtn");
+const gameOverlay = document.getElementById("gameOverlay");
+const closeBtn = document.getElementById("closeBtn");
+const historyList = document.getElementById("history");
+const clearBtn = document.getElementById("clearBtn");
 
-    <!-- Custom scripts for all pages-->
-    <script src="../public/js/sb-admin-2.min.js"></script>
+let score = 0;
+let isGameOver = false;
+let speed = 2;
+let gameStarted = false;
 
+const jumpSound = new Audio("audio/salto.mp3");
 
-    <!-- SweetAlert2 JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+// HISTORIAL
+let history = JSON.parse(localStorage.getItem("scores")) || [];
+renderHistory();
 
-    <script>
-        const player = document.getElementById("player");
-        const obstacle = document.getElementById("obstacle");
-        const game = document.getElementById("game");
-        const startBtn = document.getElementById("startBtn");
-        const historyList = document.getElementById("history");
-        const clearBtn = document.getElementById("clearBtn");
+function renderHistory() {
+    historyList.innerHTML = "";
+    history.forEach(s => {
+        let li = document.createElement("li");
+        li.textContent = s;
+        historyList.appendChild(li);
+    });
+}
 
-        let score = 0;
-        let isGameOver = false;
-        let speed = 2;
-        let gameStarted = false;
-
-        // 🔊 SONIDO (AJUSTA RUTA SI ES NECESARIO)
-        const jumpSound = new Audio("../audio/salto.mp3");
-
-        // 📊 HISTORIAL
-        let history = JSON.parse(localStorage.getItem("scores")) || [];
-        renderHistory();
-
-        function renderHistory() {
-            historyList.innerHTML = "";
-            history.forEach(s => {
-                let li = document.createElement("li");
-                li.textContent = s;
-                historyList.appendChild(li);
-            });
+// LIMPIAR
+clearBtn.addEventListener("click", () => {
+    Swal.fire({
+        title: "¿Eliminar historial?",
+        icon: "warning",
+        showCancelButton: true
+    }).then((res) => {
+        if (res.isConfirmed) {
+            localStorage.removeItem("scores");
+            history = [];
+            renderHistory();
         }
+    });
+});
 
-        // 🗑 LIMPIAR
-        clearBtn.addEventListener("click", () => {
-            Swal.fire({
-                title: "¿Eliminar historial?",
-                text: "No se podrá recuperar",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Sí, borrar"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    localStorage.removeItem("scores");
-                    history = [];
-                    renderHistory();
-                }
-            });
-        });
+// INICIAR
+startBtn.addEventListener("click", () => {
+    gameOverlay.style.display = "flex";
+    gameStarted = true;
+    startGame();
+});
 
-        // ▶ INICIAR
-        startBtn.addEventListener("click", () => {
-            game.style.display = "block";
-            startBtn.style.display = "none";
-            gameStarted = true;
-            startGame();
-        });
+// SALIR
+closeBtn.addEventListener("click", () => {
+    location.reload();
+});
 
-        // 🦘 SALTO
-        document.addEventListener("keydown", function (e) {
-            if (!gameStarted) return;
+// SALTO
+document.addEventListener("keydown", (e) => {
+    if (!gameStarted) return;
 
-            if (e.code === "Space") {
-                if (!player.classList.contains("jump")) {
+    if (e.code === "Space") {
+        if (!player.classList.contains("jump")) {
+            jumpSound.currentTime = 0;
+            jumpSound.play();
 
-                    jumpSound.currentTime = 0;
-                    jumpSound.play();
-
-                    player.classList.add("jump");
-
-                    setTimeout(() => {
-                        player.classList.remove("jump");
-                    }, 500);
-                }
-            }
-        });
-
-        // 🚧 MOVIMIENTO
-        function moveObstacle() {
-            obstacle.style.animation = `move ${speed}s linear`;
+            player.classList.add("jump");
 
             setTimeout(() => {
-                obstacle.style.animation = "none";
-                obstacle.offsetHeight;
-                if (!isGameOver) moveObstacle();
-            }, speed * 1000);
+                player.classList.remove("jump");
+            }, 500);
         }
+    }
+});
 
-        // ⚡ DIFICULTAD
-        function increaseDifficulty() {
-            return setInterval(() => {
-                if (!isGameOver && speed > 0.8) {
-                    speed -= 0.1;
-                }
-            }, 5000);
+// MOVIMIENTO
+function moveObstacle() {
+    obstacle.style.animation = `move ${speed}s linear`;
+
+    setTimeout(() => {
+        obstacle.style.animation = "none";
+        obstacle.offsetHeight;
+        if (!isGameOver) moveObstacle();
+    }, speed * 1000);
+}
+
+// DIFICULTAD
+function increaseDifficulty() {
+    setInterval(() => {
+        if (!isGameOver && speed > 0.8) {
+            speed -= 0.1;
         }
+    }, 5000);
+}
 
-        // 💥 COLISIÓN
-        function checkCollision() {
-            const playerRect = player.getBoundingClientRect();
-            const obstacleRect = obstacle.getBoundingClientRect();
+// COLISIÓN
+function checkCollision() {
+    const p = player.getBoundingClientRect();
+    const o = obstacle.getBoundingClientRect();
 
-            const isColliding =
-                playerRect.right > obstacleRect.left &&
-                playerRect.left < obstacleRect.right &&
-                playerRect.bottom > obstacleRect.top;
+    if (
+        p.right > o.left &&
+        p.left < o.right &&
+        p.bottom > o.top
+    ) {
+        isGameOver = true;
 
-            if (isColliding && !isGameOver) {
-                isGameOver = true;
+        history.push(score);
+        localStorage.setItem("scores", JSON.stringify(history));
 
-                history.push(score);
-                localStorage.setItem("scores", JSON.stringify(history));
+        Swal.fire("💀 Game Over", "Tiempo: " + score, "error")
+            .then(() => location.reload());
+    }
+}
 
-                Swal.fire({
-                    icon: "error",
-                    title: "💀 Game Over",
-                    text: "Tiempo: " + score
-                }).then(() => location.reload());
-            }
+// SCORE
+function startScore() {
+    setInterval(() => {
+        if (!isGameOver) {
+            score++;
+            document.getElementById("score").innerText = "Tiempo: " + score;
         }
+    }, 1000);
+}
 
-        // ⏱ SCORE
-        function startScore() {
-            return setInterval(() => {
-                if (!isGameOver) {
-                    score++;
-                    document.getElementById("score").innerText = "Tiempo: " + score;
-                }
-            }, 1000);
-        }
+// START
+function startGame() {
+    moveObstacle();
+    increaseDifficulty();
+    startScore();
+    setInterval(checkCollision, 50);
+}
+</script>
 
-        // 🚀 START
-        function startGame() {
-            moveObstacle();
-            increaseDifficulty();
-            startScore();
-            setInterval(checkCollision, 50);
-        }
-    </script>
 </body>
-
 </html>
