@@ -54,12 +54,7 @@
             background: #87CEEB;
         }
 
-        .coin {
-            position: absolute;
-            width: 40px;
-            cursor: pointer;
-            animation: fall 3s linear;
-        }
+        
 
         @keyframes fall {
             from {
@@ -73,6 +68,26 @@
 
         #score {
             font-size: 24px;
+            font-weight: bold;
+        }
+
+        .coin {
+            position: absolute;
+            width: 60px;
+            /* antes 40px */
+            cursor: pointer;
+            animation: fall 3s linear;
+        }
+
+        #startBtn {
+            padding: 15px 25px;
+            font-size: 18px;
+            margin-top: 15px;
+            cursor: pointer;
+            border: none;
+            background: #007bff;
+            color: white;
+            border-radius: 8px;
             font-weight: bold;
         }
     </style>
@@ -188,13 +203,10 @@
 
                     <div class="row justify-content-center">
 
-                        <div class="container text-center mt-3">
-                            <h1>🪙 Atrapa las monedas</h1>
-                            <div id="score">Puntos: 0</div>
-                        </div>
-
-                        <div id="game-area" class="container mt-3"></div>
-
+                        <h1>🪙 Atrapa las monedas</h1>
+                        <div id="score">Puntos: 0</div>
+                        <div id="timer">Tiempo: 180</div>
+                        <button id="startBtn">Iniciar Juego</button>
                     </div>
 
                 </div>
@@ -239,9 +251,19 @@
 
     <script>
         let score = 0;
+        let timeLeft = 180; // 3 minutos
+        let gameInterval;
+        let coinInterval;
+        let gameActive = false;
+
         const gameArea = document.getElementById("game-area");
+        const scoreText = document.getElementById("score");
+        const timerText = document.getElementById("timer");
+        const startBtn = document.getElementById("startBtn");
 
         function createCoin() {
+            if (!gameActive) return;
+
             const coin = document.createElement("img");
             coin.src = "https://cdn-icons-png.flaticon.com/512/138/138292.png";
             coin.classList.add("coin");
@@ -250,7 +272,7 @@
 
             coin.onclick = () => {
                 score++;
-                document.getElementById("score").innerText = "Puntos: " + score;
+                scoreText.innerText = "Puntos: " + score;
                 coin.remove();
             };
 
@@ -261,8 +283,52 @@
             }, 3000);
         }
 
-        // Generar monedas cada 800ms
-        setInterval(createCoin, 800);
+        function startGame() {
+            // Reiniciar valores
+            score = 0;
+            timeLeft = 180;
+            gameActive = true;
+
+            scoreText.innerText = "Puntos: 0";
+            timerText.innerText = "Tiempo: 180";
+            startBtn.style.display = "none";
+
+            // Limpiar monedas anteriores
+            gameArea.innerHTML = "";
+
+            // Crear monedas
+            coinInterval = setInterval(createCoin, 800);
+
+            // Temporizador
+            gameInterval = setInterval(() => {
+                timeLeft--;
+                timerText.innerText = "Tiempo: " + timeLeft;
+
+                if (timeLeft <= 0) {
+                    endGame();
+                }
+            }, 1000);
+        }
+
+        function endGame() {
+            gameActive = false;
+            clearInterval(gameInterval);
+            clearInterval(coinInterval);
+
+            // Eliminar monedas
+            gameArea.innerHTML = "";
+
+            Swal.fire({
+                title: "⏰ Tiempo terminado",
+                text: "Puntos obtenidos: " + score,
+                icon: "success",
+                confirmButtonText: "Jugar de nuevo"
+            });
+
+            startBtn.style.display = "inline-block";
+        }
+
+        startBtn.addEventListener("click", startGame);
     </script>
 </body>
 
