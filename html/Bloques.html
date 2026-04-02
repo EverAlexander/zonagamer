@@ -2,112 +2,122 @@
 <html lang="es">
 
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zona Gamer</title>
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Menu principal</title>
 
-<style>
-body {
-    background: #f8f9fc;
-}
+    <!-- Bootstrap + estilos -->
+    <link href="public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="../css/estilo.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
-/* 🎮 BOTÓN */
-#startBtn {
-    font-size: 20px;
-}
+    <style>
+        /* 🎮 BOTÓN */
+        #startBtn {
+            font-size: 20px;
+        }
 
-/* 🌑 OVERLAY */
-#gameOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.8);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
+        /* 🌑 OVERLAY */
+        #gameOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
 
-/* 🎮 CONTENEDOR */
-#gameContainer {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    text-align: center;
-    position: relative;
-}
+        /* 🎮 CONTENEDOR */
+        #gameContainer {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+        }
 
-/* ❌ BOTÓN SALIR */
-#closeBtn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
+        #closeBtn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
 
-/* 🎮 JUEGO */
-#game {
-    position: relative;
-    width: 500px;
-    height: 200px;
-    border: 3px solid black;
-    overflow: hidden;
-    background: linear-gradient(#5c94fc, #cceeff);
-    margin: 10px auto;
-}
+        /* 🎮 JUEGO */
+        #game {
+            position: relative;
+            width: 500px;
+            height: 200px;
+            border: 3px solid black;
+            overflow: hidden;
+            background: linear-gradient(#5c94fc, #cceeff);
+            margin: 10px auto;
+        }
 
-#player {
-    position: absolute;
-    bottom: 0;
-    left: 50px;
-    width: 50px;
-}
+        #player {
+            position: absolute;
+            bottom: 0;
+            left: 50px;
+            width: 50px;
+        }
 
-.jump {
-    animation: jump 0.5s ease;
-}
+        .jump {
+            animation: jump 0.5s ease;
+        }
 
-@keyframes jump {
-    0% { bottom: 0; }
-    50% { bottom: 120px; }
-    100% { bottom: 0; }
-}
+        @keyframes jump {
+            0% { bottom: 0; }
+            50% { bottom: 120px; }
+            100% { bottom: 0; }
+        }
 
-#obstacle {
-    position: absolute;
-    bottom: 0;
-    right: -50px;
-    width: 50px;
-}
+        #obstacle {
+            position: absolute;
+            bottom: 0;
+            right: -50px;
+            width: 50px;
+        }
 
-@keyframes move {
-    from { right: -50px; }
-    to { right: 100%; }
-}
-</style>
+        @keyframes move {
+            from { right: -50px; }
+            to { right: 100%; }
+        }
+    </style>
+
 </head>
 
 <body>
 
+<div id="wrapper">
+<div id="content-wrapper" class="d-flex flex-column">
+<div id="content">
+
 <!-- NAVBAR -->
-<nav class="navbar navbar-dark bg-primary">
-    <div class="container">
-        <span class="navbar-brand">🎮 Zona Gamer</span>
-    </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-gradient-primary mb-4">
+    <a class="navbar-brand" href="#">
+        <i class="fas fa-gamepad"></i> Zona Gamer
+    </a>
 </nav>
 
-<div class="container text-center mt-5">
+<!-- CONTENIDO -->
+<div class="container-fluid text-center">
 
-    <h2>Bienvenido a la Zona Gamer</h2>
+    <h3>🎮 Bienvenido</h3>
 
     <button id="startBtn" class="btn btn-success mt-3">
-        🎮 Jugar Salto Infinito
+        ▶ Jugar Salto Infinito
     </button>
 
+</div>
+
+</div>
+</div>
 </div>
 
 <!-- 🎮 OVERLAY -->
@@ -118,17 +128,17 @@ body {
         <button id="closeBtn" class="btn btn-danger btn-sm">✖</button>
 
         <h4>🏃‍♂️ Salto infinito</h4>
-        <p>Presiona ESPACIO para saltar</p>
+        <p>ESPACIO para saltar</p>
 
         <div id="score">Tiempo: 0</div>
 
         <div id="game">
-            <img id="player" src="imagenes/yosshi.png">
-            <img id="obstacle" src="imagenes/bloque.png">
+            <img id="player" src="../imagenes/yosshi.png">
+            <img id="obstacle" src="../imagenes/bloque.png">
         </div>
 
         <h6>🏆 Historial</h6>
-        <ul id="history" class="list-unstyled"></ul>
+        <ul id="history"></ul>
 
         <button id="clearBtn" class="btn btn-warning btn-sm">
             🗑 Limpiar
@@ -138,6 +148,7 @@ body {
 
 </div>
 
+<!-- SCRIPTS -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
@@ -154,7 +165,7 @@ let isGameOver = false;
 let speed = 2;
 let gameStarted = false;
 
-const jumpSound = new Audio("audio/salto.mp3");
+const jumpSound = new Audio("../audio/salto.mp3");
 
 // HISTORIAL
 let history = JSON.parse(localStorage.getItem("scores")) || [];
