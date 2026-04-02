@@ -1,0 +1,27 @@
+ <script>
+        let score = 0;
+        const gameArea = document.getElementById("game-area");
+
+        function createCoin() {
+            const coin = document.createElement("img");
+            coin.src = "https://cdn-icons-png.flaticon.com/512/138/138292.png";
+            coin.classList.add("coin");
+
+            coin.style.left = Math.random() * 90 + "%";
+
+            coin.onclick = () => {
+                score++;
+                document.getElementById("score").innerText = "Puntos: " + score;
+                coin.remove();
+            };
+
+            gameArea.appendChild(coin);
+
+            setTimeout(() => {
+                coin.remove();
+            }, 3000);
+        }
+
+        // Generar monedas cada 800ms
+        setInterval(createCoin, 800);
+    </script>
