@@ -480,6 +480,7 @@
 
                 animando = true;
 
+                // Reiniciar botones
                 document.querySelectorAll(".btn-numero").forEach(btn => {
                     btn.disabled = false;
                     btn.style.background = "#004aad";
@@ -514,48 +515,18 @@
 
                         mundialSeleccionado = mundiales[indice];
 
+                        // Mostrar año seleccionado
                         numeroDisplay.textContent = mundialSeleccionado;
 
-                        preguntaDisplay.textContent =
-                            "Seleccione un número del 1 al 9";
+                        // Mostrar mensaje
+                        preguntaDisplay.innerHTML =
+                            "<strong>Seleccione un número del 1 al 9</strong>";
 
+                        // Mostrar título
                         document.getElementById("tituloMundial").innerHTML =
                             "⚽ Mundial " + mundialSeleccionado;
 
-                        document.getElementById("panelNumeros").style.display =
-                            "block";
-
-                        animando = false;
-                    }
-                }
-
-                requestAnimationFrame(animar);
-            }
-
-            function girarRuleta() {
-
-                if (animando) return;
-
-                animando = true;
-
-                document.getElementById("panelNumeros").style.display = "none";
-
-                velocidad = Math.random() * 0.4 + 0.45;
-
-                function animar() {
-
-                    velocidad *= 0.992;
-                    angulo += velocidad;
-
-                    dibujar();
-
-                    if (velocidad > 0.002) {
-
-                        requestAnimationFrame(animar);
-
-                    } else {
-
-                        // Mostrar panel al terminar
+                        // Mostrar botones
                         document.getElementById("panelNumeros").style.display = "block";
 
                         animando = false;
