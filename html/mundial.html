@@ -257,380 +257,317 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
     <script>
-        const canvas = document.getElementById("ruletaCanvas");
-        const ctx = canvas.getContext("2d");
+        document.addEventListener("DOMContentLoaded", function () {
 
-        const girarBtn = document.getElementById("girarBtn");
-        const numeroDisplay = document.getElementById("numero");
-        const preguntaDisplay = document.getElementById("pregunta");
+            const canvas = document.getElementById("ruletaCanvas");
+            const ctx = canvas.getContext("2d");
 
-        const mundiales = [
-            "1998",
-            "2002",
-            "2006",
-            "2010",
-            "2014",
-            "2018",
-            "2022",
-            "2026"
-        ];
+            const girarBtn = document.getElementById("girarBtn");
+            const numeroDisplay = document.getElementById("numero");
+            const preguntaDisplay = document.getElementById("pregunta");
 
-        const colores = [
-            "#0055A4",
-            "#E60012",
-            "#000000",
-            "#FFB81C",
-            "#009739",
-            "#0039A6",
-            "#8A1538",
-            "#00A651"
-        ];
+            const mundiales = [
+                "1998",
+                "2002",
+                "2006",
+                "2010",
+                "2014",
+                "2018",
+                "2022",
+                "2026"
+            ];
 
-        const preguntasMundiales = {
+            const colores = [
+                "#0055A4",
+                "#E60012",
+                "#000000",
+                "#FFB81C",
+                "#009739",
+                "#0039A6",
+                "#8A1538",
+                "#00A651"
+            ];
 
-            "1998": {
-                1: "¿Quién ganó el Mundial Francia 1998?",
-                2: "¿Quién fue subcampeón?",
-                3: "¿Quién anotó dos goles en la final?",
-                4: "¿Qué país organizó el Mundial?",
-                5: "¿Cuál fue la mascota?",
-                6: "¿Qué selección terminó tercera?",
-                7: "¿Quién fue el entrenador de Francia?",
-                8: "¿Dónde fue la final?",
-                9: "¿Cuántos goles hizo Francia en la final?"
-            },
+            const preguntasMundiales = {
 
-            "2002": {
-                1: "¿Quién ganó Corea-Japón 2002?",
-                2: "¿Cuántos goles anotó Ronaldo?",
-                3: "¿Quién fue subcampeón?",
-                4: "¿Qué países organizaron el Mundial?",
-                5: "¿Quién ganó la Bota de Oro?",
-                6: "¿Qué selección sorprendió llegando lejos?",
-                7: "¿Dónde se jugó la final?",
-                8: "¿Quién fue la figura de Brasil?",
-                9: "¿Qué selección eliminó a España?"
-            },
+                "1998": {
+                    1: "¿Quién ganó el Mundial Francia 1998?",
+                    2: "¿Quién fue subcampeón?",
+                    3: "¿Quién anotó dos goles en la final?",
+                    4: "¿Qué país organizó el Mundial?",
+                    5: "¿Cuál fue la mascota?",
+                    6: "¿Qué selección terminó tercera?",
+                    7: "¿Quién fue el entrenador de Francia?",
+                    8: "¿Dónde fue la final?",
+                    9: "¿Cuántos goles hizo Francia en la final?"
+                },
 
-            "2006": {
-                1: "¿Quién ganó Alemania 2006?",
-                2: "¿Qué jugador fue expulsado en la final?",
-                3: "¿Quién fue subcampeón?",
-                4: "¿Quién ganó el Balón de Oro?",
-                5: "¿Cómo terminó la final?",
-                6: "¿Quién anotó el penal decisivo?",
-                7: "¿Cuál fue la mascota?",
-                8: "¿Dónde se jugó la final?",
-                9: "¿Cuántos títulos tenía Italia?"
-            },
+                "2002": {
+                    1: "¿Quién ganó Corea-Japón 2002?",
+                    2: "¿Cuántos goles anotó Ronaldo?",
+                    3: "¿Quién fue subcampeón?",
+                    4: "¿Qué países organizaron el Mundial?",
+                    5: "¿Quién ganó la Bota de Oro?",
+                    6: "¿Qué selección sorprendió llegando lejos?",
+                    7: "¿Dónde se jugó la final?",
+                    8: "¿Quién fue la figura de Brasil?",
+                    9: "¿Qué selección eliminó a España?"
+                },
 
-            "2010": {
-                1: "¿Quién ganó Sudáfrica 2010?",
-                2: "¿Quién anotó el gol de la final?",
-                3: "¿Qué país fue sede?",
-                4: "¿Quién fue subcampeón?",
-                5: "¿Cuál fue la mascota?",
-                6: "¿Cómo se llamó el balón oficial?",
-                7: "¿Qué instrumento era popular?",
-                8: "¿Quién eliminó a Brasil?",
-                9: "¿Quién ganó el Balón de Oro?"
-            },
+                "2006": {
+                    1: "¿Quién ganó Alemania 2006?",
+                    2: "¿Qué jugador fue expulsado en la final?",
+                    3: "¿Quién fue subcampeón?",
+                    4: "¿Quién ganó el Balón de Oro?",
+                    5: "¿Cómo terminó la final?",
+                    6: "¿Quién anotó el penal decisivo?",
+                    7: "¿Cuál fue la mascota?",
+                    8: "¿Dónde se jugó la final?",
+                    9: "¿Cuántos títulos tenía Italia?"
+                },
 
-            "2014": {
-                1: "¿Quién ganó Brasil 2014?",
-                2: "¿Qué selección perdió 7-1?",
-                3: "¿Quién marcó el gol de la final?",
-                4: "¿Quién fue subcampeón?",
-                5: "¿Cuál fue la mascota?",
-                6: "¿Quién ganó el Balón de Oro?",
-                7: "¿Qué país organizó el torneo?",
-                8: "¿Dónde se jugó la final?",
-                9: "¿Quién fue el goleador?"
-            },
+                "2010": {
+                    1: "¿Quién ganó Sudáfrica 2010?",
+                    2: "¿Quién anotó el gol de la final?",
+                    3: "¿Qué país fue sede?",
+                    4: "¿Quién fue subcampeón?",
+                    5: "¿Cuál fue la mascota?",
+                    6: "¿Cómo se llamó el balón oficial?",
+                    7: "¿Qué instrumento era popular?",
+                    8: "¿Quién eliminó a Brasil?",
+                    9: "¿Quién ganó el Balón de Oro?"
+                },
 
-            "2018": {
-                1: "¿Quién ganó Rusia 2018?",
-                2: "¿Quién fue subcampeón?",
-                3: "¿Quién fue la estrella francesa?",
-                4: "¿Quién ganó la Bota de Oro?",
-                5: "¿Cuál fue la mascota?",
-                6: "¿Dónde fue la final?",
-                7: "¿Qué país organizó el torneo?",
-                8: "¿Cuántos goles hubo en la final?",
-                9: "¿Quién ganó el Balón de Oro?"
-            },
+                "2014": {
+                    1: "¿Quién ganó Brasil 2014?",
+                    2: "¿Qué selección perdió 7-1?",
+                    3: "¿Quién marcó el gol de la final?",
+                    4: "¿Quién fue subcampeón?",
+                    5: "¿Cuál fue la mascota?",
+                    6: "¿Quién ganó el Balón de Oro?",
+                    7: "¿Qué país organizó el torneo?",
+                    8: "¿Dónde se jugó la final?",
+                    9: "¿Quién fue el goleador?"
+                },
 
-            "2022": {
-                1: "¿Quién ganó Catar 2022?",
-                2: "¿Contra quién jugó Argentina la final?",
-                3: "¿Quién levantó la copa?",
-                4: "¿Quién ganó la Bota de Oro?",
-                5: "¿Quién ganó el Guante de Oro?",
-                6: "¿Cuál fue la mascota?",
-                7: "¿Dónde se jugó el Mundial?",
-                8: "¿Cómo terminó la final?",
-                9: "¿Quién hizo hat-trick en la final?"
-            },
+                "2018": {
+                    1: "¿Quién ganó Rusia 2018?",
+                    2: "¿Quién fue subcampeón?",
+                    3: "¿Quién fue la estrella francesa?",
+                    4: "¿Quién ganó la Bota de Oro?",
+                    5: "¿Cuál fue la mascota?",
+                    6: "¿Dónde fue la final?",
+                    7: "¿Qué país organizó el torneo?",
+                    8: "¿Cuántos goles hubo en la final?",
+                    9: "¿Quién ganó el Balón de Oro?"
+                },
 
-            "2026": {
-                1: "¿Qué países organizan el Mundial 2026?",
-                2: "¿Cuántos equipos participarán?",
-                3: "¿Quién crees que será campeón?",
-                4: "¿Qué selección apoyas?",
-                5: "¿Qué jugador destacará?",
-                6: "¿Quién será goleador?",
-                7: "¿Qué selección dará la sorpresa?",
-                8: "¿Quién llegará a la final?",
-                9: "¿Cuál será el mejor partido?"
+                "2022": {
+                    1: "¿Quién ganó Catar 2022?",
+                    2: "¿Contra quién jugó Argentina la final?",
+                    3: "¿Quién levantó la copa?",
+                    4: "¿Quién ganó la Bota de Oro?",
+                    5: "¿Quién ganó el Guante de Oro?",
+                    6: "¿Cuál fue la mascota?",
+                    7: "¿Dónde se jugó el Mundial?",
+                    8: "¿Cómo terminó la final?",
+                    9: "¿Quién hizo hat-trick en la final?"
+                },
+
+                "2026": {
+                    1: "¿Qué países organizan el Mundial 2026?",
+                    2: "¿Cuántos equipos participarán?",
+                    3: "¿Quién crees que será campeón?",
+                    4: "¿Qué selección apoyas?",
+                    5: "¿Qué jugador destacará?",
+                    6: "¿Quién será goleador?",
+                    7: "¿Qué selección dará la sorpresa?",
+                    8: "¿Quién llegará a la final?",
+                    9: "¿Cuál será el mejor partido?"
+                }
+            };
+
+            const numSegmentos = mundiales.length;
+            const radio = canvas.width / 2;
+
+            let angulo = 0;
+            let velocidad = 0;
+            let animando = false;
+            let mundialSeleccionado = "";
+
+            function dibujarRuleta() {
+
+                const anguloSegmento = (2 * Math.PI) / numSegmentos;
+
+                for (let i = 0; i < numSegmentos; i++) {
+
+                    const inicio = i * anguloSegmento;
+                    const fin = inicio + anguloSegmento;
+
+                    ctx.beginPath();
+                    ctx.moveTo(radio, radio);
+                    ctx.arc(radio, radio, radio - 5, inicio, fin);
+                    ctx.closePath();
+
+                    ctx.fillStyle = colores[i];
+                    ctx.fill();
+
+                    ctx.strokeStyle = "#fff";
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+
+                    const anguloTexto = inicio + anguloSegmento / 2;
+
+                    ctx.save();
+
+                    ctx.translate(
+                        radio + Math.cos(anguloTexto) * (radio - 90),
+                        radio + Math.sin(anguloTexto) * (radio - 90)
+                    );
+
+                    ctx.rotate(anguloTexto + Math.PI / 2);
+
+                    ctx.fillStyle = "#fff";
+                    ctx.font = "bold 18px Arial";
+                    ctx.textAlign = "center";
+                    ctx.fillText(mundiales[i], 0, 0);
+
+                    ctx.restore();
+                }
             }
-        };
 
-        const numSegmentos = mundiales.length;
-        const radio = canvas.width / 2;
-
-        let angulo = 0;
-        let velocidad = 0;
-        let animando = false;
-        let mundialSeleccionado = "";
-
-        const usados = [];
-
-        function dibujarRuleta() {
-
-            const anguloSegmento = (2 * Math.PI) / numSegmentos;
-
-            for (let i = 0; i < numSegmentos; i++) {
-
-                const inicio = i * anguloSegmento;
-                const fin = inicio + anguloSegmento;
-
-                ctx.beginPath();
-                ctx.moveTo(radio, radio);
-                ctx.arc(radio, radio, radio - 5, inicio, fin);
-                ctx.closePath();
-
-                ctx.fillStyle = colores[i];
-                ctx.fill();
-
-                ctx.strokeStyle = "#fff";
-                ctx.lineWidth = 2;
-                ctx.stroke();
-
-                const anguloTexto = inicio + anguloSegmento / 2;
+            function dibujarFlecha() {
 
                 ctx.save();
 
-                ctx.translate(
-                    radio + Math.cos(anguloTexto) * (radio - 90),
-                    radio + Math.sin(anguloTexto) * (radio - 90)
-                );
+                ctx.translate(radio, radio);
 
-                ctx.rotate(anguloTexto + Math.PI / 2);
+                ctx.beginPath();
+                ctx.moveTo(0, -radio + 5);
+                ctx.lineTo(-20, -radio + 35);
+                ctx.lineTo(20, -radio + 35);
+                ctx.closePath();
 
-                ctx.fillStyle = "#fff";
-                ctx.font = "bold 18px Arial";
-                ctx.textAlign = "center";
-
-                ctx.fillText(mundiales[i], 0, 0);
+                ctx.fillStyle = "red";
+                ctx.fill();
 
                 ctx.restore();
             }
-        }
 
-        function dibujarFlecha() {
+            function dibujar() {
 
-            ctx.save();
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            ctx.translate(radio, radio);
+                ctx.save();
+                ctx.translate(radio, radio);
+                ctx.rotate(angulo);
+                ctx.translate(-radio, -radio);
 
-            ctx.beginPath();
-            ctx.moveTo(0, -radio + 5);
-            ctx.lineTo(-20, -radio + 35);
-            ctx.lineTo(20, -radio + 35);
+                dibujarRuleta();
 
-            ctx.closePath();
+                ctx.restore();
 
-            ctx.fillStyle = "red";
-            ctx.fill();
-
-            ctx.restore();
-        }
-
-        function dibujar() {
-
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            ctx.save();
-            ctx.translate(radio, radio);
-            ctx.rotate(angulo);
-            ctx.translate(-radio, -radio);
-
-            dibujarRuleta();
-
-            ctx.restore();
-
-            dibujarFlecha();
-        }
-
-        function girarRuleta() {
-
-            if (animando) return;
-
-            animando = true;
-
-            velocidad = Math.random() * 0.5 + 0.5;
-
-            function animar() {
-
-                velocidad *= 0.995;
-
-                angulo += velocidad;
-
-                dibujar();
-
-                if (velocidad > 0.001) {
-
-                    requestAnimationFrame(animar);
-
-                } else {
-
-                    let anguloNormalizado = angulo % (2 * Math.PI);
-
-                    const anguloPorSegmento = (2 * Math.PI) / numSegmentos;
-
-                    anguloNormalizado =
-                        (anguloNormalizado + Math.PI / 2) % (2 * Math.PI);
-
-                    let indice =
-                        Math.floor(
-                            numSegmentos -
-                            (anguloNormalizado / anguloPorSegmento)
-                        );
-
-                    indice = indice % numSegmentos;
-
-                    mundialSeleccionado = mundiales[indice];
-
-                    numeroDisplay.textContent =
-                        mundialSeleccionado;
-
-                    preguntaDisplay.textContent =
-                        "Seleccione un número del 1 al 9";
-
-                    document.getElementById("panelNumeros").style.display =
-                        "block";
-
-                    document.getElementById("tituloMundial").innerHTML =
-                        "⚽ Mundial " + mundialSeleccionado;
-
-                    animando = false;
-                }
+                dibujarFlecha();
             }
 
-            requestAnimationFrame(animar);
-        }
+            function girarRuleta() {
 
+                if (animando) return;
 
-        function girarRuleta() {
+                animando = true;
 
-            if (animando) return;
-
-            animando = true;
-
-            // Reiniciar botones
-            document.querySelectorAll(".btn-numero").forEach(btn => {
-                btn.disabled = false;
-                btn.style.background = "#004aad";
-            });
-
-            document.getElementById("panelNumeros").style.display = "none";
-
-            velocidad = Math.random() * 0.5 + 0.5;
-
-            function animar() {
-
-                velocidad *= 0.995;
-                angulo += velocidad;
-
-                dibujar();
-
-                if (velocidad > 0.001) {
-
-                    requestAnimationFrame(animar);
-
-                } else {
-
-                    let anguloNormalizado = angulo % (2 * Math.PI);
-
-                    const anguloPorSegmento =
-                        (2 * Math.PI) / numSegmentos;
-
-                    let indice = Math.floor(
-                        ((2 * Math.PI) - anguloNormalizado) /
-                        anguloPorSegmento
-                    );
-
-                    indice = indice % numSegmentos;
-
-                    mundialSeleccionado = mundiales[indice];
-
-                    numeroDisplay.textContent = mundialSeleccionado;
-
-                    preguntaDisplay.textContent =
-                        "Seleccione un número del 1 al 9";
-
-                    document.getElementById("tituloMundial").innerHTML =
-                        "⚽ Mundial " + mundialSeleccionado;
-
-                    document.getElementById("panelNumeros").style.display =
-                        "block";
-
-                    animando = false;
-                }
-            }
-
-            requestAnimationFrame(animar);
-        }
-
-        girarBtn.addEventListener("click", girarRuleta);
-
-        document.querySelectorAll(".btn-numero").forEach(btn => {
-
-            btn.addEventListener("click", function () {
-
-                if (mundialSeleccionado === "") {
-
-                    Swal.fire({
-                        icon: "warning",
-                        title: "Primero gira la ruleta"
-                    });
-
-                    return;
-                }
-
-                const numero = this.textContent;
-
-                const pregunta =
-                    preguntasMundiales[mundialSeleccionado][numero];
-
-                Swal.fire({
-                    title: "⚽ Mundial " + mundialSeleccionado,
-                    html: `
-                <h3>Pregunta ${numero}</h3>
-                <p>${pregunta}</p>
-            `,
-                    icon: "question",
-                    confirmButtonText: "Aceptar"
+                document.querySelectorAll(".btn-numero").forEach(btn => {
+                    btn.disabled = false;
+                    btn.style.background = "#004aad";
                 });
 
-                this.disabled = true;
-                this.style.background = "#999";
+                document.getElementById("panelNumeros").style.display = "none";
+
+                velocidad = Math.random() * 0.4 + 0.45;
+
+                function animar() {
+
+                    velocidad *= 0.992;
+                    angulo += velocidad;
+
+                    dibujar();
+
+                    if (velocidad > 0.002) {
+
+                        requestAnimationFrame(animar);
+
+                    } else {
+
+                        let anguloNormalizado = angulo % (2 * Math.PI);
+
+                        const anguloSegmento = (2 * Math.PI) / numSegmentos;
+
+                        let indice = Math.floor(
+                            (numSegmentos - (anguloNormalizado / anguloSegmento))
+                        ) % numSegmentos;
+
+                        if (indice < 0) indice += numSegmentos;
+
+                        mundialSeleccionado = mundiales[indice];
+
+                        numeroDisplay.textContent = mundialSeleccionado;
+
+                        preguntaDisplay.textContent =
+                            "Seleccione un número del 1 al 9";
+
+                        document.getElementById("tituloMundial").innerHTML =
+                            "⚽ Mundial " + mundialSeleccionado;
+
+                        document.getElementById("panelNumeros").style.display =
+                            "block";
+
+                        animando = false;
+                    }
+                }
+
+                requestAnimationFrame(animar);
+            }
+
+            girarBtn.addEventListener("click", girarRuleta);
+
+            document.querySelectorAll(".btn-numero").forEach(btn => {
+
+                btn.addEventListener("click", function () {
+
+                    if (!mundialSeleccionado) {
+
+                        Swal.fire({
+                            icon: "warning",
+                            title: "Primero gira la ruleta"
+                        });
+
+                        return;
+                    }
+
+                    const numero = this.textContent;
+
+                    const pregunta =
+                        preguntasMundiales[mundialSeleccionado][numero];
+
+                    Swal.fire({
+                        title: "⚽ Mundial " + mundialSeleccionado,
+                        html: `
+                    <h3>Pregunta ${numero}</h3>
+                    <p>${pregunta}</p>
+                `,
+                        icon: "question",
+                        confirmButtonText: "Aceptar"
+                    });
+
+                    this.disabled = true;
+                    this.style.background = "#999";
+                });
             });
+
+            dibujar();
+
         });
-
-        dibujar();
     </script>
-
 
 </body>
 
