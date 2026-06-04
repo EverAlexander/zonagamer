@@ -11,64 +11,70 @@
 
     <title>Menu principal</title>
     <style>
-        .contenedor {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            gap: 20px;
-        }
+.contenedor {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+}
 
-        canvas {
-            border: 5px solid #333;
-            border-radius: 50%;
-            background: #fff;
-            position: relative;
-        }
+canvas {
+    border: 5px solid #333;
+    border-radius: 50%;
+    background: #fff;
+}
 
-        .panel {
-            width: 250px;
-            border: 2px solid #333;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: left;
-            background: #f9f9f9;
-            height: 500px;
-        }
+.panel {
+    width: 320px;
+    min-height: 500px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    padding: 15px;
+    background: #f9f9f9;
+}
 
-        .panel h2 {
-            text-align: center;
-        }
+.panel h2 {
+    text-align: center;
+}
 
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin-top: 20px;
-            width: 100%;
-        }
+#girarBtn {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 20px;
+    width: 100%;
+}
 
-        .grid-numeros {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            max-width: 300px;
-        }
+.grid-numeros {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    width: 100%;
+    margin-top: 10px;
+}
 
-        .btn-numero {
-            padding: 15px;
-            font-size: 22px;
-            font-weight: bold;
-            border: none;
-            border-radius: 10px;
-            background: #004aad;
-            color: white;
-            cursor: pointer;
-        }
+.btn-numero {
+    width: 100%;
+    padding: 10px;
+    margin-top: 0;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    background: #004aad;
+    color: white;
+    cursor: pointer;
+}
 
-        .btn-numero:hover {
-            background: #0066ff;
-        }
-    </style>
-    <!-- Custom fonts for this template-->
+.btn-numero:hover {
+    background: #0066ff;
+}
+
+#tituloMundial {
+    text-align: center;
+    margin-bottom: 10px;
+}
+</style>
+        <!-- Custom fonts for this template-->
     <link href="public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
