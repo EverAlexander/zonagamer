@@ -197,6 +197,7 @@
                                         </div>
                                     </div>
                                     <div id="panelNumeros" style="display:none; margin-top:15px;">
+
                                         <h4 id="tituloMundial"></h4>
 
                                         <div class="grid-numeros">
@@ -520,6 +521,39 @@
 
                         document.getElementById("panelNumeros").style.display =
                             "block";
+
+                        animando = false;
+                    }
+                }
+
+                requestAnimationFrame(animar);
+            }
+
+            function girarRuleta() {
+
+                if (animando) return;
+
+                animando = true;
+
+                document.getElementById("panelNumeros").style.display = "none";
+
+                velocidad = Math.random() * 0.4 + 0.45;
+
+                function animar() {
+
+                    velocidad *= 0.992;
+                    angulo += velocidad;
+
+                    dibujar();
+
+                    if (velocidad > 0.002) {
+
+                        requestAnimationFrame(animar);
+
+                    } else {
+
+                        // Mostrar panel al terminar
+                        document.getElementById("panelNumeros").style.display = "block";
 
                         animando = false;
                     }
