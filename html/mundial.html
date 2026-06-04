@@ -45,6 +45,28 @@
             margin-top: 20px;
             width: 100%;
         }
+
+        .grid-numeros {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-width: 300px;
+        }
+
+        .btn-numero {
+            padding: 15px;
+            font-size: 22px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            background: #004aad;
+            color: white;
+            cursor: pointer;
+        }
+
+        .btn-numero:hover {
+            background: #0066ff;
+        }
     </style>
     <!-- Custom fonts for this template-->
     <link href="public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -174,7 +196,21 @@
                                             <button id="girarBtn">Girar Ruleta</button>
                                         </div>
                                     </div>
+                                    <div id="panelNumeros" style="display:none; margin-top:15px;">
+                                        <h4 id="tituloMundial"></h4>
 
+                                        <div class="grid-numeros">
+                                            <button class="btn-numero">1</button>
+                                            <button class="btn-numero">2</button>
+                                            <button class="btn-numero">3</button>
+                                            <button class="btn-numero">4</button>
+                                            <button class="btn-numero">5</button>
+                                            <button class="btn-numero">6</button>
+                                            <button class="btn-numero">7</button>
+                                            <button class="btn-numero">8</button>
+                                            <button class="btn-numero">9</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -223,58 +259,148 @@
     <script>
         const canvas = document.getElementById("ruletaCanvas");
         const ctx = canvas.getContext("2d");
+
         const girarBtn = document.getElementById("girarBtn");
         const numeroDisplay = document.getElementById("numero");
         const preguntaDisplay = document.getElementById("pregunta");
 
-        const numSegmentos = 7;
-
-        // Tus 30 preguntas
-        const preguntas = [
-            "Pregunta 1: Menciona una comida típica de El Salvador?",
-            "Pregunta 2: ¿Cuál es la capital de El Salvador?",
-            "Pregunta 3: ¿Cual es el videojuego mas famoso?",
-            "Pregunta 4: Mencione un area de la Biblioteca Nacional?",
-            "Pregunta 5: ¿Como se llama el hijo de Bowser?",
-            "Pregunta 6: ¿Como se llama el presidente de El Salvador?",
-            "Pregunta 7: ¿Cuál es la flor nacional de El Salvador?",
-            "Pregunta 8: ¿Cuántas personas pueden jugar en Mario Kart?",
-            "Pregunta 9: Nombra un amigo de Mario.",
-            "Pregunta 10: ¿Qué objeto le da poderes a Mario?",
-            "Pregunta 11: ¿Como se llama la princesa de Mario",
-            "Pregunta 12: En que nivel se encuentra la saga de Harry Potter.",
-            "Pregunta 13: Menciona una bebida tipica de El Salvador",
-            "Pregunta 14: Nombra un villano de Super Mario Bros.",
-            "Pregunta 15: ¿cual es el ave nacional de El Salvador?",
-            "Pregunta 16: ¿Cuales son las diferentes consolas que tenemos en Zona Gamer?",
-            "Pregunta 17: ¿Como se llama el enemigo de Mario?",
-            "Pregunta 18: ¿Cuantos niveles tiene la Biblioteca Nacional?",
-            "Pregunta 19: ¿Cuantos colores tiene la bandera de El Salvador?",
-            "Pregunta 20: Menciona un personaje famoso de un videojuego que no sea MARIO",
-            "Pregunta 21: Menciona el personaje que absorbe los poderes de los demas jugadores en el juego de Super Smash Bros.",
-            "Pregunta 22: ¿Cuantas princesas hay en Mario?",
-            "Pregunta 23: Cual es el objeto que te hace pequeño en Mario Kart?",
-            "Pregunta 24: ¿Que objeto te da invensible en Mario Bros?",
-            "Pregunta 25: ¿Como se llama el dinosaurio Verde de Mario?",
-            "Pregunta 26: ¿Menciona un pokemon que no sea Pikachu?",
-            "Pregunta 27: ¿Mencione un Sitio Turistico famoso de El Salvador?",
-            "Pregunta 28: ¿Cual es el requisito para jugar en Zona Gamer?",
+        const mundiales = [
+            "1998",
+            "2002",
+            "2006",
+            "2010",
+            "2014",
+            "2018",
+            "2022",
+            "2026"
         ];
 
+        const colores = [
+            "#0055A4",
+            "#E60012",
+            "#000000",
+            "#FFB81C",
+            "#009739",
+            "#0039A6",
+            "#8A1538",
+            "#00A651"
+        ];
+
+        const preguntasMundiales = {
+
+            "1998": {
+                1: "¿Quién ganó el Mundial Francia 1998?",
+                2: "¿Quién fue subcampeón?",
+                3: "¿Quién anotó dos goles en la final?",
+                4: "¿Qué país organizó el Mundial?",
+                5: "¿Cuál fue la mascota?",
+                6: "¿Qué selección terminó tercera?",
+                7: "¿Quién fue el entrenador de Francia?",
+                8: "¿Dónde fue la final?",
+                9: "¿Cuántos goles hizo Francia en la final?"
+            },
+
+            "2002": {
+                1: "¿Quién ganó Corea-Japón 2002?",
+                2: "¿Cuántos goles anotó Ronaldo?",
+                3: "¿Quién fue subcampeón?",
+                4: "¿Qué países organizaron el Mundial?",
+                5: "¿Quién ganó la Bota de Oro?",
+                6: "¿Qué selección sorprendió llegando lejos?",
+                7: "¿Dónde se jugó la final?",
+                8: "¿Quién fue la figura de Brasil?",
+                9: "¿Qué selección eliminó a España?"
+            },
+
+            "2006": {
+                1: "¿Quién ganó Alemania 2006?",
+                2: "¿Qué jugador fue expulsado en la final?",
+                3: "¿Quién fue subcampeón?",
+                4: "¿Quién ganó el Balón de Oro?",
+                5: "¿Cómo terminó la final?",
+                6: "¿Quién anotó el penal decisivo?",
+                7: "¿Cuál fue la mascota?",
+                8: "¿Dónde se jugó la final?",
+                9: "¿Cuántos títulos tenía Italia?"
+            },
+
+            "2010": {
+                1: "¿Quién ganó Sudáfrica 2010?",
+                2: "¿Quién anotó el gol de la final?",
+                3: "¿Qué país fue sede?",
+                4: "¿Quién fue subcampeón?",
+                5: "¿Cuál fue la mascota?",
+                6: "¿Cómo se llamó el balón oficial?",
+                7: "¿Qué instrumento era popular?",
+                8: "¿Quién eliminó a Brasil?",
+                9: "¿Quién ganó el Balón de Oro?"
+            },
+
+            "2014": {
+                1: "¿Quién ganó Brasil 2014?",
+                2: "¿Qué selección perdió 7-1?",
+                3: "¿Quién marcó el gol de la final?",
+                4: "¿Quién fue subcampeón?",
+                5: "¿Cuál fue la mascota?",
+                6: "¿Quién ganó el Balón de Oro?",
+                7: "¿Qué país organizó el torneo?",
+                8: "¿Dónde se jugó la final?",
+                9: "¿Quién fue el goleador?"
+            },
+
+            "2018": {
+                1: "¿Quién ganó Rusia 2018?",
+                2: "¿Quién fue subcampeón?",
+                3: "¿Quién fue la estrella francesa?",
+                4: "¿Quién ganó la Bota de Oro?",
+                5: "¿Cuál fue la mascota?",
+                6: "¿Dónde fue la final?",
+                7: "¿Qué país organizó el torneo?",
+                8: "¿Cuántos goles hubo en la final?",
+                9: "¿Quién ganó el Balón de Oro?"
+            },
+
+            "2022": {
+                1: "¿Quién ganó Catar 2022?",
+                2: "¿Contra quién jugó Argentina la final?",
+                3: "¿Quién levantó la copa?",
+                4: "¿Quién ganó la Bota de Oro?",
+                5: "¿Quién ganó el Guante de Oro?",
+                6: "¿Cuál fue la mascota?",
+                7: "¿Dónde se jugó el Mundial?",
+                8: "¿Cómo terminó la final?",
+                9: "¿Quién hizo hat-trick en la final?"
+            },
+
+            "2026": {
+                1: "¿Qué países organizan el Mundial 2026?",
+                2: "¿Cuántos equipos participarán?",
+                3: "¿Quién crees que será campeón?",
+                4: "¿Qué selección apoyas?",
+                5: "¿Qué jugador destacará?",
+                6: "¿Quién será goleador?",
+                7: "¿Qué selección dará la sorpresa?",
+                8: "¿Quién llegará a la final?",
+                9: "¿Cuál será el mejor partido?"
+            }
+        };
+
+        const numSegmentos = mundiales.length;
         const radio = canvas.width / 2;
+
         let angulo = 0;
         let velocidad = 0;
         let animando = false;
-        const preguntasUsadas = []; // Guardar preguntas ya usadas
+        let mundialSeleccionado = "";
 
-        // Cargar el audio
-        const audioGiro = new Audio('audio/Merry-Go-Round.mp3'); // Ruta del audio
-        audioGiro.loop = true; // Hacer que el audio se repita mientras gira
+        const usados = [];
 
-        // Dibujar la ruleta
         function dibujarRuleta() {
+
             const anguloSegmento = (2 * Math.PI) / numSegmentos;
+
             for (let i = 0; i < numSegmentos; i++) {
+
                 const inicio = i * anguloSegmento;
                 const fin = inicio + anguloSegmento;
 
@@ -282,108 +408,226 @@
                 ctx.moveTo(radio, radio);
                 ctx.arc(radio, radio, radio - 5, inicio, fin);
                 ctx.closePath();
-                ctx.fillStyle = i % 2 === 0 ? `hsl(${i * 12},70%,50%)` : `hsl(${i * 12},70%,60%)`;
+
+                ctx.fillStyle = colores[i];
                 ctx.fill();
-                ctx.strokeStyle = "#000";
+
+                ctx.strokeStyle = "#fff";
+                ctx.lineWidth = 2;
                 ctx.stroke();
 
-                // Número del segmento
                 const anguloTexto = inicio + anguloSegmento / 2;
+
                 ctx.save();
-                ctx.translate(radio + Math.cos(anguloTexto) * (radio - 40), radio + Math.sin(anguloTexto) * (radio - 40));
+
+                ctx.translate(
+                    radio + Math.cos(anguloTexto) * (radio - 90),
+                    radio + Math.sin(anguloTexto) * (radio - 90)
+                );
+
                 ctx.rotate(anguloTexto + Math.PI / 2);
+
                 ctx.fillStyle = "#fff";
-                ctx.font = "14px Arial";
+                ctx.font = "bold 18px Arial";
                 ctx.textAlign = "center";
-                ctx.textBaseline = "middle";
-                ctx.fillText(i + 1, 0, 0);
+
+                ctx.fillText(mundiales[i], 0, 0);
+
                 ctx.restore();
             }
         }
 
-        // Dibujar flecha apuntando arriba
         function dibujarFlecha() {
+
             ctx.save();
+
             ctx.translate(radio, radio);
+
             ctx.beginPath();
-            ctx.moveTo(0, -radio + 5); // punta de la flecha
-            ctx.lineTo(-15, -radio + 25);
-            ctx.lineTo(15, -radio + 25);
+            ctx.moveTo(0, -radio + 5);
+            ctx.lineTo(-20, -radio + 35);
+            ctx.lineTo(20, -radio + 35);
+
             ctx.closePath();
+
             ctx.fillStyle = "red";
             ctx.fill();
+
             ctx.restore();
         }
 
-        // Redibujar ruleta
         function dibujar() {
+
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+
             ctx.save();
             ctx.translate(radio, radio);
             ctx.rotate(angulo);
             ctx.translate(-radio, -radio);
+
             dibujarRuleta();
+
             ctx.restore();
+
             dibujarFlecha();
         }
 
-        // Función para girar ruleta
         function girarRuleta() {
+
             if (animando) return;
+
             animando = true;
-            girarBtn.disabled = true;
-            numeroDisplay.textContent = "-";
-            preguntaDisplay.textContent = "Gira la ruleta...";
 
-            // Iniciar audio de giro
-            audioGiro.play();
-
-            velocidad = Math.random() * 0.5 + 0.5; // Mayor velocidad
+            velocidad = Math.random() * 0.5 + 0.5;
 
             function animar() {
+
                 velocidad *= 0.995;
+
                 angulo += velocidad;
+
                 dibujar();
 
                 if (velocidad > 0.001) {
+
                     requestAnimationFrame(animar);
+
                 } else {
-                    // 🔇 Detener el audio de giro
-                    audioGiro.pause();
-                    audioGiro.currentTime = 0; // Reiniciar el audio
 
-                    if (preguntasUsadas.length === numSegmentos) {
-                        preguntaDisplay.textContent = "¡Todas las preguntas ya se usaron! Recarga la página para reiniciar.";
-                        numeroDisplay.textContent = "-";
-                        animando = false;
-                        return;
-                    }
-
-                    // Normalizamos ángulo y ajustamos para que la flecha arriba sea 0
                     let anguloNormalizado = angulo % (2 * Math.PI);
+
                     const anguloPorSegmento = (2 * Math.PI) / numSegmentos;
-                    anguloNormalizado = (anguloNormalizado + Math.PI / 2) % (2 * Math.PI); // ajustar 90° para flecha arriba
-                    let indice = Math.floor(numSegmentos - (anguloNormalizado / anguloPorSegmento));
+
+                    anguloNormalizado =
+                        (anguloNormalizado + Math.PI / 2) % (2 * Math.PI);
+
+                    let indice =
+                        Math.floor(
+                            numSegmentos -
+                            (anguloNormalizado / anguloPorSegmento)
+                        );
+
                     indice = indice % numSegmentos;
 
-                    // Validar que no se haya usado
-                    while (preguntasUsadas.includes(indice)) {
-                        indice = Math.floor(Math.random() * numSegmentos);
-                    }
+                    mundialSeleccionado = mundiales[indice];
 
-                    preguntasUsadas.push(indice);
+                    numeroDisplay.textContent =
+                        mundialSeleccionado;
 
-                    numeroDisplay.textContent = indice + 1;
-                    preguntaDisplay.textContent = preguntas[indice];
+                    preguntaDisplay.textContent =
+                        "Seleccione un número del 1 al 9";
+
+                    document.getElementById("panelNumeros").style.display =
+                        "block";
+
+                    document.getElementById("tituloMundial").innerHTML =
+                        "⚽ Mundial " + mundialSeleccionado;
+
                     animando = false;
-                    girarBtn.disabled = false;
                 }
             }
 
             requestAnimationFrame(animar);
         }
 
-        girarBtn.addEventListener('click', girarRuleta);
+
+        function girarRuleta() {
+
+            if (animando) return;
+
+            animando = true;
+
+            // Reiniciar botones
+            document.querySelectorAll(".btn-numero").forEach(btn => {
+                btn.disabled = false;
+                btn.style.background = "#004aad";
+            });
+
+            document.getElementById("panelNumeros").style.display = "none";
+
+            velocidad = Math.random() * 0.5 + 0.5;
+
+            function animar() {
+
+                velocidad *= 0.995;
+                angulo += velocidad;
+
+                dibujar();
+
+                if (velocidad > 0.001) {
+
+                    requestAnimationFrame(animar);
+
+                } else {
+
+                    let anguloNormalizado = angulo % (2 * Math.PI);
+
+                    const anguloPorSegmento =
+                        (2 * Math.PI) / numSegmentos;
+
+                    let indice = Math.floor(
+                        ((2 * Math.PI) - anguloNormalizado) /
+                        anguloPorSegmento
+                    );
+
+                    indice = indice % numSegmentos;
+
+                    mundialSeleccionado = mundiales[indice];
+
+                    numeroDisplay.textContent = mundialSeleccionado;
+
+                    preguntaDisplay.textContent =
+                        "Seleccione un número del 1 al 9";
+
+                    document.getElementById("tituloMundial").innerHTML =
+                        "⚽ Mundial " + mundialSeleccionado;
+
+                    document.getElementById("panelNumeros").style.display =
+                        "block";
+
+                    animando = false;
+                }
+            }
+
+            requestAnimationFrame(animar);
+        }
+
+        girarBtn.addEventListener("click", girarRuleta);
+
+        document.querySelectorAll(".btn-numero").forEach(btn => {
+
+            btn.addEventListener("click", function () {
+
+                if (mundialSeleccionado === "") {
+
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Primero gira la ruleta"
+                    });
+
+                    return;
+                }
+
+                const numero = this.textContent;
+
+                const pregunta =
+                    preguntasMundiales[mundialSeleccionado][numero];
+
+                Swal.fire({
+                    title: "⚽ Mundial " + mundialSeleccionado,
+                    html: `
+                <h3>Pregunta ${numero}</h3>
+                <p>${pregunta}</p>
+            `,
+                    icon: "question",
+                    confirmButtonText: "Aceptar"
+                });
+
+                this.disabled = true;
+                this.style.background = "#999";
+            });
+        });
+
         dibujar();
     </script>
 
@@ -391,7 +635,3 @@
 </body>
 
 </html>
-
-
-
-
