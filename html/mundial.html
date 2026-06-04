@@ -53,8 +53,8 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="css/estilo.css" rel="stylesheet">
+    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="../css/estilo.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
@@ -163,7 +163,17 @@
                             <div class="card h-100">
                                 <div class="card-body">
 
-                                    
+                                    <h1>Gira y gana</h1>
+                                    <div class="contenedor">
+                                        <canvas id="ruletaCanvas" width="500" height="500"></canvas>
+                                        <div class="panel">
+                                            <h2>Resultado</h2>
+                                            <p><strong>Número:</strong> <span id="numero">-</span></p>
+                                            <p><strong>Pregunta:</strong></p>
+                                            <p id="pregunta">Gira la ruleta para ver la pregunta.</p>
+                                            <button id="girarBtn">Girar Ruleta</button>
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>
