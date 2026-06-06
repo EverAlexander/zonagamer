@@ -73,29 +73,40 @@
             text-align: center;
             margin-bottom: 10px;
         }
+
+        /* Contenedor del card */
+        .card-body {
+            position: relative;
+        }
+
+        /* Botón de audio */
         #btnAudio {
-    position: absolute;
-    top: 15px;
-    right: 15px;
+            position: absolute;
+            top: 15px;
+            right: 15px;
 
-    width: 45px;
-    height: 45px;
+            width: 45px;
+            height: 45px;
 
-    border: none;
-    border-radius: 50%;
+            border: none;
+            border-radius: 50%;
 
-    background: #004aad;
-    color: white;
+            background: #004aad;
+            color: white;
 
-    font-size: 18px;
-    cursor: pointer;
+            font-size: 18px;
+            cursor: pointer;
 
-    z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+            z-index: 9999;
+        }
+
+        #btnAudio:hover {
+            background: #0066ff;
+        }
     </style>
     <!-- Custom fonts for this template-->
     <link href="public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -213,7 +224,7 @@
                         <div class="col-lg-12 col-md-12 order-2 mb-4">
                             <div class="card h-100">
                                 <div class="card-body">
-                                    <button id="btnAudio">🔊 Activar</button>
+                                    <button id="btnAudio">🔊 Activar Sonido</button>
 
                                     <audio id="musicaFondo" loop>
                                         <source src="../audio/mundial.mp3" type="audio/mpeg">
@@ -311,7 +322,7 @@
 
                     musica.play();
 
-                    reproduciendo = true;
+                    reproduciendo = false;
 
                     btnAudio.textContent = "🔇 Silenciar";
 
