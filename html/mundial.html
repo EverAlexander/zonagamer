@@ -190,10 +190,16 @@
                         <div class="col-lg-12 col-md-12 order-2 mb-4">
                             <div class="card h-100">
                                 <div class="card-body">
+                                    <button id="btnAudio">🔊 Silenciar</button>
+
+    <audio id="musicaFondo" loop>
+        <source src="musica/mundial.mp3" type="audio/mpeg">
+    </audio>
 
                                     <h1>Gira y gana</h1>
                                     <div class="contenedor">
                                         <canvas id="ruletaCanvas" width="500" height="500"></canvas>
+                                        
                                         <div class="panel">
                                             <h2>Resultado</h2>
                                             <p><strong>Número:</strong> <span id="numero">-</span></p>
