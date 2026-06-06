@@ -193,7 +193,7 @@
                                     <button id="btnAudio">🔊 Silenciar</button>
 
     <audio id="musicaFondo" loop>
-        <source src="musica/mundial.mp3" type="audio/mpeg">
+        <source src="../audio/mundial.mp3" type="audio/mpeg">
     </audio>
 
                                     <h1>Gira y gana</h1>
@@ -274,6 +274,29 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+
+            const musica = document.getElementById("musicaFondo");
+const btnAudio = document.getElementById("btnAudio");
+
+// Intentar reproducir automáticamente
+musica.volume = 0.3; // volumen 30%
+
+musica.play().catch(() => {
+    console.log("El navegador bloqueó el autoplay");
+});
+
+// Silenciar / activar
+btnAudio.addEventListener("click", () => {
+
+    if (musica.muted) {
+        musica.muted = false;
+        btnAudio.textContent = "🔊 Silenciar";
+    } else {
+        musica.muted = true;
+        btnAudio.textContent = "🔇 Activar sonido";
+    }
+
+});
 
             const canvas = document.getElementById("ruletaCanvas");
             const ctx = canvas.getContext("2d");
