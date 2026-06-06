@@ -175,15 +175,10 @@
                                     <i class="fas fa-users"></i> Lista de juegos
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarGrupos">
-                                    <a class="dropdown-item" href="../index.html">Ruleta</a>
-                                    <a class="dropdown-item" href="memoria.html">Memoria</a>
-                                    <a class="dropdown-item" href="moneda.html">Monedas</a>
-                                    <a class="dropdown-item" href="Bloques.html">Salto</a>
-                                    <a class="dropdown-item" href="puntos.html">Puntos</a>
-                                    <a class="dropdown-item" href="#">Ruleta Mundialista</a>
-                                    
-                                    <a class="dropdown-item" href="Portada.html">Portada</a>
-                                    
+                                    <a class="dropdown-item" href="#">Ruleta</a>
+                                    <a class="dropdown-item" href="html/memoria.html">Memoria</a>
+                                    <a class="dropdown-item" href="html/moneda.html">Monedas</a>
+                                    <a class="dropdown-item" href="html/Portada.html">Portada</a>
                                 </div>
                             </li>
 
@@ -327,7 +322,7 @@
 
                     musica.play();
 
-                    reproduciendo = true;
+                    reproduciendo = false;
 
                     btnAudio.textContent = "🔇";
 
@@ -876,9 +871,9 @@
                 ctx.translate(radio, radio);
 
                 ctx.beginPath();
-                ctx.moveTo(0, -radio + 5);
-                ctx.lineTo(-20, -radio + 35);
-                ctx.lineTo(20, -radio + 35);
+                ctx.moveTo(0, -radio + 10);
+                ctx.lineTo(-20, -radio + 40);
+                ctx.lineTo(20, -radio + 40);
                 ctx.closePath();
 
                 ctx.fillStyle = "red";
@@ -936,16 +931,20 @@
 
                         const anguloSegmento = (2 * Math.PI) / numSegmentos;
 
+                        // Obtener el segmento que está debajo de la flecha superior
                         let indice = Math.floor(
-                            (numSegmentos - (anguloNormalizado / anguloSegmento))
-                        ) % numSegmentos;
+                            (((3 * Math.PI) / 2 - anguloNormalizado + 2 * Math.PI) %
+                                (2 * Math.PI)) / anguloSegmento
+                        );
 
-                        if (indice < 0) indice += numSegmentos;
+                        indice = indice % numSegmentos;
 
                         mundialSeleccionado = mundiales[indice];
-
                         // Mostrar año seleccionado
                         numeroDisplay.textContent = mundialSeleccionado;
+
+
+
 
                         // Mostrar mensaje
                         preguntaDisplay.innerHTML =
