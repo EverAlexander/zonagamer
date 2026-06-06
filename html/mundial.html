@@ -192,14 +192,14 @@
                                 <div class="card-body">
                                     <button id="btnAudio">🔊 Silenciar</button>
 
-    <audio id="musicaFondo" controls loop>
-    <source src="../audio/mundial.mp3" type="audio/mpeg">
-</audio>
+                                    <audio id="musicaFondo" loop>
+                                        <source src="../audio/mundial.mp3" type="audio/mpeg">
+                                    </audio>
 
                                     <h1>Gira y gana</h1>
                                     <div class="contenedor">
                                         <canvas id="ruletaCanvas" width="500" height="500"></canvas>
-                                        
+
                                         <div class="panel">
                                             <h2>Resultado</h2>
                                             <p><strong>Número:</strong> <span id="numero">-</span></p>
@@ -275,29 +275,41 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
 
-const musica = document.getElementById("musicaFondo");
-const btnAudio = document.getElementById("btnAudio");
+            const musica = document.getElementById("musicaFondo");
+            const btnAudio = document.getElementById("btnAudio");
 
-musica.volume = 0.3;
+            musica.volume = 0.3;
 
-// Iniciar la música con el primer clic en la página
-document.addEventListener("click", function iniciarMusica() {
-    musica.play();
-    document.removeEventListener("click", iniciarMusica);
-}, { once: true });
+            let reproduciendo = false;
 
-// Botón silenciar
-btnAudio.addEventListener("click", () => {
+            btnAudio.addEventListener("click", () => {
 
-    if (musica.muted) {
-        musica.muted = false;
-        btnAudio.textContent = "🔊 Silenciar";
-    } else {
-        musica.muted = true;
-        btnAudio.textContent = "🔇 Activar sonido";
-    }
+                if (!reproduciendo) {
 
-});
+                    musica.play();
+
+                    reproduciendo = true;
+
+                    btnAudio.textContent = "🔇 Silenciar";
+
+                } else {
+
+                    if (musica.muted) {
+
+                        musica.muted = false;
+                        btnAudio.textContent = "🔇 Silenciar";
+
+                    } else {
+
+                        musica.muted = true;
+                        btnAudio.textContent = "🔊 Activar Audio";
+
+                    }
+
+                }
+
+            });
+
             const canvas = document.getElementById("ruletaCanvas");
             const ctx = canvas.getContext("2d");
 
