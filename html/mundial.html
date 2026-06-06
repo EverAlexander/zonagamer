@@ -224,7 +224,7 @@
                         <div class="col-lg-12 col-md-12 order-2 mb-4">
                             <div class="card h-100">
                                 <div class="card-body">
-                                    <button id="btnAudio">🔊 Activar Sonido</button>
+                                    <button id="btnAudio">🔊</button>
 
                                     <audio id="musicaFondo" loop>
                                         <source src="../audio/mundial.mp3" type="audio/mpeg">
@@ -324,19 +324,19 @@
 
                     reproduciendo = false;
 
-                    btnAudio.textContent = "🔇 Silenciar";
+                    btnAudio.textContent = "🔇";
 
                 } else {
 
                     if (musica.muted) {
 
                         musica.muted = false;
-                        btnAudio.textContent = "🔇 Silenciar";
+                        btnAudio.textContent = "🔇";
 
                     } else {
 
                         musica.muted = true;
-                        btnAudio.textContent = "🔊 Activar Audio";
+                        btnAudio.textContent = "🔊";
 
                     }
 
