@@ -275,17 +275,18 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
 
-            const musica = document.getElementById("musicaFondo");
+const musica = document.getElementById("musicaFondo");
 const btnAudio = document.getElementById("btnAudio");
 
-// Intentar reproducir automáticamente
-musica.volume = 0.3; // volumen 30%
+musica.volume = 0.3;
 
-musica.play().catch(() => {
-    console.log("El navegador bloqueó el autoplay");
-});
+// Iniciar la música con el primer clic en la página
+document.addEventListener("click", function iniciarMusica() {
+    musica.play();
+    document.removeEventListener("click", iniciarMusica);
+}, { once: true });
 
-// Silenciar / activar
+// Botón silenciar
 btnAudio.addEventListener("click", () => {
 
     if (musica.muted) {
@@ -297,7 +298,6 @@ btnAudio.addEventListener("click", () => {
     }
 
 });
-
             const canvas = document.getElementById("ruletaCanvas");
             const ctx = canvas.getContext("2d");
 
