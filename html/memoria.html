@@ -7,220 +7,239 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Menu principal</title>
+```
+<title>Menu principal</title>
 
-    <style>
-        #tablero {
-            display: grid;
-            grid-template-columns: repeat(8, 100px);
-            grid-auto-rows: 120px;
-            gap: 12px;
-            justify-content: center;
-            margin-top: 20px;
-        }
+<style>
+    #tablero {
+        display: grid;
+        grid-template-columns: repeat(8, 100px);
+        grid-auto-rows: 120px;
+        gap: 12px;
+        justify-content: center;
+        margin-top: 20px;
+    }
 
-        .carta {
-            width: 100px;
-            height: 120px;
-            border-radius: 10px;
-            border: 2px solid #343a40;
-            background: #343a40;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            transition: transform 0.3s;
-        }
+    .carta {
+        width: 100px;
+        height: 120px;
+        border-radius: 10px;
+        border: 2px solid #343a40;
+        background: #343a40;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        transition: transform 0.3s;
+    }
 
-        .carta:hover {
-            transform: scale(1.05);
-        }
+    .carta:hover {
+        transform: scale(1.05);
+    }
 
-        .carta img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            background: #fff;
-            padding: 5px;
-        }
+    .carta img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        background: #fff;
+        padding: 5px;
+    }
 
-        .carta.acertada {
-            border: 3px solid #28a745;
-            cursor: default;
-        }
-    </style>
+    .carta.acertada {
+        border: 3px solid #28a745;
+        cursor: default;
+    }
+</style>
 
-    <!-- Fuentes y estilos -->
-    <link href="../public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
-    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="../css/estilo.css" rel="stylesheet">
+<!-- Fuentes y estilos -->
+<link href="../public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
+<link href="../css/sb-admin-2.min.css" rel="stylesheet">
+<link href="../css/estilo.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
-    <script>
-        function actualizarHora() {
+<script>
+    function actualizarHora() {
 
-            const ahora = new Date();
+        const ahora = new Date();
 
-            const horas = ahora.getHours().toString().padStart(2, '0');
-            const minutos = ahora.getMinutes().toString().padStart(2, '0');
-            const segundos = ahora.getSeconds().toString().padStart(2, '0');
+        const horas = ahora.getHours().toString().padStart(2, '0');
+        const minutos = ahora.getMinutes().toString().padStart(2, '0');
+        const segundos = ahora.getSeconds().toString().padStart(2, '0');
 
-            const horaFormateada = `${horas}:${minutos}:${segundos}`;
+        const horaFormateada = `${horas}:${minutos}:${segundos}`;
 
-            document.getElementById('horaActual').textContent = horaFormateada;
-        }
+        document.getElementById('horaActual').textContent = horaFormateada;
+    }
 
-        setInterval(actualizarHora, 1000);
+    setInterval(actualizarHora, 1000);
 
-        actualizarHora();
-    </script>
+    actualizarHora();
+</script>
+```
 
 </head>
 
 <body id="page-top">
 
-    <!-- Audio del juego -->
-    <audio id="musicaJuego" src="../audio/Powerful Mario.mp3" loop></audio>
+```
+<!-- Audio del juego -->
+<audio id="musicaJuego" src="../audio/Powerful Mario.mp3" loop></audio>
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
+<!-- Page Wrapper -->
+<div id="wrapper">
 
-        <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content-wrapper" class="d-flex flex-column">
 
-            <div id="content">
+        <div id="content">
 
-                <!-- Navbar Superior -->
-                <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-primary mb-4">
+            <!-- Navbar Superior -->
+            <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-primary mb-4">
 
-                    <a class="navbar-brand" href="?route=home">
-                        <i class="fas fa-gamepad"></i>
-                        Zona Gamer
-                    </a>
+                <a class="navbar-brand" href="?route=home">
+                    <i class="fas fa-gamepad"></i>
+                    Zona Gamer
+                </a>
 
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarGamer">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarGamer">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                    <div class="collapse navbar-collapse" id="navbarGamer">
+                <div class="collapse navbar-collapse" id="navbarGamer">
 
-                        <ul class="navbar-nav ml-auto align-items-center">
+                    <ul class="navbar-nav ml-auto align-items-center">
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="fas fa-home"></i>
-                                    Inicio
-                                </a>
-                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-home"></i>
+                                Inicio
+                            </a>
+                        </li>
 
-                            <li class="nav-item dropdown">
+                        <li class="nav-item dropdown">
 
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarGrupos" data-toggle="dropdown">
+                            <a class="nav-link dropdown-toggle"
+                                href="#"
+                                id="navbarGrupos"
+                                data-toggle="dropdown">
 
-                                    <i class="fas fa-users"></i>
-                                    Lista de juegos
+                                <i class="fas fa-users"></i>
+                                Lista de juegos
 
-                                </a>
+                            </a>
 
-                                <div class="dropdown-menu dropdown-menu-right">
+                            <div class="dropdown-menu dropdown-menu-right">
 
-                                    <a class="dropdown-item" href="../index.html">
-                                        Ruleta
-                                    </a>
-
-                                    <a class="dropdown-item" href="#">
-                                        Memoria
-                                    </a>
-
-                                    <a class="dropdown-item" href="moneda.html">
-                                        Monedas
-                                    </a>
-
-                                    <a class="dropdown-item" href="Bloques.html">
-                                        Saltos
-                                    </a>
-
-                                    <a class="dropdown-item" href="mundial.html">
-                                        Ruleta Mundialista
-                                    </a>
-
-                                    <a class="dropdown-item" href="puntos.html">
-                                        Puntos
-                                    </a>
-
-                                    <a class="dropdown-item" href="Portada.html">
-                                        Portada
-                                    </a>
-
-                                </div>
-
-                            </li>
-
-                            <li class="nav-item">
-
-                                <span class="nav-link font-weight-bold text-white" id="horaActual">
-                                </span>
-
-                            </li>
-
-                            <li class="nav-item dropdown">
-
-                                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown"
-                                    data-toggle="dropdown">
-
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuNuWLCLLcxIOHZWSOPeGrmiBLf_fA9Cxqvw&s"
-                                        alt="Imagen de usuario" class="user-logo" width="40" height="40">
-
+                                <a class="dropdown-item" href="../index.html">
+                                    Ruleta
                                 </a>
 
-                            </li>
+                                <a class="dropdown-item" href="#">
+                                    Memoria
+                                </a>
 
-                        </ul>
+                                <a class="dropdown-item" href="moneda.html">
+                                    Monedas
+                                </a>
 
-                    </div>
+                                <a class="dropdown-item" href="Bloques.html">
+                                    Saltos
+                                </a>
 
-                </nav>
+                                <a class="dropdown-item" href="mundial.html">
+                                    Ruleta Mundialista
+                                </a>
+
+                                <a class="dropdown-item" href="puntos.html">
+                                    Puntos
+                                </a>
+
+                                <a class="dropdown-item" href="Portada.html">
+                                    Portada
+                                </a>
+
+                            </div>
+
+                        </li>
+
+                        <li class="nav-item">
+
+                            <span class="nav-link font-weight-bold text-white"
+                                id="horaActual">
+                            </span>
+
+                        </li>
+
+                        <li class="nav-item dropdown">
+
+                            <a class="nav-link dropdown-toggle d-flex align-items-center"
+                                href="#"
+                                id="userDropdown"
+                                data-toggle="dropdown">
+
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuNuWLCLLcxIOHZWSOPeGrmiBLf_fA9Cxqvw&s"
+                                    alt="Imagen de usuario"
+                                    class="user-logo"
+                                    width="40"
+                                    height="40">
+
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </nav>
 
 
-                <div class="container-fluid">
+            <div class="container-fluid">
 
-                    <div class="row">
+                <div class="row">
 
-                        <div class="col-lg-12 mb-4">
+                    <div class="col-lg-12 mb-4">
 
-                            <div class="card h-100">
+                        <div class="card h-100">
 
-                                <div class="card-body">
+                            <div class="card-body">
 
-                                    <div class="contenedor-juego text-center">
+                                <div class="contenedor-juego text-center">
 
-                                        <h2>
-                                            Juego de Memoria
-                                        </h2>
+                                    <h2>
+                                        Juego de Memoria
+                                    </h2>
 
-                                        <p id="contador"></p>
+                                    <p id="contador"></p>
 
-                                        <div id="tablero" class="d-flex flex-wrap justify-content-center">
-                                        </div>
-
-
-                                        <button id="reiniciar" class="btn btn-primary mt-3" style="display:none;">
-
-                                            🔄 Nueva Ronda
-
-                                        </button>
-
+                                    <div id="tablero"
+                                        class="d-flex flex-wrap justify-content-center">
                                     </div>
+
+                                    <button id="btnBarajear"
+                                        class="btn btn-success mt-3">
+
+                                        🔄 Barajear
+
+                                    </button>
+
+                                    <button id="reiniciar"
+                                        class="btn btn-primary mt-3"
+                                        style="display:none;">
+
+                                        🔄 Nueva Ronda
+
+                                    </button>
 
                                 </div>
 
@@ -234,670 +253,675 @@
 
             </div>
 
+        </div>
 
-            <footer class="sticky-footer bg-white">
 
-                <div class="container my-auto">
+        <footer class="sticky-footer bg-white">
 
-                    <div class="copyright text-center my-auto">
+            <div class="container my-auto">
 
-                        ©
-                        <script>
-                            document.write(new Date().getFullYear());
-                        </script>,
-                        The_Alexander
+                <div class="copyright text-center my-auto">
 
-                    </div>
+                    ©
+                    <script>
+                        document.write(new Date().getFullYear());
+                    </script>,
+                    The_Alexander
 
                 </div>
 
-            </footer>
+            </div>
 
-        </div>
+        </footer>
 
     </div>
 
-    <script src="../public/vendor/jquery/jquery.min.js"></script>
-
-    <script src="../public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <script src="../public/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <script src="../public/js/sb-admin-2.min.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+</div>
 
 
-    <script>
+<!-- JS -->
 
-        // ==========================================
-        // ELEMENTOS DEL DOM
-        // ==========================================
+<script src="../public/vendor/jquery/jquery.min.js"></script>
 
-        const tablero = document.getElementById("tablero");
+<script src="../public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-        const contador = document.getElementById("contador");
+<script src="../public/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-        const btnReiniciar = document.getElementById("reiniciar");
+<script src="../public/js/sb-admin-2.min.js"></script>
 
-        const btnBarajear = document.getElementById("btnBarajear");
-
-        const musicaJuego = document.getElementById("musicaJuego");
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
 
-        // ==========================================
-        // VARIABLES DEL JUEGO
-        // ==========================================
+<script>
 
-        let cartas = [];
+    // ==========================================
+    // ELEMENTOS DEL DOM
+    // ==========================================
 
-        let seleccionadas = [];
+    const tablero = document.getElementById("tablero");
 
-        let parejasEncontradas = 0;
+    const contador = document.getElementById("contador");
 
-        let tiempoMemoria = 15;
+    const btnReiniciar = document.getElementById("reiniciar");
 
-        let intervalo = null;
+    const btnBarajear = document.getElementById("btnBarajear");
 
-        let bloqueo = false;
-
-        // NUEVO:
-        // El jugador tiene 3 intentos
-        let intentosRestantes = 3;
+    const musicaJuego = document.getElementById("musicaJuego");
 
 
-        // ==========================================
-        // IMAGEN DEL DORSO
-        // ==========================================
+    // ==========================================
+    // VARIABLES DEL JUEGO
+    // ==========================================
 
-        const dorso = "../imagenes/busqueda.png";
+    let cartas = [];
+
+    let seleccionadas = [];
+
+    let parejasEncontradas = 0;
+
+    let tiempoMemoria = 15;
+
+    let intervalo = null;
+
+    let bloqueo = false;
+
+    // NUEVO:
+    // El jugador tiene 3 intentos
+    let intentosRestantes = 3;
 
 
-        // ==========================================
-        // IMÁGENES DE LAS CARTAS
-        // ==========================================
+    // ==========================================
+    // IMAGEN DEL DORSO
+    // ==========================================
 
-        const imagenes = [
+    const dorso = "../imagenes/busqueda.png";
 
-            "../imagenes/mario.jpeg",
 
-            "../imagenes/estrella.jpg",
+    // ==========================================
+    // IMÁGENES DE LAS CARTAS
+    // ==========================================
 
-            "../imagenes/hongo.png",
+    const imagenes = [
 
-            "../imagenes/flor.jpg",
+        "../imagenes/mario.jpeg",
 
-            "../imagenes/luigi.jpg",
+        "../imagenes/estrella.jpg",
 
-            "../imagenes/caparazonazul.png",
+        "../imagenes/hongo.png",
 
-            "../imagenes/peach.png",
+        "../imagenes/flor.jpg",
 
-            "../imagenes/toade.png",
+        "../imagenes/luigi.jpg",
 
-            "../imagenes/pregu.png",
+        "../imagenes/caparazonazul.png",
 
-            "../imagenes/monedd.jpg",
+        "../imagenes/peach.png",
 
-            "../imagenes/rosalina.png",
+        "../imagenes/toade.png",
 
-            "../imagenes/pirana.jpg",
+        "../imagenes/pregu.png",
 
-            "../imagenes/deysi.png",
+        "../imagenes/monedd.jpg",
 
-            "../imagenes/yoshi.png",
+        "../imagenes/rosalina.png",
 
-            "../imagenes/bom.png",
+        "../imagenes/pirana.jpg",
 
-            "../imagenes/bala.jpeg"
+        "../imagenes/deysi.png",
 
+        "../imagenes/yoshi.png",
+
+        "../imagenes/bom.png",
+
+        "../imagenes/bala.jpeg"
+
+    ];
+
+
+    // ==========================================
+    // INICIAR MÚSICA
+    // ==========================================
+
+    function iniciarMusica() {
+
+        musicaJuego.currentTime = 0;
+
+        musicaJuego.play().catch(err => {
+
+            console.log(
+                "Autoplay bloqueado:",
+                err
+            );
+
+        });
+
+    }
+
+
+    // ==========================================
+    // DETENER MÚSICA
+    // ==========================================
+
+    function detenerMusica() {
+
+        musicaJuego.pause();
+
+        musicaJuego.currentTime = 0;
+
+    }
+
+
+    // ==========================================
+    // GENERAR CARTAS
+    // ==========================================
+
+    function generarCartas() {
+
+        clearInterval(intervalo);
+
+        tablero.innerHTML = "";
+
+        cartas = [];
+
+        seleccionadas = [];
+
+        parejasEncontradas = 0;
+
+        bloqueo = false;
+
+        // Reiniciar los 3 intentos
+        intentosRestantes = 3;
+
+        btnReiniciar.style.display = "none";
+
+        detenerMusica();
+
+
+        // Crear las parejas
+        let valores = [
+            ...imagenes,
+            ...imagenes
         ];
 
 
-        // ==========================================
-        // INICIAR MÚSICA
-        // ==========================================
+        // Barajar cartas
+        valores.sort(
+            () => Math.random() - 0.5
+        );
 
-        function iniciarMusica() {
 
-            musicaJuego.currentTime = 0;
+        // Crear cada carta
+        valores.forEach(
+            (valor, index) => {
 
-            musicaJuego.play().catch(err => {
+                const div =
+                    document.createElement("div");
 
-                console.log(
-                    "Autoplay bloqueado:",
-                    err
+                div.className = "carta";
+
+                div.dataset.valor = valor;
+
+
+                const img =
+                    document.createElement("img");
+
+                img.src = valor;
+
+                img.alt =
+                    "carta " + (index + 1);
+
+
+                div.appendChild(img);
+
+
+                div.addEventListener(
+                    "click",
+                    () => seleccionarCarta(div)
                 );
 
-            });
 
-        }
+                tablero.appendChild(div);
 
-
-        // ==========================================
-        // DETENER MÚSICA
-        // ==========================================
-
-        function detenerMusica() {
-
-            musicaJuego.pause();
-
-            musicaJuego.currentTime = 0;
-
-        }
-
-
-        // ==========================================
-        // GENERAR CARTAS
-        // ==========================================
-
-        function generarCartas() {
-
-            clearInterval(intervalo);
-
-            tablero.innerHTML = "";
-
-            cartas = [];
-
-            seleccionadas = [];
-
-            parejasEncontradas = 0;
-
-            bloqueo = false;
-
-            // Reiniciar los 3 intentos
-            intentosRestantes = 3;
-
-            btnReiniciar.style.display = "none";
-
-            detenerMusica();
-
-
-            // Crear las parejas
-            let valores = [
-                ...imagenes,
-                ...imagenes
-            ];
-
-
-            // Barajar cartas
-            valores.sort(
-                () => Math.random() - 0.5
-            );
-
-
-            // Crear cada carta
-            valores.forEach(
-                (valor, index) => {
-
-                    const div =
-                        document.createElement("div");
-
-                    div.className = "carta";
-
-                    div.dataset.valor = valor;
-
-
-                    const img =
-                        document.createElement("img");
-
-                    img.src = valor;
-
-                    img.alt =
-                        "carta " + (index + 1);
-
-
-                    div.appendChild(img);
-
-
-                    div.addEventListener(
-                        "click",
-                        () => seleccionarCarta(div)
-                    );
-
-
-                    tablero.appendChild(div);
-
-                    cartas.push(div);
-
-                }
-            );
-
-        }
-
-
-        // ==========================================
-        // CONTADOR INICIAL
-        // ==========================================
-
-        function iniciarContador() {
-
-            clearInterval(intervalo);
-
-            tiempoMemoria = 10;
-
-
-            contador.textContent =
-                `Memoriza las cartas, tienes ${tiempoMemoria}s...`;
-
-
-            intervalo = setInterval(
-                () => {
-
-                    tiempoMemoria--;
-
-
-                    if (tiempoMemoria > 0) {
-
-                        contador.textContent =
-                            `Memoriza las cartas, tienes ${tiempoMemoria}s...`;
-
-                    } else {
-
-                        clearInterval(intervalo);
-
-
-                        contador.textContent =
-                            `¡Encuentra las parejas! | Intentos: ${intentosRestantes}`;
-
-
-                        ocultarCartas();
-
-
-                        // Iniciar música
-                        iniciarMusica();
-
-                    }
-
-                },
-                1000
-            );
-
-        }
-
-
-        // ==========================================
-        // OCULTAR TODAS LAS CARTAS
-        // ==========================================
-
-        function ocultarCartas() {
-
-            cartas.forEach(
-                c => {
-
-                    c.querySelector("img").src =
-                        dorso;
-
-                    c.classList.add("oculta");
-
-                    c.classList.remove("acertada");
-
-                }
-            );
-
-
-            parejasEncontradas = 0;
-
-        }
-
-
-        // ==========================================
-        // SELECCIONAR CARTA
-        // ==========================================
-
-        function seleccionarCarta(carta) {
-
-            // Si el juego está bloqueado
-            if (bloqueo) {
-                return;
-            }
-
-
-            // Si la carta está visible
-            // no se puede seleccionar
-            if (!carta.classList.contains("oculta")) {
-                return;
-            }
-
-
-            // Evitar seleccionar dos veces
-            // la misma carta
-            if (seleccionadas.includes(carta)) {
-                return;
-            }
-
-
-            // Mostrar carta
-            carta.querySelector("img").src =
-                carta.dataset.valor;
-
-
-            carta.classList.remove("oculta");
-
-
-            // Agregar a seleccionadas
-            seleccionadas.push(carta);
-
-
-            // Si ya seleccionó 2
-            if (seleccionadas.length === 2) {
-
-                bloqueo = true;
-
-
-                setTimeout(
-                    verificarPareja,
-                    700
-                );
+                cartas.push(div);
 
             }
+        );
 
-        }
-
-
-        // ==========================================
-        // VERIFICAR PAREJA
-        // ==========================================
-
-        function verificarPareja() {
-
-            const [c1, c2] =
-                seleccionadas;
+    }
 
 
-            // Validación
-            if (!c1 || !c2) {
+    // ==========================================
+    // CONTADOR INICIAL
+    // ==========================================
 
-                seleccionadas = [];
+    function iniciarContador() {
 
-                bloqueo = false;
+        clearInterval(intervalo);
 
-                return;
-
-            }
-
-
-            // ==========================================
-            // PAREJA CORRECTA
-            // ==========================================
-
-            if (
-                c1.dataset.valor ===
-                c2.dataset.valor
-            ) {
+        tiempoMemoria = 10;
 
 
-                // Marcar cartas como acertadas
-                c1.classList.add("acertada");
-
-                c2.classList.add("acertada");
+        contador.textContent =
+            `Memoriza las cartas, tienes ${tiempoMemoria}s...`;
 
 
-                // Las cartas permanecen visibles
-                c1.classList.remove("oculta");
+        intervalo = setInterval(
+            () => {
 
-                c2.classList.remove("oculta");
-
-
-                // Incrementar parejas encontradas
-                parejasEncontradas++;
+                tiempoMemoria--;
 
 
-                // Actualizar contador
-                contador.textContent =
-                    `Parejas encontradas: ${parejasEncontradas} / 16 | Intentos restantes: ${intentosRestantes}`;
+                if (tiempoMemoria > 0) {
 
+                    contador.textContent =
+                        `Memoriza las cartas, tienes ${tiempoMemoria}s...`;
 
-                // ==========================================
-                // GANÓ EL JUEGO
-                // ==========================================
+                } else {
 
-                if (
-                    parejasEncontradas === 16
-                ) {
+                    clearInterval(intervalo);
 
 
                     contador.textContent =
-                        "🎉 ¡Completado!";
+                        `¡Encuentra las parejas! | Intentos: ${intentosRestantes}`;
 
 
-                    detenerMusica();
+                    ocultarCartas();
 
 
-                    Swal.fire({
-
-                        title:
-                            "🎉 ¡Felicidades!",
-
-                        text:
-                            "Has encontrado todas las parejas",
-
-                        icon:
-                            "success",
-
-                        confirmButtonText:
-                            "Aceptar",
-
-                        imageUrl:
-                            "../imagenes/encu.png",
-
-                        imageWidth:
-                            120,
-
-                        imageHeight:
-                            120,
-
-                        imageAlt:
-                            "Trofeo"
-
-                    });
-
-
-                    btnReiniciar.style.display =
-                        "inline-block";
-
-
-                    btnBarajear.style.display =
-                        "inline-block";
+                    // Iniciar música
+                    iniciarMusica();
 
                 }
 
+            },
+            1000
+        );
 
-                // Limpiar selección
-                seleccionadas = [];
+    }
 
 
-                // Desbloquear
-                bloqueo = false;
+    // ==========================================
+    // OCULTAR TODAS LAS CARTAS
+    // ==========================================
 
+    function ocultarCartas() {
 
-            } else {
+        cartas.forEach(
+            c => {
 
+                c.querySelector("img").src =
+                    dorso;
 
-                // ==========================================
-                // PAREJA INCORRECTA
-                // ==========================================
+                c.classList.add("oculta");
 
-                intentosRestantes--;
-
-
-                // Esperar un momento
-                // antes de ocultar las cartas
-                setTimeout(
-                    () => {
-
-
-                        // ==========================================
-                        // SOLO OCULTAR LAS 2 CARTAS INCORRECTAS
-                        // ==========================================
-
-                        c1.querySelector("img").src =
-                            dorso;
-
-                        c1.classList.add("oculta");
-
-
-                        c2.querySelector("img").src =
-                            dorso;
-
-                        c2.classList.add("oculta");
-
-
-                        // Limpiar selección
-                        seleccionadas = [];
-
-
-                        // ==========================================
-                        // SE TERMINARON LOS INTENTOS
-                        // ==========================================
-
-                        if (
-                            intentosRestantes <= 0
-                        ) {
-
-
-                            // Bloquear el tablero
-                            bloqueo = true;
-
-
-                            // Mostrar todas las cartas
-                            cartas.forEach(
-                                c => {
-
-                                    c.querySelector("img").src =
-                                        c.dataset.valor;
-
-                                    c.classList.remove(
-                                        "oculta"
-                                    );
-
-                                }
-                            );
-
-
-                            // Mostrar mensaje
-                            contador.textContent =
-                                "❌ ¡Se terminaron tus 3 intentos!";
-
-
-                            // Detener música
-                            detenerMusica();
-
-
-                            // Mostrar alerta
-                            Swal.fire({
-
-                                title:
-                                    "😢 ¡Se terminaron los intentos!",
-
-                                text:
-                                    "Has utilizado tus 3 intentos.",
-
-                                icon:
-                                    "error",
-
-                                confirmButtonText:
-                                    "Aceptar"
-
-                            });
-
-
-                            // Mostrar botón
-                            // Nueva Ronda
-                            btnReiniciar.style.display =
-                                "inline-block";
-
-
-                            btnBarajear.style.display =
-                                "inline-block";
-
-
-                        } else {
-
-
-                            // ==========================================
-                            // TODAVÍA TIENE INTENTOS
-                            // ==========================================
-
-                            contador.textContent =
-                                `❌ Pareja incorrecta. Intentos restantes: ${intentosRestantes}`;
-
-
-                            // Desbloquear
-                            bloqueo = false;
-
-                        }
-
-                    },
-                    700
-                );
-
-            }
-
-        }
-
-
-        // ==========================================
-        // BOTÓN BARAJEAR
-        // ==========================================
-
-        btnBarajear.addEventListener(
-            "click",
-            () => {
-
-
-                generarCartas();
-
-
-                iniciarContador();
-
-
-                // Ocultar botón
-                btnBarajear.style.display =
-                    "none";
+                c.classList.remove("acertada");
 
             }
         );
 
 
+        parejasEncontradas = 0;
+
+    }
+
+
+    // ==========================================
+    // SELECCIONAR CARTA
+    // ==========================================
+
+    function seleccionarCarta(carta) {
+
+        // Si el juego está bloqueado
+        if (bloqueo) {
+            return;
+        }
+
+
+        // Si la carta está visible
+        // no se puede seleccionar
+        if (!carta.classList.contains("oculta")) {
+            return;
+        }
+
+
+        // Evitar seleccionar dos veces
+        // la misma carta
+        if (seleccionadas.includes(carta)) {
+            return;
+        }
+
+
+        // Mostrar carta
+        carta.querySelector("img").src =
+            carta.dataset.valor;
+
+
+        carta.classList.remove("oculta");
+
+
+        // Agregar a seleccionadas
+        seleccionadas.push(carta);
+
+
+        // Si ya seleccionó 2
+        if (seleccionadas.length === 2) {
+
+            bloqueo = true;
+
+
+            setTimeout(
+                verificarPareja,
+                700
+            );
+
+        }
+
+    }
+
+
+    // ==========================================
+    // VERIFICAR PAREJA
+    // ==========================================
+
+    function verificarPareja() {
+
+        const [c1, c2] =
+            seleccionadas;
+
+
+        // Validación
+        if (!c1 || !c2) {
+
+            seleccionadas = [];
+
+            bloqueo = false;
+
+            return;
+
+        }
+
+
         // ==========================================
-        // BOTÓN NUEVA RONDA
+        // PAREJA CORRECTA
         // ==========================================
 
-        btnReiniciar.addEventListener(
-            "click",
-            () => {
+        if (
+            c1.dataset.valor ===
+            c2.dataset.valor
+        ) {
 
 
-                generarCartas();
+            // Marcar cartas como acertadas
+            c1.classList.add("acertada");
+
+            c2.classList.add("acertada");
+
+
+            // Las cartas permanecen visibles
+            c1.classList.remove("oculta");
+
+            c2.classList.remove("oculta");
+
+
+            // Incrementar parejas encontradas
+            parejasEncontradas++;
+
+
+            // Actualizar contador
+            contador.textContent =
+                `Parejas encontradas: ${parejasEncontradas} / 16 | Intentos restantes: ${intentosRestantes}`;
+
+
+            // ==========================================
+            // GANÓ EL JUEGO
+            // ==========================================
+
+            if (
+                parejasEncontradas === 16
+            ) {
+
+
+                contador.textContent =
+                    "🎉 ¡Completado!";
+
+
+                detenerMusica();
+
+
+                Swal.fire({
+
+                    title:
+                        "🎉 ¡Felicidades!",
+
+                    text:
+                        "Has encontrado todas las parejas",
+
+                    icon:
+                        "success",
+
+                    confirmButtonText:
+                        "Aceptar",
+
+                    imageUrl:
+                        "../imagenes/encu.png",
+
+                    imageWidth:
+                        120,
+
+                    imageHeight:
+                        120,
+
+                    imageAlt:
+                        "Trofeo"
+
+                });
+
+
+                btnReiniciar.style.display =
+                    "inline-block";
 
 
                 btnBarajear.style.display =
                     "inline-block";
 
-
-                btnReiniciar.style.display =
-                    "none";
-
-
-                contador.textContent =
-                    "Presiona 'Barajear' para iniciar";
-
             }
-        );
 
 
-        // ==========================================
-        // INICIAR JUEGO
-        // ==========================================
-
-        generarCartas();
+            // Limpiar selección
+            seleccionadas = [];
 
 
-        contador.textContent =
-            "Presiona 'Barajear' para iniciar";
+            // Desbloquear
+            bloqueo = false;
 
-    </script>
+
+        } else {
+
+
+            // ==========================================
+            // PAREJA INCORRECTA
+            // ==========================================
+
+            intentosRestantes--;
+
+
+            // Esperar un momento
+            // antes de ocultar las cartas
+            setTimeout(
+                () => {
+
+
+                    // ==========================================
+                    // SOLO OCULTAR LAS 2 CARTAS INCORRECTAS
+                    // ==========================================
+
+                    c1.querySelector("img").src =
+                        dorso;
+
+                    c1.classList.add("oculta");
+
+
+                    c2.querySelector("img").src =
+                        dorso;
+
+                    c2.classList.add("oculta");
+
+
+                    // Limpiar selección
+                    seleccionadas = [];
+
+
+                    // ==========================================
+                    // SE TERMINARON LOS INTENTOS
+                    // ==========================================
+
+                    if (
+                        intentosRestantes <= 0
+                    ) {
+
+
+                        // Bloquear el tablero
+                        bloqueo = true;
+
+
+                        // Mostrar todas las cartas
+                        cartas.forEach(
+                            c => {
+
+                                c.querySelector("img").src =
+                                    c.dataset.valor;
+
+                                c.classList.remove(
+                                    "oculta"
+                                );
+
+                            }
+                        );
+
+
+                        // Mostrar mensaje
+                        contador.textContent =
+                            "❌ ¡Se terminaron tus 3 intentos!";
+
+
+                        // Detener música
+                        detenerMusica();
+
+
+                        // Mostrar alerta
+                        Swal.fire({
+
+                            title:
+                                "😢 ¡Se terminaron los intentos!",
+
+                            text:
+                                "Has utilizado tus 3 intentos.",
+
+                            icon:
+                                "error",
+
+                            confirmButtonText:
+                                "Aceptar"
+
+                        });
+
+
+                        // Mostrar botón
+                        // Nueva Ronda
+                        btnReiniciar.style.display =
+                            "inline-block";
+
+
+                        btnBarajear.style.display =
+                            "inline-block";
+
+
+                    } else {
+
+
+                        // ==========================================
+                        // TODAVÍA TIENE INTENTOS
+                        // ==========================================
+
+                        contador.textContent =
+                            `❌ Pareja incorrecta. Intentos restantes: ${intentosRestantes}`;
+
+
+                        // Desbloquear
+                        bloqueo = false;
+
+                    }
+
+                },
+                700
+            );
+
+        }
+
+    }
+
+
+    // ==========================================
+    // BOTÓN BARAJEAR
+    // ==========================================
+
+    btnBarajear.addEventListener(
+        "click",
+        () => {
+
+
+            generarCartas();
+
+
+            iniciarContador();
+
+
+            // Ocultar botón
+            btnBarajear.style.display =
+                "none";
+
+        }
+    );
+
+
+    // ==========================================
+    // BOTÓN NUEVA RONDA
+    // ==========================================
+
+    btnReiniciar.addEventListener(
+        "click",
+        () => {
+
+
+            generarCartas();
+
+
+            btnBarajear.style.display =
+                "inline-block";
+
+
+            btnReiniciar.style.display =
+                "none";
+
+
+            contador.textContent =
+                "Presiona 'Barajear' para iniciar";
+
+        }
+    );
+
+
+    // ==========================================
+    // INICIAR JUEGO
+    // ==========================================
+
+    generarCartas();
+
+
+    contador.textContent =
+        "Presiona 'Barajear' para iniciar";
+
+</script>
 
 </body>
 
