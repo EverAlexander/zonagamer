@@ -1,427 +1,1647 @@
 <!DOCTYPE html>
+
 <html lang="es">
 
 <head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+```
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Menu principal</title>
-    <style>
-        .slot-machine {
-            display: flex;
-            justify-content: center;
-            margin: 40px auto;
-        }
+<meta name="description" content="">
+<meta name="author" content="">
 
-        .slot {
-            width: 120px;
-            height: 120px;
-            margin: 0 10px;
-            border: 5px solid #28a745;
-            border-radius: 10px;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+<title>Menu principal</title>
 
-        .slot img {
-            width: 100px;
-            height: 100px;
-        }
 
-        #btn {
-            padding: 15px 25px;
-            font-size: 18px;
-            margin-top: 20px;
-            cursor: pointer;
-            border: none;
-            background: #28a745;
-            color: white;
-            border-radius: 8px;
-            font-weight: bold;
-        }
+<style>
 
-        /* 🎮 JUEGO */
-        #game {
-            position: relative;
-            width: 100%;
-            height: 300px;
-            border: 3px solid black;
-            overflow: hidden;
-            background: linear-gradient(#5c94fc, #cceeff);
-            display: none;
-        }
+    /* ==========================================
+       MÁQUINA / JUEGO
+    ========================================== */
 
-        #player {
-            position: absolute;
+    .slot-machine {
+        display: flex;
+        justify-content: center;
+        margin: 40px auto;
+    }
+
+
+    .slot {
+        width: 120px;
+        height: 120px;
+        margin: 0 10px;
+        border: 5px solid #28a745;
+        border-radius: 10px;
+        background: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+    .slot img {
+        width: 100px;
+        height: 100px;
+    }
+
+
+    #btn {
+        padding: 15px 25px;
+        font-size: 18px;
+        margin-top: 20px;
+        cursor: pointer;
+        border: none;
+        background: #28a745;
+        color: white;
+        border-radius: 8px;
+        font-weight: bold;
+    }
+
+
+    /* ==========================================
+       JUEGO
+    ========================================== */
+
+    #game {
+
+        position: relative;
+
+        width: 100%;
+
+        height: 300px;
+
+        border: 3px solid black;
+
+        overflow: hidden;
+
+        background: linear-gradient(
+            #5c94fc,
+            #cceeff
+        );
+
+        display: none;
+
+        /* Importante para pantallas táctiles */
+        touch-action: none;
+
+        /* Evita selección */
+        user-select: none;
+
+        -webkit-user-select: none;
+
+    }
+
+
+    #player {
+
+        position: absolute;
+
+        bottom: 0;
+
+        left: 50px;
+
+        width: 60px;
+
+        user-select: none;
+
+        -webkit-user-drag: none;
+
+        pointer-events: none;
+
+    }
+
+
+    #obstacle {
+
+        position: absolute;
+
+        bottom: 0;
+
+        right: -40px;
+
+        width: 40px;
+
+        user-select: none;
+
+        -webkit-user-drag: none;
+
+        pointer-events: none;
+
+    }
+
+
+    /* ==========================================
+       ANIMACIÓN SALTO
+    ========================================== */
+
+    .jump {
+
+        animation:
+            jump 0.5s ease;
+
+    }
+
+
+    @keyframes jump {
+
+        0% {
+
             bottom: 0;
-            left: 50px;
-            width: 60px;
+
         }
 
-        #obstacle {
-            position: absolute;
+
+        50% {
+
+            bottom: 160px;
+
+        }
+
+
+        100% {
+
             bottom: 0;
-            right: -40px;
-            width: 40px;
+
         }
 
-        .jump {
-            animation: jump 0.5s ease;
+    }
+
+
+    /* ==========================================
+       ANIMACIÓN OBSTÁCULO
+    ========================================== */
+
+    @keyframes move {
+
+        from {
+
+            right: -60px;
+
         }
 
-        @keyframes jump {
-            0% {
-                bottom: 0;
-            }
 
-            50% {
-                bottom: 160px;
-            }
+        to {
 
-            /* 🔥 MÁS ALTO */
-            100% {
-                bottom: 0;
-            }
+            right: 100%;
+
         }
 
-        @keyframes move {
-            from {
-                right: -60px;
-            }
+    }
 
-            to {
-                right: 100%;
-            }
+
+    /* ==========================================
+       HISTORIAL
+    ========================================== */
+
+    #history {
+
+        max-height: 220px;
+
+        overflow-y: auto;
+
+    }
+
+
+    /* ==========================================
+       BOTÓN SALTAR
+    ========================================== */
+
+    #jumpBtn {
+
+        width: 100%;
+
+        max-width: 350px;
+
+        padding: 18px;
+
+        font-size: 24px;
+
+        font-weight: bold;
+
+        border-radius: 12px;
+
+        touch-action: manipulation;
+
+        user-select: none;
+
+        -webkit-user-select: none;
+
+        -webkit-tap-highlight-color: transparent;
+
+    }
+
+
+    /* ==========================================
+       TEXTO DE AYUDA
+    ========================================== */
+
+    #mensajeJuego {
+
+        font-size: 16px;
+
+        font-weight: bold;
+
+        margin-top: 10px;
+
+    }
+
+
+    /* ==========================================
+       MEJORA PARA PANTALLAS TÁCTILES
+    ========================================== */
+
+    @media (pointer: coarse) {
+
+        #jumpBtn {
+
+            display: inline-block;
+
         }
 
-        /* 📊 HISTORIAL */
-        #history {
-            max-height: 220px;
-            overflow-y: auto;
+    }
+
+</style>
+
+
+<!-- FontAwesome -->
+
+<link
+    href="public/vendor/fontawesome-free/css/all.min.css"
+    rel="stylesheet"
+    type="text/css"
+>
+
+
+<!-- Google Fonts -->
+
+<link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,500,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet"
+>
+
+
+<!-- SB Admin -->
+
+<link
+    href="../css/sb-admin-2.min.css"
+    rel="stylesheet"
+>
+
+
+<link
+    href="../css/estilo.css"
+    rel="stylesheet"
+>
+
+
+<!-- SweetAlert -->
+
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"
+>
+
+
+<!-- Bootstrap -->
+
+<link
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css"
+    rel="stylesheet"
+>
+
+
+<script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js">
+</script>
+
+
+<!-- jQuery -->
+
+<script
+    src="https://code.jquery.com/jquery-3.6.4.min.js">
+</script>
+
+
+<!-- Moment -->
+
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js">
+</script>
+
+
+<!-- Reloj -->
+
+<script>
+
+    function actualizarHora() {
+
+        const ahora =
+            new Date();
+
+
+        const horas =
+            ahora.getHours()
+                .toString()
+                .padStart(2, '0');
+
+
+        const minutos =
+            ahora.getMinutes()
+                .toString()
+                .padStart(2, '0');
+
+
+        const segundos =
+            ahora.getSeconds()
+                .toString()
+                .padStart(2, '0');
+
+
+        const horaFormateada =
+            `${horas}:${minutos}:${segundos}`;
+
+
+        const reloj =
+            document.getElementById(
+                'horaActual'
+            );
+
+
+        if (reloj) {
+
+            reloj.textContent =
+                horaFormateada;
+
         }
-    </style>
 
-    <!-- Custom fonts for this template-->
-    <link href="public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    }
 
-    <!-- Custom styles for this template-->
-    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="../css/estilo.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script>
-        function actualizarHora() {
-            // Obtener la fecha y hora actual
-            const ahora = new Date();
 
-            // Formatear la hora en HH:mm:ss
-            const horas = ahora.getHours().toString().padStart(2, '0');
-            const minutos = ahora.getMinutes().toString().padStart(2, '0');
-            const segundos = ahora.getSeconds().toString().padStart(2, '0');
-            const horaFormateada = `${horas}:${minutos}:${segundos}`;
+    setInterval(
+        actualizarHora,
+        1000
+    );
 
-            // Asignar la hora al elemento con el id "horaActual"
-            document.getElementById('horaActual').textContent = horaFormateada;
-        }
 
-        // Ejecutar la función cada segundo (1000 ms)
-        setInterval(actualizarHora, 1000);
-    </script>
+    document.addEventListener(
+        "DOMContentLoaded",
+        actualizarHora
+    );
+
+</script>
+```
 
 </head>
 
 <body id="page-top">
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
+```
+<!-- ==========================================
+     PAGE WRAPPER
+=========================================== -->
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+<div id="wrapper">
 
-            <!-- Main Content -->
-            <div id="content">
-                <!-- Navbar Superior -->
-                <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-primary mb-4">
-                    <a class="navbar-brand" href="?route=home">
-                        <i class="fas fa-gamepad"></i> Zona Gamer
-                    </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarGamer"
-                        aria-controls="navbarGamer" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
 
-                    <div class="collapse navbar-collapse" id="navbarGamer">
-                        <ul class="navbar-nav ml-auto align-items-center">
-                            <!-- Links del menú -->
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fas fa-home"></i> Inicio</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarGrupos" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-users"></i> Lista de juegos
+    <!-- CONTENT WRAPPER -->
+
+    <div
+        id="content-wrapper"
+        class="d-flex flex-column"
+    >
+
+
+        <!-- MAIN CONTENT -->
+
+        <div id="content">
+
+
+            <!-- ==========================================
+                 NAVBAR
+            =========================================== -->
+
+            <nav
+                class="navbar navbar-expand-lg navbar-dark bg-gradient-primary mb-4"
+            >
+
+
+                <a
+                    class="navbar-brand"
+                    href="?route=home"
+                >
+
+                    <i class="fas fa-gamepad"></i>
+
+                    Zona Gamer
+
+                </a>
+
+
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarGamer"
+                    aria-controls="navbarGamer"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+
+                    <span
+                        class="navbar-toggler-icon">
+                    </span>
+
+                </button>
+
+
+                <div
+                    class="collapse navbar-collapse"
+                    id="navbarGamer"
+                >
+
+
+                    <ul
+                        class="navbar-nav ml-auto align-items-center"
+                    >
+
+
+                        <!-- Inicio -->
+
+                        <li class="nav-item">
+
+                            <a
+                                class="nav-link"
+                                href="#"
+                            >
+
+                                <i
+                                    class="fas fa-home">
+                                </i>
+
+                                Inicio
+
+                            </a>
+
+                        </li>
+
+
+                        <!-- Lista juegos -->
+
+                        <li class="nav-item dropdown">
+
+
+                            <a
+                                class="nav-link dropdown-toggle"
+                                href="#"
+                                id="navbarGrupos"
+                                role="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                            >
+
+                                <i
+                                    class="fas fa-users">
+                                </i>
+
+                                Lista de juegos
+
+                            </a>
+
+
+                            <div
+                                class="dropdown-menu dropdown-menu-right"
+                                aria-labelledby="navbarGrupos"
+                            >
+
+
+                                <a
+                                    class="dropdown-item"
+                                    href="../index.html"
+                                >
+
+                                    Ruleta
+
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarGrupos">
-                                    <a class="dropdown-item" href="../index.html">Ruleta</a>
-                                    <a class="dropdown-item" href="mundial.html">Ruleta Mundialista</a>
-                                    <a class="dropdown-item" href="memoria.html">Memoria</a>
-                                    <a class="dropdown-item" href="moneda.html">Monedas</a>
-                                    <a class="dropdown-item" href="#">Saltos</a>
-                                    <a class="dropdown-item" href="puntos.html">Puntos</a>
-                                    <a class="dropdown-item" href="Portada.html">Portada</a>
 
-                                </div>
-                            </li>
 
-                            <!-- Reloj -->
-                            <li class="nav-item">
-                                <span class="nav-link font-weight-bold text-white" id="horaActual"></span>
-                            </li>
+                                <a
+                                    class="dropdown-item"
+                                    href="mundial.html"
+                                >
 
-                            <!-- Dropdown usuario -->
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown"
-                                    role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuNuWLCLLcxIOHZWSOPeGrmiBLf_fA9Cxqvw&s"
-                                        alt="Imagen de usuario" class="user-logo" width="40" height="40">
+                                    Ruleta Mundialista
+
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                    <span class="dropdown-item">
-                                        <i class="fas fa-user mr-2"></i> Administrador:
-                                        <?php echo htmlspecialchars($nombreUsuario); ?>
-                                    </span>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="/mvcPrueba/?route=logout">
-                                        <i class="fas fa-sign-out-alt mr-2"></i> Cerrar Sesión
-                                    </a>
-                                </div>
-                            </li>
 
-                        </ul>
-                    </div>
-                </nav>
 
-                <!-- Fin Navbar Superior -->
+                                <a
+                                    class="dropdown-item"
+                                    href="memoria.html"
+                                >
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
+                                    Memoria
 
-                    <div class="row justify-content-center">
+                                </a>
 
-                        <!-- 🎮 JUEGO -->
-                        <div class="col-md-6 text-center">
-                            <button id="startBtn" class="btn btn-success mb-2">▶ Iniciar</button>
 
-                            <div id="score">Tiempo: 0</div>
+                                <a
+                                    class="dropdown-item"
+                                    href="moneda.html"
+                                >
 
-                            <div id="game" class="mt-3">
-                                <img id="player" src="../imagenes/peach002.png">
-                                <img id="obstacle" src="../imagenes/goomba.png">
+                                    Monedas
+
+                                </a>
+
+
+                                <a
+                                    class="dropdown-item"
+                                    href="#"
+                                >
+
+                                    Saltos
+
+                                </a>
+
+
+                                <a
+                                    class="dropdown-item"
+                                    href="puntos.html"
+                                >
+
+                                    Puntos
+
+                                </a>
+
+
+                                <a
+                                    class="dropdown-item"
+                                    href="Portada.html"
+                                >
+
+                                    Portada
+
+                                </a>
+
+
                             </div>
-                        </div>
 
-                        <!-- 📊 PANEL -->
-                        <div class="col-md-4">
-                            <h5>🏆 Historial</h5>
-                            <ul id="history" class="list-group mb-2"></ul>
+                        </li>
 
-                            <button id="clearBtn" class="btn btn-danger btn-sm">
-                                🗑 Limpiar historial
-                            </button>
-                        </div>
 
-                    </div>
+                        <!-- Reloj -->
+
+                        <li class="nav-item">
+
+                            <span
+                                class="nav-link font-weight-bold text-white"
+                                id="horaActual"
+                            >
+                            </span>
+
+                        </li>
+
+
+                        <!-- Usuario -->
+
+                        <li class="nav-item dropdown">
+
+
+                            <a
+                                class="nav-link dropdown-toggle d-flex align-items-center"
+                                href="#"
+                                id="userDropdown"
+                                role="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                            >
+
+
+                                <img
+                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuNuWLCLLcxIOHZWSOPeGrmiBLf_fA9Cxqvw&s"
+                                    alt="Imagen de usuario"
+                                    class="user-logo"
+                                    width="40"
+                                    height="40"
+                                >
+
+
+                            </a>
+
+
+                            <div
+                                class="dropdown-menu dropdown-menu-right"
+                                aria-labelledby="userDropdown"
+                            >
+
+
+                                <span
+                                    class="dropdown-item"
+                                >
+
+                                    <i
+                                        class="fas fa-user mr-2">
+                                    </i>
+
+                                    Administrador:
+
+                                    <?php
+                                        echo htmlspecialchars(
+                                            $nombreUsuario
+                                        );
+                                    ?>
+
+                                </span>
+
+
+                                <div
+                                    class="dropdown-divider">
+                                </div>
+
+
+                                <a
+                                    class="dropdown-item"
+                                    href="/mvcPrueba/?route=logout"
+                                >
+
+                                    <i
+                                        class="fas fa-sign-out-alt mr-2">
+                                    </i>
+
+                                    Cerrar Sesión
+
+                                </a>
+
+
+                            </div>
+
+
+                        </li>
+
+
+                    </ul>
+
 
                 </div>
-                <!-- /.container-fluid -->
+
+
+            </nav>
+
+
+            <!-- ==========================================
+                 CONTENIDO
+            =========================================== -->
+
+            <div class="container-fluid">
+
+
+                <div
+                    class="row justify-content-center"
+                >
+
+
+                    <!-- ==========================================
+                         JUEGO
+                    =========================================== -->
+
+                    <div
+                        class="col-md-6 text-center"
+                    >
+
+
+                        <!-- BOTÓN INICIAR -->
+
+                        <button
+                            id="startBtn"
+                            class="btn btn-success mb-2"
+                        >
+
+                            ▶ Iniciar
+
+                        </button>
+
+
+                        <!-- SCORE -->
+
+                        <div id="score">
+
+                            Tiempo: 0
+
+                        </div>
+
+
+                        <!-- JUEGO -->
+
+                        <div
+                            id="game"
+                            class="mt-3"
+                        >
+
+
+                            <img
+                                id="player"
+                                src="../imagenes/peach002.png"
+                                draggable="false"
+                            >
+
+
+                            <img
+                                id="obstacle"
+                                src="../imagenes/goomba.png"
+                                draggable="false"
+                            >
+
+
+                        </div>
+
+
+                        <!-- MENSAJE -->
+
+                        <div
+                            id="mensajeJuego"
+                        >
+
+                            Presiona ESPACIO o toca el botón SALTAR
+
+                        </div>
+
+
+                        <!-- BOTÓN SALTAR -->
+
+                        <button
+                            id="jumpBtn"
+                            class="btn btn-warning btn-lg mt-3"
+                        >
+
+                            🦘 SALTAR
+
+                        </button>
+
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         HISTORIAL
+                    =========================================== -->
+
+                    <div
+                        class="col-md-4"
+                    >
+
+
+                        <h5>
+
+                            🏆 Historial
+
+                        </h5>
+
+
+                        <ul
+                            id="history"
+                            class="list-group mb-2"
+                        >
+                        </ul>
+
+
+                        <button
+                            id="clearBtn"
+                            class="btn btn-danger btn-sm"
+                        >
+
+                            🗑 Limpiar historial
+
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
 
             </div>
-            <!-- End of Main Content -->
 
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        ©
-                        <script>
-                            document.write(new Date().getFullYear());
-                        </script>
-                        ,The_Alexander
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
 
         </div>
-        <!-- End of Content Wrapper -->
+
+
+        <!-- FOOTER -->
+
+        <footer
+            class="sticky-footer bg-white"
+        >
+
+
+            <div
+                class="container my-auto"
+            >
+
+
+                <div
+                    class="copyright text-center my-auto"
+                >
+
+                    ©
+
+                    <script>
+
+                        document.write(
+                            new Date().getFullYear()
+                        );
+
+                    </script>
+
+                    ,The_Alexander
+
+                </div>
+
+
+            </div>
+
+
+        </footer>
+
 
     </div>
 
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="../public/vendor/jquery/jquery.min.js"></script>
-    <script src="../public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="../public/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="../public/js/sb-admin-2.min.js"></script>
+</div>
 
 
-    <!-- SweetAlert2 JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+<!-- ==========================================
+     JAVASCRIPT
+=========================================== -->
+
+
+<script
+    src="../public/vendor/jquery/jquery.min.js">
+</script>
+
+
+<script
+    src="../public/vendor/bootstrap/js/bootstrap.bundle.min.js">
+</script>
+
+
+<script
+    src="../public/vendor/jquery-easing/jquery.easing.min.js">
+</script>
+
+
+<script
+    src="../public/js/sb-admin-2.min.js">
+</script>
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js">
+</script>
+
 
 <script>
-const player = document.getElementById("player");
-const obstacle = document.getElementById("obstacle");
-const game = document.getElementById("game");
-const startBtn = document.getElementById("startBtn");
-const historyList = document.getElementById("history");
-const clearBtn = document.getElementById("clearBtn");
 
-let score = 0;
-let isGameOver = false;
-let speed = 2;
-let gameStarted = false;
 
-// 🔊 SONIDO
-const jumpSound = new Audio("../audio/salto.mp3");
+    // ==========================================
+    // ELEMENTOS
+    // ==========================================
 
-// 📊 HISTORIAL
-let history = JSON.parse(localStorage.getItem("scores")) || [];
-renderHistory();
+    const player =
+        document.getElementById(
+            "player"
+        );
 
-function renderHistory() {
-    historyList.innerHTML = "";
-    history.forEach(s => {
-        let li = document.createElement("li");
-        li.className = "list-group-item";
-        li.textContent = "⏱ " + s + " seg";
-        historyList.appendChild(li);
-    });
-}
 
-// 🗑 LIMPIAR
-clearBtn.addEventListener("click", () => {
-    Swal.fire({
-        title: "¿Eliminar historial?",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Sí"
-    }).then((r) => {
-        if (r.isConfirmed) {
-            localStorage.removeItem("scores");
-            history = [];
-            renderHistory();
-        }
-    });
-});
+    const obstacle =
+        document.getElementById(
+            "obstacle"
+        );
 
-// ▶ INICIAR
-startBtn.addEventListener("click", () => {
-    game.style.display = "block";
-    startBtn.style.display = "none";
-    gameStarted = true;
-    startGame();
-});
 
-// 🦘 SALTO
-document.addEventListener("keydown", (e) => {
-    if (!gameStarted) return;
+    const game =
+        document.getElementById(
+            "game"
+        );
 
-    if (e.code === "Space") {
-        if (!player.classList.contains("jump")) {
 
-            jumpSound.currentTime = 0;
-            jumpSound.play();
+    const startBtn =
+        document.getElementById(
+            "startBtn"
+        );
 
-            player.classList.add("jump");
 
-            setTimeout(() => {
-                player.classList.remove("jump");
-            }, 500);
-        }
+    const jumpBtn =
+        document.getElementById(
+            "jumpBtn"
+        );
+
+
+    const historyList =
+        document.getElementById(
+            "history"
+        );
+
+
+    const clearBtn =
+        document.getElementById(
+            "clearBtn"
+        );
+
+
+    const scoreElement =
+        document.getElementById(
+            "score"
+        );
+
+
+    const mensajeJuego =
+        document.getElementById(
+            "mensajeJuego"
+        );
+
+
+    // ==========================================
+    // VARIABLES
+    // ==========================================
+
+    let score = 0;
+
+    let isGameOver = false;
+
+    let speed = 2;
+
+    let gameStarted = false;
+
+    let gameLoopStarted = false;
+
+
+    // ==========================================
+    // SONIDO
+    // ==========================================
+
+    const jumpSound =
+        new Audio(
+            "../audio/salto.mp3"
+        );
+
+
+    // ==========================================
+    // HISTORIAL
+    // ==========================================
+
+    let history =
+        JSON.parse(
+            localStorage.getItem(
+                "scores"
+            )
+        ) || [];
+
+
+    // Mostrar historial
+
+    renderHistory();
+
+
+    function renderHistory() {
+
+        historyList.innerHTML = "";
+
+
+        history.forEach(
+            s => {
+
+                let li =
+                    document.createElement(
+                        "li"
+                    );
+
+
+                li.className =
+                    "list-group-item";
+
+
+                li.textContent =
+                    "⏱ " +
+                    s +
+                    " seg";
+
+
+                historyList.appendChild(
+                    li
+                );
+
+            }
+        );
+
     }
-});
 
-// 🚧 MOVIMIENTO + VELOCIDAD PROGRESIVA
-function moveObstacle() {
-    obstacle.style.animation = `move ${speed}s linear`;
 
-    setTimeout(() => {
-        obstacle.style.animation = "none";
-        obstacle.offsetHeight;
+    // ==========================================
+    // LIMPIAR HISTORIAL
+    // ==========================================
 
-        if (!isGameOver) {
+    clearBtn.addEventListener(
+        "click",
+        () => {
 
-            // 🔥 AUMENTA VELOCIDAD
-            if (speed > 0.7) {
-                speed -= 0.05;
+
+            Swal.fire({
+
+                title:
+                    "¿Eliminar historial?",
+
+                icon:
+                    "warning",
+
+                showCancelButton:
+                    true,
+
+                confirmButtonText:
+                    "Sí",
+
+                cancelButtonText:
+                    "Cancelar"
+
+            }).then(
+                (r) => {
+
+
+                    if (
+                        r.isConfirmed
+                    ) {
+
+
+                        localStorage.removeItem(
+                            "scores"
+                        );
+
+
+                        history = [];
+
+
+                        renderHistory();
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+    // ==========================================
+    // INICIAR JUEGO
+    // ==========================================
+
+    startBtn.addEventListener(
+        "click",
+        iniciarJuego
+    );
+
+
+    // También funciona con pantalla táctil
+
+    startBtn.addEventListener(
+        "pointerdown",
+        (e) => {
+
+            e.preventDefault();
+
+        }
+    );
+
+
+    function iniciarJuego() {
+
+        // Evitar iniciar varias veces
+
+        if (
+            gameStarted
+        ) {
+
+            return;
+
+        }
+
+
+        game.style.display =
+            "block";
+
+
+        startBtn.style.display =
+            "none";
+
+
+        gameStarted =
+            true;
+
+
+        isGameOver =
+            false;
+
+
+        score =
+            0;
+
+
+        speed =
+            2;
+
+
+        scoreElement.innerText =
+            "Tiempo: 0";
+
+
+        mensajeJuego.textContent =
+            "🦘 ¡Salta para evitar los obstáculos!";
+
+
+        // Iniciar juego
+
+        startGame();
+
+    }
+
+
+    // ==========================================
+    // FUNCIÓN DE SALTO
+    // ==========================================
+
+    function saltar() {
+
+
+        // Si el juego no ha comenzado
+
+        if (
+            !gameStarted
+        ) {
+
+            return;
+
+        }
+
+
+        // Si terminó
+
+        if (
+            isGameOver
+        ) {
+
+            return;
+
+        }
+
+
+        // Evitar doble salto
+
+        if (
+            player.classList.contains(
+                "jump"
+            )
+        ) {
+
+            return;
+
+        }
+
+
+        // Reproducir sonido
+
+        jumpSound.currentTime =
+            0;
+
+
+        jumpSound.play().catch(
+            (error) => {
+
+                console.log(
+                    "No se pudo reproducir el sonido:",
+                    error
+                );
+
+            }
+        );
+
+
+        // Agregar salto
+
+        player.classList.add(
+            "jump"
+        );
+
+
+        // Quitar salto
+
+        setTimeout(
+            () => {
+
+                player.classList.remove(
+                    "jump"
+                );
+
+            },
+            500
+        );
+
+    }
+
+
+    // ==========================================
+    // TECLADO - ESPACIO
+    // ==========================================
+
+    document.addEventListener(
+        "keydown",
+        (e) => {
+
+
+            // Detectar espacio
+
+            if (
+                e.code === "Space" ||
+                e.key === " "
+            ) {
+
+
+                // Evitar desplazamiento
+                // de la página
+
+                e.preventDefault();
+
+
+                saltar();
+
             }
 
-            moveObstacle();
+        }
+    );
+
+
+    // ==========================================
+    // PANTALLA TÁCTIL
+    // ==========================================
+
+    game.addEventListener(
+        "pointerdown",
+        (e) => {
+
+
+            // Evitar acciones
+            // del navegador
+
+            e.preventDefault();
+
+
+            saltar();
+
+        }
+    );
+
+
+    // ==========================================
+    // BOTÓN SALTAR
+    // ==========================================
+
+    jumpBtn.addEventListener(
+        "pointerdown",
+        (e) => {
+
+
+            // Evitar comportamiento
+            // predeterminado
+
+            e.preventDefault();
+
+
+            // Evitar que el evento
+            // llegue al juego
+
+            e.stopPropagation();
+
+
+            // Saltar
+
+            saltar();
+
+        }
+    );
+
+
+    // Compatibilidad adicional
+    // para dispositivos táctiles
+
+    jumpBtn.addEventListener(
+        "touchstart",
+        (e) => {
+
+
+            e.preventDefault();
+
+            e.stopPropagation();
+
+            saltar();
+
+        },
+        {
+            passive: false
+        }
+    );
+
+
+    // ==========================================
+    // MOVIMIENTO DEL OBSTÁCULO
+    // ==========================================
+
+    function moveObstacle() {
+
+
+        // Si el juego terminó
+
+        if (
+            isGameOver
+        ) {
+
+            return;
+
         }
 
-    }, speed * 1000);
-}
 
-// 💥 COLISIÓN CORREGIDA
-function checkCollision() {
-    const playerRect = player.getBoundingClientRect();
-    const obstacleRect = obstacle.getBoundingClientRect();
+        // Animación
 
-    const padding = 10;
+        obstacle.style.animation =
+            `move ${speed}s linear`;
 
-    const isColliding =
-        playerRect.right - padding > obstacleRect.left &&
-        playerRect.left + padding < obstacleRect.right &&
-        playerRect.bottom - padding > obstacleRect.top &&
-        playerRect.top + padding < obstacleRect.bottom;
 
-    if (isColliding && !isGameOver) {
-        isGameOver = true;
+        // Esperar duración
 
-        history.push(score);
-        localStorage.setItem("scores", JSON.stringify(history));
+        setTimeout(
+            () => {
 
-        Swal.fire({
-            icon: "error",
-            title: "💀 Game Over",
-            text: "Tiempo: " + score
-        }).then(() => location.reload());
+
+                // Detener animación
+
+                obstacle.style.animation =
+                    "none";
+
+
+                // Forzar actualización
+
+                obstacle.offsetHeight;
+
+
+                // Si todavía juega
+
+                if (
+                    !isGameOver
+                ) {
+
+
+                    // Aumentar velocidad
+
+                    if (
+                        speed > 0.7
+                    ) {
+
+                        speed -=
+                            0.05;
+
+                    }
+
+
+                    // Volver a mover
+
+                    moveObstacle();
+
+                }
+
+            },
+            speed * 1000
+        );
+
     }
-}
 
-// ⏱ SCORE
-function startScore() {
-    setInterval(() => {
-        if (!isGameOver) {
-            score++;
-            document.getElementById("score").innerText = "Tiempo: " + score;
+
+    // ==========================================
+    // DETECTAR COLISIÓN
+    // ==========================================
+
+    function checkCollision() {
+
+
+        // Si no inició
+
+        if (
+            !gameStarted
+        ) {
+
+            return;
+
         }
-    }, 1000);
-}
 
-// 🚀 START
-function startGame() {
-    moveObstacle();
-    startScore();
-    setInterval(checkCollision, 50);
-}
+
+        // Si terminó
+
+        if (
+            isGameOver
+        ) {
+
+            return;
+
+        }
+
+
+        const playerRect =
+            player.getBoundingClientRect();
+
+
+        const obstacleRect =
+            obstacle.getBoundingClientRect();
+
+
+        // Margen de seguridad
+
+        const padding =
+            10;
+
+
+        const isColliding =
+
+            playerRect.right -
+                padding >
+            obstacleRect.left
+
+            &&
+
+            playerRect.left +
+                padding <
+            obstacleRect.right
+
+            &&
+
+            playerRect.bottom -
+                padding >
+            obstacleRect.top
+
+            &&
+
+            playerRect.top +
+                padding <
+            obstacleRect.bottom;
+
+
+        // Si chocó
+
+        if (
+            isColliding &&
+            !isGameOver
+        ) {
+
+
+            // Game Over
+
+            isGameOver =
+                true;
+
+
+            // Guardar puntuación
+
+            history.push(
+                score
+            );
+
+
+            localStorage.setItem(
+                "scores",
+                JSON.stringify(
+                    history
+                )
+            );
+
+
+            // Detener animación
+
+            obstacle.style.animation =
+                "none";
+
+
+            // Mostrar mensaje
+
+            mensajeJuego.textContent =
+                "💀 ¡Game Over!";
+
+
+            // Mostrar alerta
+
+            Swal.fire({
+
+                icon:
+                    "error",
+
+                title:
+                    "💀 Game Over",
+
+                text:
+                    "Tiempo: " +
+                    score,
+
+                confirmButtonText:
+                    "Jugar nuevamente"
+
+            }).then(
+                () => {
+
+                    location.reload();
+
+                }
+            );
+
+        }
+
+    }
+
+
+    // ==========================================
+    // SCORE
+    // ==========================================
+
+    function startScore() {
+
+
+        setInterval(
+            () => {
+
+
+                if (
+                    !isGameOver &&
+                    gameStarted
+                ) {
+
+
+                    score++;
+
+
+                    scoreElement.innerText =
+                        "Tiempo: " +
+                        score;
+
+                }
+
+            },
+            1000
+        );
+
+    }
+
+
+    // ==========================================
+    // INICIAR MOTOR DEL JUEGO
+    // ==========================================
+
+    function startGame() {
+
+
+        // Evitar crear varios motores
+
+        if (
+            gameLoopStarted
+        ) {
+
+            return;
+
+        }
+
+
+        gameLoopStarted =
+            true;
+
+
+        // Mover obstáculo
+
+        moveObstacle();
+
+
+        // Iniciar contador
+
+        startScore();
+
+
+        // Revisar colisiones
+
+        setInterval(
+            checkCollision,
+            50
+        );
+
+    }
+
+
 </script>
+```
 
 </body>
 
