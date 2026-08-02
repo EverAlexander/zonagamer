@@ -354,8 +354,8 @@
 
 
                                             <!-- ==================================
-             PANEL
-             ================================== -->
+                                                PANEL
+                                                ================================== -->
 
                                             <div class="panel">
 
@@ -444,165 +444,403 @@
 
     <!-- SweetAlert2 JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+<script src=
+"https://cdn.jsdelivr.net/npm/sweetalert2@11">
+</script>
 
-    <script>
-        const canvas = document.getElementById("ruletaCanvas");
-        const ctx = canvas.getContext("2d");
-        const girarBtn = document.getElementById("girarBtn");
-        const numeroDisplay = document.getElementById("numero");
-        const preguntaDisplay = document.getElementById("pregunta");
 
-        const numSegmentos = 20;
+<script>
 
-        // Tus 20 preguntas
-        const preguntas = [
-            "Pregunta  1: Mencione un área de la biblioteca",
-            "Pregunta  2: ¿Cómo se llama el presidente de El Salvador",
-            "Pregunta  3: Menciona un personaje del mundo de Mario Kart",
-            "Pregunta  4: ¿Cuántos colores tiene la bandera de El Salvador?",
-            "Pregunta  5: ¿Cuántos niveles tiene la Biblioteca  Nacional?",
-            "Pregunta  6: ¿Cuál es el Pokémon más popular?",
-            "Pregunta  7: Mencione un lugar turístico de El Salvador",
-            "Pregunta  8: ¿Cuál es el requisito para jugar en Zona Gamer",
-            "Pregunta  9: Desde que edad se puede jugar en la Zona Gamer Nivel 6",
-            "Pregunta  10: Menciona un platillo típico de El Salvador",
-            "Pregunta  11: En que nivel de la biblioteca se encuentra las areas de Realidad Virtual, Robótica y Prototipado",
-            "Pregunta  12: Que es lo que mas te gusta de la Biblioteca Nacional De El Salvador",
-            "Pregunta  13: Menciona 2  libros haz leído dentro de la Biblioteca",
-            "Pregunta  14: ¿Cuánto tiempo puede utilizar un usuario las consolas?",
-            "Pregunta  15: ¿Qué significa las iniciales BINAES?",
-            "Pregunta  16: ¿Cuál es el horario de atención de la Biblioteca?",
-            "Pregunta  17: ¿Se organizan torneos de videojuegos?",
-            "Pregunta  18: Mencione un área de la biblioteca",
-            "Pregunta  19: ¿En qué nivel de la Biblioteca  se encuentra la zona de Harry Potter",
-            "Pregunta  20: ¿En qué nivel de la biblioteca  se encuentra el área del principito",
-        ];
 
-        const radio = canvas.width / 2;
-        let angulo = 0;
-        let velocidad = 0;
-        let animando = false;
-        const preguntasUsadas = []; // Guardar preguntas ya usadas
+// ============================================
+// ELEMENTOS
+// ============================================
 
-        // Cargar el audio
-        const audioGiro = new Audio('audio/Merry-Go-Round.mp3'); // Ruta del audio
-        audioGiro.loop = true; // Hacer que el audio se repita mientras gira
+const ruletaGiratoria =
+    document.getElementById(
+        "ruletaGiratoria"
+    );
 
-        // Dibujar la ruleta
-        function dibujarRuleta() {
-            const anguloSegmento = (2 * Math.PI) / numSegmentos;
-            for (let i = 0; i < numSegmentos; i++) {
-                const inicio = i * anguloSegmento;
-                const fin = inicio + anguloSegmento;
 
-                ctx.beginPath();
-                ctx.moveTo(radio, radio);
-                ctx.arc(radio, radio, radio - 5, inicio, fin);
-                ctx.closePath();
-                ctx.fillStyle = i % 2 === 0 ? `hsl(${i * 12},70%,50%)` : `hsl(${i * 12},70%,60%)`;
-                ctx.fill();
-                ctx.strokeStyle = "#000";
-                ctx.stroke();
+const girarBtn =
+    document.getElementById(
+        "girarBtn"
+    );
 
-                // Número del segmento
-                const anguloTexto = inicio + anguloSegmento / 2;
-                ctx.save();
-                ctx.translate(radio + Math.cos(anguloTexto) * (radio - 40), radio + Math.sin(anguloTexto) * (radio - 40));
-                ctx.rotate(anguloTexto + Math.PI / 2);
-                ctx.fillStyle = "#fff";
-                ctx.font = "14px Arial";
-                ctx.textAlign = "center";
-                ctx.textBaseline = "middle";
-                ctx.fillText(i + 1, 0, 0);
-                ctx.restore();
+
+const numeroDisplay =
+    document.getElementById(
+        "numero"
+    );
+
+
+const preguntaDisplay =
+    document.getElementById(
+        "pregunta"
+    );
+
+
+// ============================================
+// CONFIGURACIÓN
+// ============================================
+
+const numSegmentos = 20;
+
+const gradosPorSegmento =
+    360 / numSegmentos;
+
+let anguloActual = 0;
+
+let animando = false;
+
+
+// Preguntas utilizadas
+
+const preguntasUsadas = [];
+
+
+// ============================================
+// PREGUNTAS
+// ============================================
+
+const preguntas = [
+
+    "Pregunta 1: Mencione un área de la biblioteca",
+
+    "Pregunta 2: ¿Cómo se llama el presidente de El Salvador?",
+
+    "Pregunta 3: Menciona un personaje del mundo de Mario Kart",
+
+    "Pregunta 4: ¿Cuántos colores tiene la bandera de El Salvador?",
+
+    "Pregunta 5: ¿Cuántos niveles tiene la Biblioteca Nacional?",
+
+    "Pregunta 6: ¿Cuál es el Pokémon más popular?",
+
+    "Pregunta 7: Mencione un lugar turístico de El Salvador",
+
+    "Pregunta 8: ¿Cuál es el requisito para jugar en Zona Gamer?",
+
+    "Pregunta 9: ¿Desde qué edad se puede jugar en la Zona Gamer Nivel 6?",
+
+    "Pregunta 10: Menciona un platillo típico de El Salvador",
+
+    "Pregunta 11: ¿En qué nivel de la biblioteca se encuentran las áreas de Realidad Virtual, Robótica y Prototipado?",
+
+    "Pregunta 12: ¿Qué es lo que más te gusta de la Biblioteca Nacional de El Salvador?",
+
+    "Pregunta 13: Menciona 2 libros que hayas leído dentro de la Biblioteca",
+
+    "Pregunta 14: ¿Cuánto tiempo puede utilizar un usuario las consolas?",
+
+    "Pregunta 15: ¿Qué significan las iniciales BINAES?",
+
+    "Pregunta 16: ¿Cuál es el horario de atención de la Biblioteca?",
+
+    "Pregunta 17: ¿Se organizan torneos de videojuegos?",
+
+    "Pregunta 18: Mencione un área de la biblioteca",
+
+    "Pregunta 19: ¿En qué nivel de la Biblioteca se encuentra la zona de Harry Potter?",
+
+    "Pregunta 20: ¿En qué nivel de la biblioteca se encuentra el área del Principito?"
+
+];
+
+
+// ============================================
+// AUDIO
+// ============================================
+
+const audioGiro = new Audio(
+    "audio/Merry-Go-Round.mp3"
+);
+
+audioGiro.loop = true;
+
+
+// ============================================
+// GIRAR RULETA
+// ============================================
+
+function girarRuleta() {
+
+
+    // Evitar múltiples clics
+
+    if (animando) {
+
+        return;
+
+    }
+
+
+    // ========================================
+    // VERIFICAR PREGUNTAS
+    // ========================================
+
+    if (
+        preguntasUsadas.length
+        >=
+        numSegmentos
+    ) {
+
+        Swal.fire({
+
+            icon:
+                "info",
+
+            title:
+                "¡Juego terminado!",
+
+            text:
+                "Ya se utilizaron todas las preguntas."
+
+        });
+
+        return;
+
+    }
+
+
+    // Activar animación
+
+    animando = true;
+
+    girarBtn.disabled = true;
+
+
+    // Limpiar resultado
+
+    numeroDisplay.textContent =
+        "-";
+
+
+    preguntaDisplay.textContent =
+        "¡La ruleta está girando!";
+
+
+    // ========================================
+    // SELECCIONAR NÚMERO
+    // ========================================
+
+    let indice;
+
+
+    do {
+
+        indice =
+            Math.floor(
+                Math.random()
+                *
+                numSegmentos
+            );
+
+    }
+
+    while (
+        preguntasUsadas
+        .includes(indice)
+    );
+
+
+    // Guardar número usado
+
+    preguntasUsadas.push(
+        indice
+    );
+
+
+    // ========================================
+    // CALCULAR ROTACIÓN
+    // ========================================
+
+    /*
+        Cada número está separado 18 grados.
+
+        Queremos que el número seleccionado
+        quede exactamente debajo de la flecha.
+
+        La flecha está arriba.
+    */
+
+
+    const posicionNumero =
+        indice
+        *
+        gradosPorSegmento;
+
+
+    // Vueltas completas
+
+    const vueltas =
+
+        5
+        +
+        Math.floor(
+            Math.random() * 3
+        );
+
+
+    // Variación pequeña
+
+    const variacion =
+
+        (
+            Math.random()
+            *
+            8
+        )
+        -
+        4;
+
+
+    /*
+        360 - posición del número
+
+        Esto hace que el número seleccionado
+        termine en la parte superior.
+    */
+
+    const giroFinal =
+
+        vueltas * 360
+
+        +
+
+        (
+            360
+            -
+            posicionNumero
+        )
+
+        +
+
+        variacion;
+
+
+    anguloActual +=
+        giroFinal;
+
+
+    // ========================================
+    // AUDIO
+    // ========================================
+
+    audioGiro.currentTime = 0;
+
+
+    audioGiro.play()
+        .catch(
+            error => {
+
+                console.log(
+                    "Audio bloqueado:",
+                    error
+                );
+
             }
-        }
+        );
 
-        // Dibujar flecha apuntando arriba
-        function dibujarFlecha() {
-            ctx.save();
-            ctx.translate(radio, radio);
-            ctx.beginPath();
-            ctx.moveTo(0, -radio + 5); // punta de la flecha
-            ctx.lineTo(-15, -radio + 25);
-            ctx.lineTo(15, -radio + 25);
-            ctx.closePath();
-            ctx.fillStyle = "red";
-            ctx.fill();
-            ctx.restore();
-        }
 
-        // Redibujar ruleta
-        function dibujar() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.save();
-            ctx.translate(radio, radio);
-            ctx.rotate(angulo);
-            ctx.translate(-radio, -radio);
-            dibujarRuleta();
-            ctx.restore();
-            dibujarFlecha();
-        }
+    // ========================================
+    // GIRAR RULETA + NÚMEROS
+    // ========================================
 
-        // Función para girar ruleta
-        function girarRuleta() {
-            if (animando) return;
-            animando = true;
-            girarBtn.disabled = true;
-            numeroDisplay.textContent = "-";
-            preguntaDisplay.textContent = "Gira la ruleta...";
+    ruletaGiratoria.style.transform =
 
-            // Iniciar audio de giro
-            audioGiro.play();
+        `rotate(${anguloActual}deg)`;
 
-            velocidad = Math.random() * 0.5 + 0.5; // Mayor velocidad
 
-            function animar() {
-                velocidad *= 0.995;
-                angulo += velocidad;
-                dibujar();
+    // ========================================
+    // ESPERAR FIN DE ANIMACIÓN
+    // ========================================
 
-                if (velocidad > 0.001) {
-                    requestAnimationFrame(animar);
-                } else {
-                    // 🔇 Detener el audio de giro
-                    audioGiro.pause();
-                    audioGiro.currentTime = 0; // Reiniciar el audio
+    setTimeout(
+        function() {
 
-                    if (preguntasUsadas.length === numSegmentos) {
-                        preguntaDisplay.textContent = "¡Todas las preguntas ya se usaron! Recarga la página para reiniciar.";
-                        numeroDisplay.textContent = "-";
-                        animando = false;
-                        return;
-                    }
 
-                    // Normalizamos ángulo y ajustamos para que la flecha arriba sea 0
-                    let anguloNormalizado = angulo % (2 * Math.PI);
-                    const anguloPorSegmento = (2 * Math.PI) / numSegmentos;
-                    anguloNormalizado = (anguloNormalizado + Math.PI / 2) % (2 * Math.PI); // ajustar 90° para flecha arriba
-                    let indice = Math.floor(numSegmentos - (anguloNormalizado / anguloPorSegmento));
-                    indice = indice % numSegmentos;
+            // Detener audio
 
-                    // Validar que no se haya usado
-                    while (preguntasUsadas.includes(indice)) {
-                        indice = Math.floor(Math.random() * numSegmentos);
-                    }
+            audioGiro.pause();
 
-                    preguntasUsadas.push(indice);
+            audioGiro.currentTime = 0;
 
-                    numeroDisplay.textContent = indice + 1;
-                    preguntaDisplay.textContent = preguntas[indice];
-                    animando = false;
-                    girarBtn.disabled = false;
-                }
-            }
 
-            requestAnimationFrame(animar);
-        }
+            // ==================================
+            // MOSTRAR RESULTADO
+            // ==================================
 
-        girarBtn.addEventListener('click', girarRuleta);
-        dibujar();
-    </script>
+            numeroDisplay.textContent =
+
+                indice + 1;
+
+
+            // Mostrar pregunta
+
+            preguntaDisplay.textContent =
+
+                preguntas[indice];
+
+
+            // ==================================
+            // SWEET ALERT
+            // ==================================
+
+            Swal.fire({
+
+                icon:
+                    "success",
+
+                title:
+                    "🎉 ¡Resultado! 🎉",
+
+                html:
+
+                    `<h2>
+                        Número ${indice + 1}
+                    </h2>
+
+                    <p>
+                        ${preguntas[indice]}
+                    </p>`,
+
+                confirmButtonText:
+                    "Continuar"
+
+            });
+
+
+            // Habilitar botón
+
+            animando = false;
+
+            girarBtn.disabled = false;
+
+
+        },
+
+        6000
+
+    );
+
+}
+
+
+// ============================================
+// EVENTO BOTÓN
+// ============================================
+
+girarBtn.addEventListener(
+
+    "click",
+
+    girarRuleta
+
+);
+
+
+</script>
 
 
 </body>
