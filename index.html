@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 
@@ -5,228 +6,181 @@
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Menu principal</title>
+    <title>Gira y Gana</title>
+
+    <!-- FontAwesome -->
+    <link href="public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+
+    <!-- SB Admin 2 -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="css/estilo.css" rel="stylesheet">
+
+    <!-- SweetAlert -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
     <style>
-        .contenedor {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            gap: 20px;
-        }
-
-        canvas {
-            border: 5px solid #333;
-            border-radius: 50%;
-            background: #fff;
-            position: relative;
-        }
-
-        .panel {
-            width: 250px;
-            border: 2px solid #333;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: left;
-            background: #f9f9f9;
-            height: 500px;
-        }
-
-        .panel h2 {
-            text-align: center;
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin-top: 20px;
-            width: 100%;
-        }
 
         * {
             box-sizing: border-box;
         }
 
-
-
+        body {
+            margin: 0;
+            padding: 0;
+        }
 
         /* ==========================================
-   CONTENEDOR PRINCIPAL
-   ========================================== */
+           CONTENEDOR PRINCIPAL
+        ========================================== */
 
         .contenedor-principal {
-
             width: 100%;
-
-            max-width: 1100px;
-
-            background: rgba(255, 255, 255, 0.95);
-
-            border-radius: 25px;
-
-            padding: 30px;
-
-            box-shadow:
-                0 15px 40px rgba(0, 0, 0, 0.5);
-
-        }
-
-
-        /* ==========================================
-   TITULO
-   ========================================== */
-
-        .titulo {
-
-            text-align: center;
-
-            margin-bottom: 30px;
-
-        }
-
-
-        .titulo h1 {
-
-            margin: 0;
-
-            font-size: 42px;
-
-            color: #123c69;
-
-            text-transform: uppercase;
-
-        }
-
-
-        .titulo h2 {
-
-            margin: 10px 0 0;
-
-            color: #d89b00;
-
-        }
-
-
-        /* ==========================================
-   CONTENEDOR
-   ========================================== */
-
-        .contenedor {
+            min-height: calc(100vh - 150px);
 
             display: flex;
-
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
 
-            align-items: center;
-
-            gap: 50px;
-
-            flex-wrap: wrap;
-
+            padding: 30px 20px;
         }
 
 
         /* ==========================================
-   ZONA RULETA
-   ========================================== */
+           TITULO
+        ========================================== */
 
-        .zona-ruleta {
+        .titulo {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .titulo h1 {
+            margin: 0;
+            font-size: 42px;
+            font-weight: 800;
+            color: #123c69;
+            text-transform: uppercase;
+        }
+
+        .titulo h2 {
+            margin: 10px 0 0;
+            font-size: 22px;
+            color: #d89b00;
+        }
+
+
+        /* ==========================================
+           CONTENEDOR DE RULETA + PANEL
+        ========================================== */
+
+        .contenedor {
+            width: 100%;
 
             display: flex;
-
-            flex-direction: column;
-
+            justify-content: center;
             align-items: center;
 
+            gap: 60px;
+
+            flex-wrap: wrap;
         }
 
 
         /* ==========================================
-   CONTENEDOR RULETA
-   ========================================== */
+           ZONA RULETA
+        ========================================== */
+
+        .zona-ruleta {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        /* ==========================================
+           CONTENEDOR RULETA
+        ========================================== */
 
         .ruleta-contenedor {
-
             position: relative;
 
             width: 500px;
-
             height: 500px;
 
+            max-width: 90vw;
+            max-height: 90vw;
         }
 
 
         /* ==========================================
-   ELEMENTO QUE GIRA
-   IMAGEN + NÚMEROS
-   ========================================== */
+           ELEMENTO QUE GIRA
+        ========================================== */
 
         .ruleta-giratoria {
-
             position: absolute;
 
             top: 0;
-
             left: 0;
 
             width: 100%;
-
             height: 100%;
 
             transform-origin: center center;
 
             transition:
-                transform 6s cubic-bezier(0.15,
+                transform 6s cubic-bezier(
+                    0.15,
                     0.85,
                     0.25,
-                    1);
-
+                    1
+                );
         }
 
 
         /* ==========================================
-   IMAGEN RULETA
-   ========================================== */
+           IMAGEN RULETA
+        ========================================== */
 
         #ruleta {
-
             position: absolute;
 
             top: 0;
-
             left: 0;
 
             width: 100%;
-
             height: 100%;
 
             display: block;
 
             border-radius: 50%;
 
-            filter:
-                drop-shadow(0 10px 15px rgba(0, 0, 0, 0.5));
+            object-fit: cover;
 
+            filter:
+                drop-shadow(
+                    0 10px 15px
+                    rgba(0, 0, 0, 0.5)
+                );
         }
 
 
         /* ==========================================
-   NÚMEROS
-   ========================================== */
+           NÚMEROS DE LA RULETA
+        ========================================== */
 
         .numeros-ruleta {
-
             position: absolute;
 
             top: 0;
-
             left: 0;
 
             width: 100%;
-
             height: 100%;
 
             border-radius: 50%;
@@ -234,45 +188,38 @@
             z-index: 5;
 
             pointer-events: none;
-
         }
 
 
-        /* Cada número */
+        /* ==========================================
+           CADA NÚMERO
+        ========================================== */
 
         .numeros-ruleta span {
 
             position: absolute;
 
             top: 50%;
-
             left: 50%;
 
             width: 42px;
-
             height: 42px;
 
             margin-left: -21px;
-
             margin-top: -21px;
 
             display: flex;
 
             align-items: center;
-
             justify-content: center;
 
-            font-size: 20px;
-
+            font-size: 18px;
             font-weight: bold;
 
             color: white;
 
             background:
-                rgba(0,
-                    0,
-                    0,
-                    0.45);
+                rgba(0, 0, 0, 0.55);
 
             border:
                 2px solid white;
@@ -282,29 +229,46 @@
             text-shadow:
                 2px 2px 3px black;
 
-            transform:
-                rotate(calc((var(--i) - 1) * 18deg)) translateY(-205px) rotate(calc((var(--i) - 1) * -18deg));
+            /*
+                20 números = 18 grados cada uno.
 
+                translateY coloca el número
+                alrededor de la ruleta.
+
+                rotate negativo mantiene el texto
+                siempre derecho.
+            */
+
+            transform:
+                rotate(
+                    calc(
+                        (var(--i) - 1) * 18deg
+                    )
+                )
+                translateY(-205px)
+                rotate(
+                    calc(
+                        (var(--i) - 1) * -18deg
+                    )
+                );
         }
 
 
         /* ==========================================
-   FLECHA
-   ========================================== */
+           FLECHA
+        ========================================== */
 
         .flecha-ruleta {
 
             position: absolute;
 
-            top: -20px;
-
+            top: -25px;
             left: 50%;
 
             transform:
                 translateX(-50%);
 
             width: 0;
-
             height: 0;
 
             border-left:
@@ -319,100 +283,109 @@
             z-index: 20;
 
             filter:
-                drop-shadow(0 3px 3px rgba(0, 0, 0, 0.6));
-
+                drop-shadow(
+                    0 3px 3px
+                    rgba(0, 0, 0, 0.6)
+                );
         }
 
 
         /* ==========================================
-   CENTRO
-   ========================================== */
+           CENTRO DE RULETA
+        ========================================== */
 
         .centro-ruleta {
 
             position: absolute;
 
             top: 50%;
-
             left: 50%;
 
             transform:
-                translate(-50%,
-                    -50%);
+                translate(-50%, -50%);
 
             width: 75px;
-
             height: 75px;
 
             background:
-                radial-gradient(circle,
+                radial-gradient(
+                    circle,
                     #ffffff 40%,
                     #d6a21e 42%,
-                    #a87900 100%);
-
-            border-radius: 50%;
+                    #a87900 100%
+                );
 
             border:
                 5px solid #ffffff;
 
+            border-radius: 50%;
+
             box-shadow:
-                0 4px 10px rgba(0, 0, 0, 0.5);
+                0 4px 10px
+                rgba(0, 0, 0, 0.5);
 
             z-index: 10;
-
         }
 
 
         /* ==========================================
-   SOPORTE
-   ========================================== */
+           SOPORTE RULETA
+        ========================================== */
 
         .soporte-ruleta {
 
             width: 260px;
-
             height: 70px;
 
-            margin-top: -10px;
+            margin-top: -5px;
 
             background:
-                linear-gradient(to bottom,
+                linear-gradient(
+                    to bottom,
                     #d5eff2,
-                    #75aeb6);
+                    #75aeb6
+                );
 
             border-radius:
                 10px 10px 30px 30px;
 
             box-shadow:
-                0 5px 10px rgba(0, 0, 0, 0.4);
-
+                0 5px 10px
+                rgba(0, 0, 0, 0.4);
         }
 
 
         /* ==========================================
-   PANEL RESULTADO
-   ========================================== */
+           PANEL RESULTADO
+        ========================================== */
 
         .panel {
 
             width: 320px;
-
-            min-height: 350px;
+            min-height: 400px;
 
             padding: 30px;
 
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
             background:
-                linear-gradient(135deg,
+                linear-gradient(
+                    135deg,
                     #ffffff,
-                    #f2f7fc);
+                    #f2f7fc
+                );
 
             border-radius: 20px;
 
             box-shadow:
-                0 8px 20px rgba(0, 0, 0, 0.2);
+                0 8px 20px
+                rgba(0, 0, 0, 0.2);
 
             text-align: center;
-
         }
 
 
@@ -423,13 +396,33 @@
             font-size: 30px;
 
             margin-top: 0;
-
+            margin-bottom: 10px;
         }
 
 
+        .panel p {
+
+            color: #333;
+
+            font-size: 18px;
+        }
+
+
+        /* ==========================================
+           NÚMERO RESULTADO
+        ========================================== */
+
         .numero {
 
-            font-size: 70px;
+            width: 120px;
+            height: 120px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 65px;
 
             font-weight: bold;
 
@@ -437,23 +430,42 @@
 
             margin: 20px;
 
+            border-radius: 50%;
+
+            background: #ffffff;
+
+            box-shadow:
+                0 5px 15px
+                rgba(0, 0, 0, 0.15);
         }
 
 
+        /* ==========================================
+           PREGUNTA
+        ========================================== */
+
         .pregunta {
 
-            min-height: 80px;
+            width: 100%;
+
+            min-height: 90px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
 
             font-size: 18px;
 
             color: #333;
 
+            line-height: 1.5;
         }
 
 
         /* ==========================================
-   BOTÓN
-   ========================================== */
+           BOTÓN GIRAR
+        ========================================== */
 
         #girarBtn {
 
@@ -468,9 +480,11 @@
             border-radius: 10px;
 
             background:
-                linear-gradient(135deg,
+                linear-gradient(
+                    135deg,
                     #123c69,
-                    #1c68a8);
+                    #1c68a8
+                );
 
             color: white;
 
@@ -480,8 +494,9 @@
 
             cursor: pointer;
 
-            transition: 0.3s;
-
+            transition:
+                transform 0.3s,
+                box-shadow 0.3s;
         }
 
 
@@ -491,8 +506,8 @@
                 scale(1.03);
 
             box-shadow:
-                0 5px 15px rgba(0, 0, 0, 0.3);
-
+                0 5px 15px
+                rgba(0, 0, 0, 0.3);
         }
 
 
@@ -503,480 +518,560 @@
             cursor: not-allowed;
 
             transform: none;
-
         }
 
 
         /* ==========================================
-   RESPONSIVE
-   ========================================== */
+           RESPONSIVE
+        ========================================== */
 
-        @media (max-width: 700px) {
+        @media (max-width: 1100px) {
+
+            .contenedor {
+                gap: 40px;
+            }
 
             .ruleta-contenedor {
-
-                width: 90vw;
-
-                height: 90vw;
-
+                width: 450px;
+                height: 450px;
             }
-
-
-            .titulo h1 {
-
-                font-size: 28px;
-
-            }
-
-
-            .panel {
-
-                width: 100%;
-
-            }
-
 
             .numeros-ruleta span {
 
-                font-size: 15px;
+                transform:
+                    rotate(
+                        calc(
+                            (var(--i) - 1) * 18deg
+                        )
+                    )
+                    translateY(-185px)
+                    rotate(
+                        calc(
+                            (var(--i) - 1) * -18deg
+                        )
+                    );
+            }
+        }
+
+
+        @media (max-width: 700px) {
+
+            .contenedor-principal {
+                padding: 20px 10px;
+            }
+
+            .titulo h1 {
+                font-size: 28px;
+            }
+
+            .titulo h2 {
+                font-size: 18px;
+            }
+
+            .contenedor {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .ruleta-contenedor {
+                width: 90vw;
+                height: 90vw;
+            }
+
+            .numeros-ruleta span {
 
                 width: 32px;
-
                 height: 32px;
 
                 margin-left: -16px;
-
                 margin-top: -16px;
 
+                font-size: 14px;
+
+                transform:
+                    rotate(
+                        calc(
+                            (var(--i) - 1) * 18deg
+                        )
+                    )
+                    translateY(-40vw)
+                    rotate(
+                        calc(
+                            (var(--i) - 1) * -18deg
+                        )
+                    );
             }
 
+            .panel {
+                width: 95%;
+                max-width: 350px;
+            }
+
+            .soporte-ruleta {
+                width: 55vw;
+            }
         }
+
     </style>
-    <!-- Custom fonts for this template-->
-    <link href="public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="css/estilo.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script>
-        function actualizarHora() {
-            // Obtener la fecha y hora actual
-            const ahora = new Date();
-
-            // Formatear la hora en HH:mm:ss
-            const horas = ahora.getHours().toString().padStart(2, '0');
-            const minutos = ahora.getMinutes().toString().padStart(2, '0');
-            const segundos = ahora.getSeconds().toString().padStart(2, '0');
-            const horaFormateada = `${horas}:${minutos}:${segundos}`;
-
-            // Asignar la hora al elemento con el id "horaActual"
-            document.getElementById('horaActual').textContent = horaFormateada;
-        }
-
-        // Ejecutar la función cada segundo (1000 ms)
-        setInterval(actualizarHora, 1000);
-    </script>
 
 </head>
 
+
 <body id="page-top">
 
-    <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
-            <!-- Main Content -->
             <div id="content">
-                <!-- Navbar Superior -->
+
+                <!-- ==========================================
+                     NAVBAR
+                ========================================== -->
+
                 <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-primary mb-4">
+
                     <a class="navbar-brand" href="?route=home">
-                        <i class="fas fa-gamepad"></i> Zona Gamer
+
+                        <i class="fas fa-gamepad"></i>
+
+                        Zona Gamer
+
                     </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarGamer"
-                        aria-controls="navbarGamer" aria-expanded="false" aria-label="Toggle navigation">
+
+
+                    <button
+                        class="navbar-toggler"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#navbarGamer">
+
                         <span class="navbar-toggler-icon"></span>
+
                     </button>
 
-                    <div class="collapse navbar-collapse" id="navbarGamer">
+
+                    <div
+                        class="collapse navbar-collapse"
+                        id="navbarGamer">
+
                         <ul class="navbar-nav ml-auto align-items-center">
-                            <!-- Links del menú -->
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fas fa-home"></i> Inicio</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarGrupos" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-users"></i> Lista de juegos
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarGrupos">
 
-                                    <a class="dropdown-item" href="#">
+                            <li class="nav-item">
+
+                                <a class="nav-link" href="#">
+
+                                    <i class="fas fa-home"></i>
+
+                                    Inicio
+
+                                </a>
+
+                            </li>
+
+
+                            <li class="nav-item dropdown">
+
+                                <a
+                                    class="nav-link dropdown-toggle"
+                                    href="#"
+                                    id="navbarGrupos"
+                                    role="button"
+                                    data-toggle="dropdown">
+
+                                    <i class="fas fa-users"></i>
+
+                                    Lista de juegos
+
+                                </a>
+
+
+                                <div
+                                    class="dropdown-menu dropdown-menu-right">
+
+                                    <a
+                                        class="dropdown-item"
+                                        href="#">
+
                                         Ruleta
+
                                     </a>
 
-                                    <a class="dropdown-item" href="html/memoria.html">
+
+                                    <a
+                                        class="dropdown-item"
+                                        href="html/memoria.html">
+
                                         Memoria
+
                                     </a>
 
-                                    <a class="dropdown-item" href="html/moneda.html">
+
+                                    <a
+                                        class="dropdown-item"
+                                        href="html/moneda.html">
+
                                         Monedas
+
                                     </a>
 
-                                    <a class="dropdown-item" href="html/Bloques.html">
+
+                                    <a
+                                        class="dropdown-item"
+                                        href="html/Bloques.html">
+
                                         Saltos
+
                                     </a>
 
-                                    <a class="dropdown-item" href="html/puntos.html">
+
+                                    <a
+                                        class="dropdown-item"
+                                        href="html/puntos.html">
+
                                         Puntos
+
                                     </a>
 
-                                    <a class="dropdown-item" href="html/Portada.html">
+
+                                    <a
+                                        class="dropdown-item"
+                                        href="html/Portada.html">
+
                                         Portada
+
                                     </a>
 
                                 </div>
+
                             </li>
 
-                            <!-- Reloj -->
+
+                            <!-- RELOJ -->
+
                             <li class="nav-item">
-                                <span class="nav-link font-weight-bold text-white" id="horaActual"></span>
+
+                                <span
+                                    class="nav-link font-weight-bold text-white"
+                                    id="horaActual">
+
+                                </span>
+
                             </li>
 
-                            <!-- Dropdown usuario -->
+
+                            <!-- USUARIO -->
+
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown"
-                                    role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuNuWLCLLcxIOHZWSOPeGrmiBLf_fA9Cxqvw&s"
-                                        alt="Imagen de usuario" class="user-logo" width="40" height="40">
+
+                                <a
+                                    class="nav-link dropdown-toggle d-flex align-items-center"
+                                    href="#"
+                                    id="userDropdown"
+                                    data-toggle="dropdown">
+
+                                    <img
+                                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuNuWLCLLcxIOHZWSOPeGrmiBLf_fA9Cxqvw&s"
+                                        alt="Usuario"
+                                        width="40"
+                                        height="40"
+                                        class="user-logo">
+
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+
+
+                                <div
+                                    class="dropdown-menu dropdown-menu-right">
+
                                     <span class="dropdown-item">
-                                        <i class="fas fa-user mr-2"></i> Administrador:
-                                        <?php echo htmlspecialchars($nombreUsuario); ?>
+
+                                        <i class="fas fa-user mr-2"></i>
+
+                                        Administrador:
+
+                                        <?php
+                                        echo htmlspecialchars($nombreUsuario);
+                                        ?>
+
                                     </span>
+
+
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="/mvcPrueba/?route=logout">
-                                        <i class="fas fa-sign-out-alt mr-2"></i> Cerrar Sesión
+
+
+                                    <a
+                                        class="dropdown-item"
+                                        href="/mvcPrueba/?route=logout">
+
+                                        <i class="fas fa-sign-out-alt mr-2"></i>
+
+                                        Cerrar Sesión
+
                                     </a>
+
                                 </div>
+
                             </li>
 
                         </ul>
+
                     </div>
+
                 </nav>
 
-                <!-- Fin Navbar Superior -->
 
-                <!-- Begin Page Content -->
+                <!-- ==========================================
+                     CONTENIDO
+                ========================================== -->
+
                 <div class="container-fluid">
 
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <div class="contenedor-principal">
 
 
-                    </div>
+                        <!-- TITULO -->
 
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 order-2 mb-4">
-                            <div class="card h-100">
-                                <div class="card-body">
+                        <div class="titulo">
 
-                                    <div class="contenedor-principal">
+                            <h1>
+                                🎉 Gira y Gana 🎉
+                            </h1>
+
+                            <h2>
+                                Bienvenidos Nivel 6 Innovación -
+                                San Salvador
+                            </h2>
+
+                        </div>
 
 
-                                        <!-- ==================================
-         TITULO
-         ================================== -->
+                        <!-- RULETA + PANEL -->
 
-                                        <div class="titulo">
+                        <div class="contenedor">
 
-                                            <h1>
-                                                🎉 Gira y Gana 🎉
-                                            </h1>
 
-                                            <h2>
-                                                Bienvenidos Nivel 6 Innovacion
-                                                - San Salvador
-                                            </h2>
+                            <!-- RULETA -->
+
+                            <div class="zona-ruleta">
+
+                                <div class="ruleta-contenedor">
+
+
+                                    <!-- FLECHA -->
+
+                                    <div class="flecha-ruleta"></div>
+
+
+                                    <!-- TODO ESTO GIRA -->
+
+                                    <div
+                                        class="ruleta-giratoria"
+                                        id="ruletaGiratoria">
+
+
+                                        <!-- IMAGEN -->
+
+                                        <img
+                                            id="ruleta"
+                                            src="imagenes/ruletap.jpg"
+                                            alt="Ruleta Gira y Gana">
+
+
+                                        <!-- NÚMEROS -->
+
+                                        <div class="numeros-ruleta">
+
+                                            <span style="--i: 1;">1</span>
+                                            <span style="--i: 2;">2</span>
+                                            <span style="--i: 3;">3</span>
+                                            <span style="--i: 4;">4</span>
+                                            <span style="--i: 5;">5</span>
+                                            <span style="--i: 6;">6</span>
+                                            <span style="--i: 7;">7</span>
+                                            <span style="--i: 8;">8</span>
+                                            <span style="--i: 9;">9</span>
+                                            <span style="--i: 10;">10</span>
+                                            <span style="--i: 11;">11</span>
+                                            <span style="--i: 12;">12</span>
+                                            <span style="--i: 13;">13</span>
+                                            <span style="--i: 14;">14</span>
+                                            <span style="--i: 15;">15</span>
+                                            <span style="--i: 16;">16</span>
+                                            <span style="--i: 17;">17</span>
+                                            <span style="--i: 18;">18</span>
+                                            <span style="--i: 19;">19</span>
+                                            <span style="--i: 20;">20</span>
 
                                         </div>
 
 
-                                        <!-- ==================================
-         CONTENIDO
-         ================================== -->
+                                        <!-- CENTRO -->
 
-                                        <div class="contenedor">
-
-
-                                            <!-- ==================================
-             RULETA
-             ================================== -->
-
-                                            <div class="zona-ruleta">
-
-
-                                                <div class="ruleta-contenedor">
-
-
-                                                    <!-- FLECHA FIJA -->
-
-                                                    <div class="flecha-ruleta">
-                                                    </div>
-
-
-                                                    <!-- ==================================
-                     TODO ESTO GIRA JUNTO
-                     ================================== -->
-
-                                                    <div class="ruleta-giratoria" id="ruletaGiratoria">
-
-
-                                                        <!-- IMAGEN -->
-
-                                                        <img id="ruleta" src="imagenes/ruletap.jpg"
-                                                            alt="Ruleta Gira y Gana">
-
-
-                                                        <!-- ==================================
-                         NÚMEROS 1 AL 20
-                         ================================== -->
-
-                                                        <div class="numeros-ruleta">
-
-
-                                                            <span style="--i: 1;">
-                                                                1
-                                                            </span>
-
-                                                            <span style="--i: 2;">
-                                                                2
-                                                            </span>
-
-                                                            <span style="--i: 3;">
-                                                                3
-                                                            </span>
-
-                                                            <span style="--i: 4;">
-                                                                4
-                                                            </span>
-
-                                                            <span style="--i: 5;">
-                                                                5
-                                                            </span>
-
-                                                            <span style="--i: 6;">
-                                                                6
-                                                            </span>
-
-                                                            <span style="--i: 7;">
-                                                                7
-                                                            </span>
-
-                                                            <span style="--i: 8;">
-                                                                8
-                                                            </span>
-
-                                                            <span style="--i: 9;">
-                                                                9
-                                                            </span>
-
-                                                            <span style="--i: 10;">
-                                                                10
-                                                            </span>
-
-                                                            <span style="--i: 11;">
-                                                                11
-                                                            </span>
-
-                                                            <span style="--i: 12;">
-                                                                12
-                                                            </span>
-
-                                                            <span style="--i: 13;">
-                                                                13
-                                                            </span>
-
-                                                            <span style="--i: 14;">
-                                                                14
-                                                            </span>
-
-                                                            <span style="--i: 15;">
-                                                                15
-                                                            </span>
-
-                                                            <span style="--i: 16;">
-                                                                16
-                                                            </span>
-
-                                                            <span style="--i: 17;">
-                                                                17
-                                                            </span>
-
-                                                            <span style="--i: 18;">
-                                                                18
-                                                            </span>
-
-                                                            <span style="--i: 19;">
-                                                                19
-                                                            </span>
-
-                                                            <span style="--i: 20;">
-                                                                20
-                                                            </span>
-
-
-                                                        </div>
-
-
-                                                        <!-- CENTRO -->
-
-                                                        <div class="centro-ruleta">
-                                                        </div>
-
-
-                                                    </div>
-
-
-                                                </div>
-
-
-                                                <!-- SOPORTE -->
-
-                                                <div class="soporte-ruleta">
-                                                </div>
-
-
-                                            </div>
-
-
-                                            <!-- ==================================
-                                                PANEL
-                                                ================================== -->
-
-                                            <div class="panel">
-
-
-                                                <h2>
-                                                    Resultado
-                                                </h2>
-
-
-                                                <p>
-                                                    Número seleccionado:
-                                                </p>
-
-
-                                                <div id="numero" class="numero">
-
-                                                    -
-
-                                                </div>
-
-
-                                                <p id="pregunta" class="pregunta">
-
-                                                    Gira la ruleta
-                                                    para comenzar
-
-                                                </p>
-
-
-                                                <button id="girarBtn">
-
-                                                    🎡 GIRAR RULETA
-
-                                                </button>
-
-
-                                            </div>
-
-
-                                        </div>
+                                        <div class="centro-ruleta"></div>
 
 
                                     </div>
 
                                 </div>
+
+
+                                <!-- SOPORTE -->
+
+                                <div class="soporte-ruleta"></div>
+
                             </div>
+
+
+                            <!-- PANEL -->
+
+                            <div class="panel">
+
+                                <h2>
+                                    Resultado
+                                </h2>
+
+                                <p>
+                                    Número seleccionado:
+                                </p>
+
+
+                                <div
+                                    id="numero"
+                                    class="numero">
+
+                                    -
+
+                                </div>
+
+
+                                <p
+                                    id="pregunta"
+                                    class="pregunta">
+
+                                    Gira la ruleta
+                                    para comenzar
+
+                                </p>
+
+
+                                <button
+                                    id="girarBtn">
+
+                                    🎡 GIRAR RULETA
+
+                                </button>
+
+                            </div>
+
                         </div>
+
                     </div>
 
                 </div>
-                <!-- /.container-fluid -->
 
             </div>
-            <!-- End of Main Content -->
 
-            <!-- Footer -->
+
+            <!-- FOOTER -->
+
             <footer class="sticky-footer bg-white">
+
                 <div class="container my-auto">
+
                     <div class="copyright text-center my-auto">
+
                         ©
+
                         <script>
-                            document.write(new Date().getFullYear());
+                            document.write(
+                                new Date().getFullYear()
+                            );
                         </script>
-                        ,The_Alexander
+
+                        , The_Alexander
+
                     </div>
+
                 </div>
+
             </footer>
-            <!-- End of Footer -->
 
         </div>
-        <!-- End of Content Wrapper -->
 
     </div>
 
 
-    <!-- Bootstrap core JavaScript-->
+    <!-- ==========================================
+         JAVASCRIPT
+    ========================================== -->
+
     <script src="public/vendor/jquery/jquery.min.js"></script>
+
     <script src="public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="public/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
     <script src="public/js/sb-admin-2.min.js"></script>
 
-
-    <!-- SweetAlert2 JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
     <script>
 
+        /* ==========================================
+           RELOJ
+        ========================================== */
 
-        // ============================================
-        // ELEMENTOS
-        // ============================================
+        function actualizarHora() {
+
+            const ahora = new Date();
+
+            const horas =
+                String(
+                    ahora.getHours()
+                ).padStart(2, "0");
+
+            const minutos =
+                String(
+                    ahora.getMinutes()
+                ).padStart(2, "0");
+
+            const segundos =
+                String(
+                    ahora.getSeconds()
+                ).padStart(2, "0");
+
+            document
+                .getElementById("horaActual")
+                .textContent =
+                `${horas}:${minutos}:${segundos}`;
+
+        }
+
+        actualizarHora();
+
+        setInterval(
+            actualizarHora,
+            1000
+        );
+
+
+        /* ==========================================
+           ELEMENTOS
+        ========================================== */
 
         const ruletaGiratoria =
             document.getElementById(
                 "ruletaGiratoria"
             );
 
-
         const girarBtn =
             document.getElementById(
                 "girarBtn"
             );
 
-
         const numeroDisplay =
             document.getElementById(
                 "numero"
             );
-
 
         const preguntaDisplay =
             document.getElementById(
@@ -984,9 +1079,9 @@
             );
 
 
-        // ============================================
-        // CONFIGURACIÓN
-        // ============================================
+        /* ==========================================
+           CONFIGURACIÓN
+        ========================================== */
 
         const numSegmentos = 20;
 
@@ -997,15 +1092,12 @@
 
         let animando = false;
 
-
-        // Preguntas utilizadas
-
         const preguntasUsadas = [];
 
 
-        // ============================================
-        // PREGUNTAS
-        // ============================================
+        /* ==========================================
+           PREGUNTAS
+        ========================================== */
 
         const preguntas = [
 
@@ -1052,50 +1144,41 @@
         ];
 
 
-        // ============================================
-        // AUDIO
-        // ============================================
+        /* ==========================================
+           AUDIO
+        ========================================== */
 
-        const audioGiro = new Audio(
-            "audio/Merry-Go-Round.mp3"
-        );
+        const audioGiro =
+            new Audio(
+                "audio/Merry-Go-Round.mp3"
+            );
 
         audioGiro.loop = true;
 
 
-        // ============================================
-        // GIRAR RULETA
-        // ============================================
+        /* ==========================================
+           GIRAR RULETA
+        ========================================== */
 
         function girarRuleta() {
 
-
-            // Evitar múltiples clics
-
             if (animando) {
-
                 return;
-
             }
 
 
-            // ========================================
-            // VERIFICAR PREGUNTAS
-            // ========================================
+            /* VERIFICAR SI TERMINÓ */
 
             if (
-                preguntasUsadas.length
-                >=
+                preguntasUsadas.length >=
                 numSegmentos
             ) {
 
                 Swal.fire({
 
-                    icon:
-                        "info",
+                    icon: "info",
 
-                    title:
-                        "¡Juego terminado!",
+                    title: "¡Juego terminado!",
 
                     text:
                         "Ya se utilizaron todas las preguntas."
@@ -1103,107 +1186,66 @@
                 });
 
                 return;
-
             }
 
 
-            // Activar animación
+            /* BLOQUEAR BOTÓN */
 
             animando = true;
 
             girarBtn.disabled = true;
 
 
-            // Limpiar resultado
-
-            numeroDisplay.textContent =
-                "-";
-
+            numeroDisplay.textContent = "-";
 
             preguntaDisplay.textContent =
                 "¡La ruleta está girando!";
 
 
-            // ========================================
-            // SELECCIONAR NÚMERO
-            // ========================================
+            /* ==========================================
+               SELECCIONAR NÚMERO NO UTILIZADO
+            ========================================== */
 
             let indice;
-
 
             do {
 
                 indice =
                     Math.floor(
-                        Math.random()
-                        *
+                        Math.random() *
                         numSegmentos
                     );
 
-            }
-
-            while (
-                preguntasUsadas
-                    .includes(indice)
+            } while (
+                preguntasUsadas.includes(indice)
             );
 
 
-            // Guardar número usado
-
-            preguntasUsadas.push(
-                indice
-            );
+            preguntasUsadas.push(indice);
 
 
-            // ========================================
-            // CALCULAR ROTACIÓN
-            // ========================================
-
-            /*
-                Cada número está separado 18 grados.
-        
-                Queremos que el número seleccionado
-                quede exactamente debajo de la flecha.
-        
-                La flecha está arriba.
-            */
-
+            /* ==========================================
+               CALCULAR ROTACIÓN
+            ========================================== */
 
             const posicionNumero =
-                indice
-                *
+                indice *
                 gradosPorSegmento;
 
 
-            // Vueltas completas
-
             const vueltas =
-
-                5
-                +
+                5 +
                 Math.floor(
                     Math.random() * 3
                 );
 
 
-            // Variación pequeña
-
-            const variacion =
-
-                (
-                    Math.random()
-                    *
-                    8
-                )
-                -
-                4;
-
-
             /*
-                360 - posición del número
-        
-                Esto hace que el número seleccionado
-                termine en la parte superior.
+                El centro de cada segmento
+                está separado por 18 grados.
+
+                Sumamos 9 grados para apuntar
+                al centro del número.
             */
 
             const giroFinal =
@@ -1213,28 +1255,27 @@
                 +
 
                 (
-                    360
-                    -
+                    360 -
                     posicionNumero
                 )
 
-                +
+                -
 
-                variacion;
+                9;
 
 
             anguloActual +=
                 giroFinal;
 
 
-            // ========================================
-            // AUDIO
-            // ========================================
+            /* ==========================================
+               AUDIO
+            ========================================== */
 
             audioGiro.currentTime = 0;
 
-
-            audioGiro.play()
+            audioGiro
+                .play()
                 .catch(
                     error => {
 
@@ -1247,67 +1288,60 @@
                 );
 
 
-            // ========================================
-            // GIRAR RULETA + NÚMEROS
-            // ========================================
+            /* ==========================================
+               GIRAR
+            ========================================== */
 
             ruletaGiratoria.style.transform =
-
                 `rotate(${anguloActual}deg)`;
 
 
-            // ========================================
-            // ESPERAR FIN DE ANIMACIÓN
-            // ========================================
+            /* ==========================================
+               ESPERAR ANIMACIÓN
+            ========================================== */
 
             setTimeout(
+
                 function () {
 
 
-                    // Detener audio
+                    /* DETENER AUDIO */
 
                     audioGiro.pause();
 
                     audioGiro.currentTime = 0;
 
 
-                    // ==================================
-                    // MOSTRAR RESULTADO
-                    // ==================================
+                    /* MOSTRAR RESULTADO */
 
                     numeroDisplay.textContent =
-
                         indice + 1;
 
 
-                    // Mostrar pregunta
-
                     preguntaDisplay.textContent =
-
                         preguntas[indice];
 
 
-                    // ==================================
-                    // SWEET ALERT
-                    // ==================================
+                    /* SWEET ALERT */
 
                     Swal.fire({
 
-                        icon:
-                            "success",
+                        icon: "success",
 
                         title:
                             "🎉 ¡Resultado! 🎉",
 
                         html:
 
-                            `<h2>
-                        Número ${indice + 1}
-                    </h2>
+                            `
+                            <h2>
+                                Número ${indice + 1}
+                            </h2>
 
-                    <p>
-                        ${preguntas[indice]}
-                    </p>`,
+                            <p>
+                                ${preguntas[indice]}
+                            </p>
+                            `,
 
                         confirmButtonText:
                             "Continuar"
@@ -1315,7 +1349,7 @@
                     });
 
 
-                    // Habilitar botón
+                    /* ACTIVAR BOTÓN */
 
                     animando = false;
 
@@ -1331,22 +1365,18 @@
         }
 
 
-        // ============================================
-        // EVENTO BOTÓN
-        // ============================================
+        /* ==========================================
+           EVENTO BOTÓN
+        ========================================== */
 
         girarBtn.addEventListener(
-
             "click",
-
             girarRuleta
-
         );
 
-
     </script>
-
 
 </body>
 
 </html>
+```
