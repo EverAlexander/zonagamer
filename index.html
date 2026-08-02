@@ -45,6 +45,512 @@
             margin-top: 20px;
             width: 100%;
         }
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+
+
+        /* ==========================================
+   CONTENEDOR PRINCIPAL
+   ========================================== */
+
+        .contenedor-principal {
+
+            width: 100%;
+
+            max-width: 1100px;
+
+            background: rgba(255, 255, 255, 0.95);
+
+            border-radius: 25px;
+
+            padding: 30px;
+
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.5);
+
+        }
+
+
+        /* ==========================================
+   TITULO
+   ========================================== */
+
+        .titulo {
+
+            text-align: center;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .titulo h1 {
+
+            margin: 0;
+
+            font-size: 42px;
+
+            color: #123c69;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .titulo h2 {
+
+            margin: 10px 0 0;
+
+            color: #d89b00;
+
+        }
+
+
+        /* ==========================================
+   CONTENEDOR
+   ========================================== */
+
+        .contenedor {
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            gap: 50px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        /* ==========================================
+   ZONA RULETA
+   ========================================== */
+
+        .zona-ruleta {
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+        }
+
+
+        /* ==========================================
+   CONTENEDOR RULETA
+   ========================================== */
+
+        .ruleta-contenedor {
+
+            position: relative;
+
+            width: 500px;
+
+            height: 500px;
+
+        }
+
+
+        /* ==========================================
+   ELEMENTO QUE GIRA
+   IMAGEN + NÚMEROS
+   ========================================== */
+
+        .ruleta-giratoria {
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            transform-origin: center center;
+
+            transition:
+                transform 6s cubic-bezier(0.15,
+                    0.85,
+                    0.25,
+                    1);
+
+        }
+
+
+        /* ==========================================
+   IMAGEN RULETA
+   ========================================== */
+
+        #ruleta {
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            display: block;
+
+            border-radius: 50%;
+
+            filter:
+                drop-shadow(0 10px 15px rgba(0, 0, 0, 0.5));
+
+        }
+
+
+        /* ==========================================
+   NÚMEROS
+   ========================================== */
+
+        .numeros-ruleta {
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            border-radius: 50%;
+
+            z-index: 5;
+
+            pointer-events: none;
+
+        }
+
+
+        /* Cada número */
+
+        .numeros-ruleta span {
+
+            position: absolute;
+
+            top: 50%;
+
+            left: 50%;
+
+            width: 42px;
+
+            height: 42px;
+
+            margin-left: -21px;
+
+            margin-top: -21px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+            color: white;
+
+            background:
+                rgba(0,
+                    0,
+                    0,
+                    0.45);
+
+            border:
+                2px solid white;
+
+            border-radius: 50%;
+
+            text-shadow:
+                2px 2px 3px black;
+
+            transform:
+                rotate(calc((var(--i) - 1) * 18deg)) translateY(-205px) rotate(calc((var(--i) - 1) * -18deg));
+
+        }
+
+
+        /* ==========================================
+   FLECHA
+   ========================================== */
+
+        .flecha-ruleta {
+
+            position: absolute;
+
+            top: -20px;
+
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            width: 0;
+
+            height: 0;
+
+            border-left:
+                25px solid transparent;
+
+            border-right:
+                25px solid transparent;
+
+            border-top:
+                60px solid #e21d2f;
+
+            z-index: 20;
+
+            filter:
+                drop-shadow(0 3px 3px rgba(0, 0, 0, 0.6));
+
+        }
+
+
+        /* ==========================================
+   CENTRO
+   ========================================== */
+
+        .centro-ruleta {
+
+            position: absolute;
+
+            top: 50%;
+
+            left: 50%;
+
+            transform:
+                translate(-50%,
+                    -50%);
+
+            width: 75px;
+
+            height: 75px;
+
+            background:
+                radial-gradient(circle,
+                    #ffffff 40%,
+                    #d6a21e 42%,
+                    #a87900 100%);
+
+            border-radius: 50%;
+
+            border:
+                5px solid #ffffff;
+
+            box-shadow:
+                0 4px 10px rgba(0, 0, 0, 0.5);
+
+            z-index: 10;
+
+        }
+
+
+        /* ==========================================
+   SOPORTE
+   ========================================== */
+
+        .soporte-ruleta {
+
+            width: 260px;
+
+            height: 70px;
+
+            margin-top: -10px;
+
+            background:
+                linear-gradient(to bottom,
+                    #d5eff2,
+                    #75aeb6);
+
+            border-radius:
+                10px 10px 30px 30px;
+
+            box-shadow:
+                0 5px 10px rgba(0, 0, 0, 0.4);
+
+        }
+
+
+        /* ==========================================
+   PANEL RESULTADO
+   ========================================== */
+
+        .panel {
+
+            width: 320px;
+
+            min-height: 350px;
+
+            padding: 30px;
+
+            background:
+                linear-gradient(135deg,
+                    #ffffff,
+                    #f2f7fc);
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 8px 20px rgba(0, 0, 0, 0.2);
+
+            text-align: center;
+
+        }
+
+
+        .panel h2 {
+
+            color: #123c69;
+
+            font-size: 30px;
+
+            margin-top: 0;
+
+        }
+
+
+        .numero {
+
+            font-size: 70px;
+
+            font-weight: bold;
+
+            color: #d89b00;
+
+            margin: 20px;
+
+        }
+
+
+        .pregunta {
+
+            min-height: 80px;
+
+            font-size: 18px;
+
+            color: #333;
+
+        }
+
+
+        /* ==========================================
+   BOTÓN
+   ========================================== */
+
+        #girarBtn {
+
+            width: 100%;
+
+            padding: 15px;
+
+            margin-top: 20px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(135deg,
+                    #123c69,
+                    #1c68a8);
+
+            color: white;
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+        }
+
+
+        #girarBtn:hover {
+
+            transform:
+                scale(1.03);
+
+            box-shadow:
+                0 5px 15px rgba(0, 0, 0, 0.3);
+
+        }
+
+
+        #girarBtn:disabled {
+
+            background: #999;
+
+            cursor: not-allowed;
+
+            transform: none;
+
+        }
+
+
+        /* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+        @media (max-width: 700px) {
+
+            .ruleta-contenedor {
+
+                width: 90vw;
+
+                height: 90vw;
+
+            }
+
+
+            .titulo h1 {
+
+                font-size: 28px;
+
+            }
+
+
+            .panel {
+
+                width: 100%;
+
+            }
+
+
+            .numeros-ruleta span {
+
+                font-size: 15px;
+
+                width: 32px;
+
+                height: 32px;
+
+                margin-left: -16px;
+
+                margin-top: -16px;
+
+            }
+
+        }
     </style>
     <!-- Custom fonts for this template-->
     <link href="public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -444,360 +950,358 @@
 
     <!-- SweetAlert2 JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
-<script src=
-"https://cdn.jsdelivr.net/npm/sweetalert2@11">
-</script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
-<script>
+    <script>
 
 
-// ============================================
-// ELEMENTOS
-// ============================================
+        // ============================================
+        // ELEMENTOS
+        // ============================================
 
-const ruletaGiratoria =
-    document.getElementById(
-        "ruletaGiratoria"
-    );
-
-
-const girarBtn =
-    document.getElementById(
-        "girarBtn"
-    );
-
-
-const numeroDisplay =
-    document.getElementById(
-        "numero"
-    );
-
-
-const preguntaDisplay =
-    document.getElementById(
-        "pregunta"
-    );
-
-
-// ============================================
-// CONFIGURACIÓN
-// ============================================
-
-const numSegmentos = 20;
-
-const gradosPorSegmento =
-    360 / numSegmentos;
-
-let anguloActual = 0;
-
-let animando = false;
-
-
-// Preguntas utilizadas
-
-const preguntasUsadas = [];
-
-
-// ============================================
-// PREGUNTAS
-// ============================================
-
-const preguntas = [
-
-    "Pregunta 1: Mencione un área de la biblioteca",
-
-    "Pregunta 2: ¿Cómo se llama el presidente de El Salvador?",
-
-    "Pregunta 3: Menciona un personaje del mundo de Mario Kart",
-
-    "Pregunta 4: ¿Cuántos colores tiene la bandera de El Salvador?",
-
-    "Pregunta 5: ¿Cuántos niveles tiene la Biblioteca Nacional?",
-
-    "Pregunta 6: ¿Cuál es el Pokémon más popular?",
-
-    "Pregunta 7: Mencione un lugar turístico de El Salvador",
-
-    "Pregunta 8: ¿Cuál es el requisito para jugar en Zona Gamer?",
-
-    "Pregunta 9: ¿Desde qué edad se puede jugar en la Zona Gamer Nivel 6?",
-
-    "Pregunta 10: Menciona un platillo típico de El Salvador",
-
-    "Pregunta 11: ¿En qué nivel de la biblioteca se encuentran las áreas de Realidad Virtual, Robótica y Prototipado?",
-
-    "Pregunta 12: ¿Qué es lo que más te gusta de la Biblioteca Nacional de El Salvador?",
-
-    "Pregunta 13: Menciona 2 libros que hayas leído dentro de la Biblioteca",
-
-    "Pregunta 14: ¿Cuánto tiempo puede utilizar un usuario las consolas?",
-
-    "Pregunta 15: ¿Qué significan las iniciales BINAES?",
-
-    "Pregunta 16: ¿Cuál es el horario de atención de la Biblioteca?",
-
-    "Pregunta 17: ¿Se organizan torneos de videojuegos?",
-
-    "Pregunta 18: Mencione un área de la biblioteca",
-
-    "Pregunta 19: ¿En qué nivel de la Biblioteca se encuentra la zona de Harry Potter?",
-
-    "Pregunta 20: ¿En qué nivel de la biblioteca se encuentra el área del Principito?"
-
-];
-
-
-// ============================================
-// AUDIO
-// ============================================
-
-const audioGiro = new Audio(
-    "audio/Merry-Go-Round.mp3"
-);
-
-audioGiro.loop = true;
-
-
-// ============================================
-// GIRAR RULETA
-// ============================================
-
-function girarRuleta() {
-
-
-    // Evitar múltiples clics
-
-    if (animando) {
-
-        return;
-
-    }
-
-
-    // ========================================
-    // VERIFICAR PREGUNTAS
-    // ========================================
-
-    if (
-        preguntasUsadas.length
-        >=
-        numSegmentos
-    ) {
-
-        Swal.fire({
-
-            icon:
-                "info",
-
-            title:
-                "¡Juego terminado!",
-
-            text:
-                "Ya se utilizaron todas las preguntas."
-
-        });
-
-        return;
-
-    }
-
-
-    // Activar animación
-
-    animando = true;
-
-    girarBtn.disabled = true;
-
-
-    // Limpiar resultado
-
-    numeroDisplay.textContent =
-        "-";
-
-
-    preguntaDisplay.textContent =
-        "¡La ruleta está girando!";
-
-
-    // ========================================
-    // SELECCIONAR NÚMERO
-    // ========================================
-
-    let indice;
-
-
-    do {
-
-        indice =
-            Math.floor(
-                Math.random()
-                *
-                numSegmentos
+        const ruletaGiratoria =
+            document.getElementById(
+                "ruletaGiratoria"
             );
 
-    }
 
-    while (
-        preguntasUsadas
-        .includes(indice)
-    );
-
-
-    // Guardar número usado
-
-    preguntasUsadas.push(
-        indice
-    );
+        const girarBtn =
+            document.getElementById(
+                "girarBtn"
+            );
 
 
-    // ========================================
-    // CALCULAR ROTACIÓN
-    // ========================================
-
-    /*
-        Cada número está separado 18 grados.
-
-        Queremos que el número seleccionado
-        quede exactamente debajo de la flecha.
-
-        La flecha está arriba.
-    */
+        const numeroDisplay =
+            document.getElementById(
+                "numero"
+            );
 
 
-    const posicionNumero =
-        indice
-        *
-        gradosPorSegmento;
+        const preguntaDisplay =
+            document.getElementById(
+                "pregunta"
+            );
 
 
-    // Vueltas completas
+        // ============================================
+        // CONFIGURACIÓN
+        // ============================================
 
-    const vueltas =
+        const numSegmentos = 20;
 
-        5
-        +
-        Math.floor(
-            Math.random() * 3
+        const gradosPorSegmento =
+            360 / numSegmentos;
+
+        let anguloActual = 0;
+
+        let animando = false;
+
+
+        // Preguntas utilizadas
+
+        const preguntasUsadas = [];
+
+
+        // ============================================
+        // PREGUNTAS
+        // ============================================
+
+        const preguntas = [
+
+            "Pregunta 1: Mencione un área de la biblioteca",
+
+            "Pregunta 2: ¿Cómo se llama el presidente de El Salvador?",
+
+            "Pregunta 3: Menciona un personaje del mundo de Mario Kart",
+
+            "Pregunta 4: ¿Cuántos colores tiene la bandera de El Salvador?",
+
+            "Pregunta 5: ¿Cuántos niveles tiene la Biblioteca Nacional?",
+
+            "Pregunta 6: ¿Cuál es el Pokémon más popular?",
+
+            "Pregunta 7: Mencione un lugar turístico de El Salvador",
+
+            "Pregunta 8: ¿Cuál es el requisito para jugar en Zona Gamer?",
+
+            "Pregunta 9: ¿Desde qué edad se puede jugar en la Zona Gamer Nivel 6?",
+
+            "Pregunta 10: Menciona un platillo típico de El Salvador",
+
+            "Pregunta 11: ¿En qué nivel de la biblioteca se encuentran las áreas de Realidad Virtual, Robótica y Prototipado?",
+
+            "Pregunta 12: ¿Qué es lo que más te gusta de la Biblioteca Nacional de El Salvador?",
+
+            "Pregunta 13: Menciona 2 libros que hayas leído dentro de la Biblioteca",
+
+            "Pregunta 14: ¿Cuánto tiempo puede utilizar un usuario las consolas?",
+
+            "Pregunta 15: ¿Qué significan las iniciales BINAES?",
+
+            "Pregunta 16: ¿Cuál es el horario de atención de la Biblioteca?",
+
+            "Pregunta 17: ¿Se organizan torneos de videojuegos?",
+
+            "Pregunta 18: Mencione un área de la biblioteca",
+
+            "Pregunta 19: ¿En qué nivel de la Biblioteca se encuentra la zona de Harry Potter?",
+
+            "Pregunta 20: ¿En qué nivel de la biblioteca se encuentra el área del Principito?"
+
+        ];
+
+
+        // ============================================
+        // AUDIO
+        // ============================================
+
+        const audioGiro = new Audio(
+            "audio/Merry-Go-Round.mp3"
         );
 
-
-    // Variación pequeña
-
-    const variacion =
-
-        (
-            Math.random()
-            *
-            8
-        )
-        -
-        4;
+        audioGiro.loop = true;
 
 
-    /*
-        360 - posición del número
+        // ============================================
+        // GIRAR RULETA
+        // ============================================
 
-        Esto hace que el número seleccionado
-        termine en la parte superior.
-    */
-
-    const giroFinal =
-
-        vueltas * 360
-
-        +
-
-        (
-            360
-            -
-            posicionNumero
-        )
-
-        +
-
-        variacion;
+        function girarRuleta() {
 
 
-    anguloActual +=
-        giroFinal;
+            // Evitar múltiples clics
 
+            if (animando) {
 
-    // ========================================
-    // AUDIO
-    // ========================================
-
-    audioGiro.currentTime = 0;
-
-
-    audioGiro.play()
-        .catch(
-            error => {
-
-                console.log(
-                    "Audio bloqueado:",
-                    error
-                );
+                return;
 
             }
-        );
 
 
-    // ========================================
-    // GIRAR RULETA + NÚMEROS
-    // ========================================
+            // ========================================
+            // VERIFICAR PREGUNTAS
+            // ========================================
 
-    ruletaGiratoria.style.transform =
+            if (
+                preguntasUsadas.length
+                >=
+                numSegmentos
+            ) {
 
-        `rotate(${anguloActual}deg)`;
+                Swal.fire({
+
+                    icon:
+                        "info",
+
+                    title:
+                        "¡Juego terminado!",
+
+                    text:
+                        "Ya se utilizaron todas las preguntas."
+
+                });
+
+                return;
+
+            }
 
 
-    // ========================================
-    // ESPERAR FIN DE ANIMACIÓN
-    // ========================================
+            // Activar animación
 
-    setTimeout(
-        function() {
+            animando = true;
+
+            girarBtn.disabled = true;
 
 
-            // Detener audio
+            // Limpiar resultado
 
-            audioGiro.pause();
+            numeroDisplay.textContent =
+                "-";
+
+
+            preguntaDisplay.textContent =
+                "¡La ruleta está girando!";
+
+
+            // ========================================
+            // SELECCIONAR NÚMERO
+            // ========================================
+
+            let indice;
+
+
+            do {
+
+                indice =
+                    Math.floor(
+                        Math.random()
+                        *
+                        numSegmentos
+                    );
+
+            }
+
+            while (
+                preguntasUsadas
+                    .includes(indice)
+            );
+
+
+            // Guardar número usado
+
+            preguntasUsadas.push(
+                indice
+            );
+
+
+            // ========================================
+            // CALCULAR ROTACIÓN
+            // ========================================
+
+            /*
+                Cada número está separado 18 grados.
+        
+                Queremos que el número seleccionado
+                quede exactamente debajo de la flecha.
+        
+                La flecha está arriba.
+            */
+
+
+            const posicionNumero =
+                indice
+                *
+                gradosPorSegmento;
+
+
+            // Vueltas completas
+
+            const vueltas =
+
+                5
+                +
+                Math.floor(
+                    Math.random() * 3
+                );
+
+
+            // Variación pequeña
+
+            const variacion =
+
+                (
+                    Math.random()
+                    *
+                    8
+                )
+                -
+                4;
+
+
+            /*
+                360 - posición del número
+        
+                Esto hace que el número seleccionado
+                termine en la parte superior.
+            */
+
+            const giroFinal =
+
+                vueltas * 360
+
+                +
+
+                (
+                    360
+                    -
+                    posicionNumero
+                )
+
+                +
+
+                variacion;
+
+
+            anguloActual +=
+                giroFinal;
+
+
+            // ========================================
+            // AUDIO
+            // ========================================
 
             audioGiro.currentTime = 0;
 
 
-            // ==================================
-            // MOSTRAR RESULTADO
-            // ==================================
+            audioGiro.play()
+                .catch(
+                    error => {
 
-            numeroDisplay.textContent =
+                        console.log(
+                            "Audio bloqueado:",
+                            error
+                        );
 
-                indice + 1;
-
-
-            // Mostrar pregunta
-
-            preguntaDisplay.textContent =
-
-                preguntas[indice];
+                    }
+                );
 
 
-            // ==================================
-            // SWEET ALERT
-            // ==================================
+            // ========================================
+            // GIRAR RULETA + NÚMEROS
+            // ========================================
 
-            Swal.fire({
+            ruletaGiratoria.style.transform =
 
-                icon:
-                    "success",
+                `rotate(${anguloActual}deg)`;
 
-                title:
-                    "🎉 ¡Resultado! 🎉",
 
-                html:
+            // ========================================
+            // ESPERAR FIN DE ANIMACIÓN
+            // ========================================
 
-                    `<h2>
+            setTimeout(
+                function () {
+
+
+                    // Detener audio
+
+                    audioGiro.pause();
+
+                    audioGiro.currentTime = 0;
+
+
+                    // ==================================
+                    // MOSTRAR RESULTADO
+                    // ==================================
+
+                    numeroDisplay.textContent =
+
+                        indice + 1;
+
+
+                    // Mostrar pregunta
+
+                    preguntaDisplay.textContent =
+
+                        preguntas[indice];
+
+
+                    // ==================================
+                    // SWEET ALERT
+                    // ==================================
+
+                    Swal.fire({
+
+                        icon:
+                            "success",
+
+                        title:
+                            "🎉 ¡Resultado! 🎉",
+
+                        html:
+
+                            `<h2>
                         Número ${indice + 1}
                     </h2>
 
@@ -805,42 +1309,42 @@ function girarRuleta() {
                         ${preguntas[indice]}
                     </p>`,
 
-                confirmButtonText:
-                    "Continuar"
+                        confirmButtonText:
+                            "Continuar"
 
-            });
-
-
-            // Habilitar botón
-
-            animando = false;
-
-            girarBtn.disabled = false;
+                    });
 
 
-        },
+                    // Habilitar botón
 
-        6000
+                    animando = false;
 
-    );
-
-}
+                    girarBtn.disabled = false;
 
 
-// ============================================
-// EVENTO BOTÓN
-// ============================================
+                },
 
-girarBtn.addEventListener(
+                6000
 
-    "click",
+            );
 
-    girarRuleta
-
-);
+        }
 
 
-</script>
+        // ============================================
+        // EVENTO BOTÓN
+        // ============================================
+
+        girarBtn.addEventListener(
+
+            "click",
+
+            girarRuleta
+
+        );
+
+
+    </script>
 
 
 </body>
