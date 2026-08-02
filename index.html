@@ -16,517 +16,586 @@
           href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
 
-    <style>
+<style>
 
-        * {
-            box-sizing: border-box;
-        }
+* {
+    box-sizing: border-box;
+}
 
 
-        body {
+body {
 
-            margin: 0;
+    margin: 0;
 
-            min-height: 100vh;
+    min-height: 100vh;
 
-            font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif;
 
-            background:
-                linear-gradient(
-                    rgba(0, 30, 70, 0.75),
-                    rgba(0, 30, 70, 0.75)
-                ),
-                url("img/fondo-fiesta.jpg");
+    background:
+        linear-gradient(
+            rgba(0, 30, 70, 0.75),
+            rgba(0, 30, 70, 0.75)
+        ),
+        url("img/fondo-fiesta.jpg");
 
-            background-size: cover;
+    background-size: cover;
 
-            background-position: center;
+    background-position: center;
 
-            display: flex;
+    display: flex;
 
-            justify-content: center;
+    justify-content: center;
 
-            align-items: center;
+    align-items: center;
 
-            padding: 30px;
+    padding: 30px;
 
-        }
+}
 
 
-        /* CONTENEDOR PRINCIPAL */
+/* ==========================================
+   CONTENEDOR PRINCIPAL
+   ========================================== */
 
-        .contenedor-principal {
+.contenedor-principal {
 
-            width: 100%;
+    width: 100%;
 
-            max-width: 1100px;
+    max-width: 1100px;
 
-            background: rgba(255,255,255,0.95);
+    background: rgba(255,255,255,0.95);
 
-            border-radius: 25px;
+    border-radius: 25px;
 
-            padding: 30px;
+    padding: 30px;
 
-            box-shadow:
-                0 15px 40px
-                rgba(0,0,0,0.5);
+    box-shadow:
+        0 15px 40px
+        rgba(0,0,0,0.5);
 
-        }
+}
 
 
-        /* TITULO */
+/* ==========================================
+   TITULO
+   ========================================== */
 
-        .titulo {
+.titulo {
 
-            text-align: center;
+    text-align: center;
 
-            margin-bottom: 30px;
+    margin-bottom: 30px;
 
-        }
+}
 
 
-        .titulo h1 {
+.titulo h1 {
 
-            margin: 0;
+    margin: 0;
 
-            font-size: 42px;
+    font-size: 42px;
 
-            color: #123c69;
+    color: #123c69;
 
-            text-transform: uppercase;
+    text-transform: uppercase;
 
-        }
+}
 
 
-        .titulo h2 {
+.titulo h2 {
 
-            margin: 10px 0 0;
+    margin: 10px 0 0;
 
-            color: #d89b00;
+    color: #d89b00;
 
-        }
+}
 
 
-        /* CONTENEDOR RULETA */
+/* ==========================================
+   CONTENEDOR
+   ========================================== */
 
-        .contenedor {
+.contenedor {
 
-            display: flex;
+    display: flex;
 
-            justify-content: center;
+    justify-content: center;
 
-            align-items: center;
+    align-items: center;
 
-            gap: 50px;
+    gap: 50px;
 
-            flex-wrap: wrap;
+    flex-wrap: wrap;
 
-        }
+}
 
 
-        /* RULETA */
+/* ==========================================
+   ZONA RULETA
+   ========================================== */
 
-        .zona-ruleta {
+.zona-ruleta {
 
-            display: flex;
+    display: flex;
 
-            flex-direction: column;
+    flex-direction: column;
 
-            align-items: center;
+    align-items: center;
 
-        }
+}
 
 
-        .ruleta-contenedor {
+/* ==========================================
+   CONTENEDOR RULETA
+   ========================================== */
 
-            position: relative;
+.ruleta-contenedor {
 
-            width: 500px;
+    position: relative;
 
-            height: 500px;
+    width: 500px;
 
-        }
+    height: 500px;
 
+}
 
-        /* IMAGEN RULETA */
 
-        #ruleta {
+/* ==========================================
+   ELEMENTO QUE GIRA
+   IMAGEN + NÚMEROS
+   ========================================== */
 
-            width: 100%;
+.ruleta-giratoria {
 
-            height: 100%;
+    position: absolute;
 
-            display: block;
+    top: 0;
 
-            border-radius: 50%;
+    left: 0;
 
-            transform-origin: center center;
+    width: 100%;
 
-            transform: rotate(0deg);
+    height: 100%;
 
-            transition:
-                transform
-                6s
-                cubic-bezier(
-                    0.15,
-                    0.85,
-                    0.25,
-                    1
-                );
+    transform-origin: center center;
 
-            filter:
-                drop-shadow(
-                    0 10px 15px
-                    rgba(0,0,0,0.5)
-                );
+    transition:
+        transform
+        6s
+        cubic-bezier(
+            0.15,
+            0.85,
+            0.25,
+            1
+        );
 
-        }
+}
 
 
-        /* ==========================================
-           NÚMEROS 1 AL 20
-           ========================================== */
+/* ==========================================
+   IMAGEN RULETA
+   ========================================== */
 
-        .numeros-ruleta {
+#ruleta {
 
-            position: absolute;
+    position: absolute;
 
-            top: 0;
+    top: 0;
 
-            left: 0;
+    left: 0;
 
-            width: 100%;
+    width: 100%;
 
-            height: 100%;
+    height: 100%;
 
-            border-radius: 50%;
+    display: block;
 
-            pointer-events: none;
+    border-radius: 50%;
 
-            z-index: 5;
+    filter:
+        drop-shadow(
+            0 10px 15px
+            rgba(0,0,0,0.5)
+        );
 
-        }
+}
 
 
-        .numeros-ruleta span {
+/* ==========================================
+   NÚMEROS
+   ========================================== */
 
-            position: absolute;
+.numeros-ruleta {
 
-            top: 50%;
+    position: absolute;
 
-            left: 50%;
+    top: 0;
 
-            width: 42px;
+    left: 0;
 
-            height: 42px;
+    width: 100%;
 
-            margin-left: -21px;
+    height: 100%;
 
-            margin-top: -21px;
+    border-radius: 50%;
 
-            display: flex;
+    z-index: 5;
 
-            align-items: center;
+    pointer-events: none;
 
-            justify-content: center;
+}
 
-            font-size: 20px;
 
-            font-weight: bold;
+/* Cada número */
 
-            color: white;
+.numeros-ruleta span {
 
-            background: rgba(0, 0, 0, 0.35);
+    position: absolute;
 
-            border: 2px solid white;
+    top: 50%;
 
-            border-radius: 50%;
+    left: 50%;
 
-            text-shadow:
-                2px 2px 3px black;
+    width: 42px;
 
-            transform:
-                rotate(calc((var(--i) - 1) * 18deg))
-                translateY(-205px)
-                rotate(calc((var(--i) - 1) * -18deg));
+    height: 42px;
 
-        }
+    margin-left: -21px;
 
+    margin-top: -21px;
 
-        /* FLECHA */
+    display: flex;
 
-        .flecha-ruleta {
+    align-items: center;
 
-            position: absolute;
+    justify-content: center;
 
-            top: -20px;
+    font-size: 20px;
 
-            left: 50%;
+    font-weight: bold;
 
-            transform:
-                translateX(-50%);
+    color: white;
 
-            width: 0;
+    background:
+        rgba(
+            0,
+            0,
+            0,
+            0.45
+        );
 
-            height: 0;
+    border:
+        2px solid white;
 
-            border-left:
-                25px solid transparent;
+    border-radius: 50%;
 
-            border-right:
-                25px solid transparent;
+    text-shadow:
+        2px 2px 3px black;
 
-            border-top:
-                60px solid #e21d2f;
+    transform:
+        rotate(
+            calc(
+                (var(--i) - 1)
+                * 18deg
+            )
+        )
+        translateY(-205px)
+        rotate(
+            calc(
+                (var(--i) - 1)
+                * -18deg
+            )
+        );
 
-            z-index: 20;
+}
 
-            filter:
-                drop-shadow(
-                    0 3px 3px
-                    rgba(0,0,0,0.6)
-                );
 
-        }
+/* ==========================================
+   FLECHA
+   ========================================== */
 
+.flecha-ruleta {
 
-        /* CENTRO */
+    position: absolute;
 
-        .centro-ruleta {
+    top: -20px;
 
-            position: absolute;
+    left: 50%;
 
-            top: 50%;
+    transform:
+        translateX(-50%);
 
-            left: 50%;
+    width: 0;
 
-            transform:
-                translate(
-                    -50%,
-                    -50%
-                );
+    height: 0;
 
-            width: 75px;
+    border-left:
+        25px solid transparent;
 
-            height: 75px;
+    border-right:
+        25px solid transparent;
 
-            background:
-                radial-gradient(
-                    circle,
-                    #ffffff 40%,
-                    #d6a21e 42%,
-                    #a87900 100%
-                );
+    border-top:
+        60px solid #e21d2f;
 
-            border-radius: 50%;
+    z-index: 20;
 
-            border:
-                5px solid #ffffff;
+    filter:
+        drop-shadow(
+            0 3px 3px
+            rgba(0,0,0,0.6)
+        );
 
-            box-shadow:
-                0 4px 10px
-                rgba(0,0,0,0.5);
+}
 
-            z-index: 10;
 
-        }
+/* ==========================================
+   CENTRO
+   ========================================== */
 
+.centro-ruleta {
 
-        /* SOPORTE */
+    position: absolute;
 
-        .soporte-ruleta {
+    top: 50%;
 
-            width: 260px;
+    left: 50%;
 
-            height: 70px;
+    transform:
+        translate(
+            -50%,
+            -50%
+        );
 
-            margin-top: -10px;
+    width: 75px;
 
-            background:
-                linear-gradient(
-                    to bottom,
-                    #d5eff2,
-                    #75aeb6
-                );
+    height: 75px;
 
-            border-radius:
-                10px
-                10px
-                30px
-                30px;
+    background:
+        radial-gradient(
+            circle,
+            #ffffff 40%,
+            #d6a21e 42%,
+            #a87900 100%
+        );
 
-            box-shadow:
-                0 5px 10px
-                rgba(0,0,0,0.4);
+    border-radius: 50%;
 
-        }
+    border:
+        5px solid #ffffff;
 
+    box-shadow:
+        0 4px 10px
+        rgba(0,0,0,0.5);
 
-        /* PANEL RESULTADO */
+    z-index: 10;
 
-        .panel {
+}
 
-            width: 320px;
 
-            min-height: 350px;
+/* ==========================================
+   SOPORTE
+   ========================================== */
 
-            padding: 30px;
+.soporte-ruleta {
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #ffffff,
-                    #f2f7fc
-                );
+    width: 260px;
 
-            border-radius: 20px;
+    height: 70px;
 
-            box-shadow:
-                0 8px 20px
-                rgba(0,0,0,0.2);
+    margin-top: -10px;
 
-            text-align: center;
+    background:
+        linear-gradient(
+            to bottom,
+            #d5eff2,
+            #75aeb6
+        );
 
-        }
+    border-radius:
+        10px
+        10px
+        30px
+        30px;
 
+    box-shadow:
+        0 5px 10px
+        rgba(0,0,0,0.4);
 
-        .panel h2 {
+}
 
-            color: #123c69;
 
-            font-size: 30px;
+/* ==========================================
+   PANEL RESULTADO
+   ========================================== */
 
-            margin-top: 0;
+.panel {
 
-        }
+    width: 320px;
 
+    min-height: 350px;
 
-        .numero {
+    padding: 30px;
 
-            font-size: 70px;
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #f2f7fc
+        );
 
-            font-weight: bold;
+    border-radius: 20px;
 
-            color: #d89b00;
+    box-shadow:
+        0 8px 20px
+        rgba(0,0,0,0.2);
 
-            margin: 20px;
+    text-align: center;
 
-        }
+}
 
 
-        .pregunta {
+.panel h2 {
 
-            min-height: 80px;
+    color: #123c69;
 
-            font-size: 18px;
+    font-size: 30px;
 
-            color: #333;
+    margin-top: 0;
 
-        }
+}
 
 
-        /* BOTON */
+.numero {
 
-        #girarBtn {
+    font-size: 70px;
 
-            width: 100%;
+    font-weight: bold;
 
-            padding: 15px;
+    color: #d89b00;
 
-            margin-top: 20px;
+    margin: 20px;
 
-            border: none;
+}
 
-            border-radius: 10px;
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #123c69,
-                    #1c68a8
-                );
+.pregunta {
 
-            color: white;
+    min-height: 80px;
 
-            font-size: 20px;
+    font-size: 18px;
 
-            font-weight: bold;
+    color: #333;
 
-            cursor: pointer;
+}
 
-            transition: 0.3s;
 
-        }
+/* ==========================================
+   BOTÓN
+   ========================================== */
 
+#girarBtn {
 
-        #girarBtn:hover {
+    width: 100%;
 
-            transform:
-                scale(1.03);
+    padding: 15px;
 
-            box-shadow:
-                0 5px 15px
-                rgba(0,0,0,0.3);
+    margin-top: 20px;
 
-        }
+    border: none;
 
+    border-radius: 10px;
 
-        #girarBtn:disabled {
+    background:
+        linear-gradient(
+            135deg,
+            #123c69,
+            #1c68a8
+        );
 
-            background: #999;
+    color: white;
 
-            cursor: not-allowed;
+    font-size: 20px;
 
-            transform: none;
+    font-weight: bold;
 
-        }
+    cursor: pointer;
 
+    transition: 0.3s;
 
-        /* RESPONSIVE */
+}
 
-        @media
-        (max-width: 700px) {
 
-            .ruleta-contenedor {
+#girarBtn:hover {
 
-                width: 90vw;
+    transform:
+        scale(1.03);
 
-                height: 90vw;
+    box-shadow:
+        0 5px 15px
+        rgba(0,0,0,0.3);
 
-            }
+}
 
 
-            .titulo h1 {
+#girarBtn:disabled {
 
-                font-size: 28px;
+    background: #999;
 
-            }
+    cursor: not-allowed;
 
+    transform: none;
 
-            .panel {
+}
 
-                width: 100%;
 
-            }
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
 
+@media
+(max-width: 700px) {
 
-            .numeros-ruleta span {
+    .ruleta-contenedor {
 
-                font-size: 15px;
+        width: 90vw;
 
-                width: 32px;
+        height: 90vw;
 
-                height: 32px;
+    }
 
-                margin-left: -16px;
 
-                margin-top: -16px;
+    .titulo h1 {
 
-            }
+        font-size: 28px;
 
-        }
+    }
 
-    </style>
+
+    .panel {
+
+        width: 100%;
+
+    }
+
+
+    .numeros-ruleta span {
+
+        font-size: 15px;
+
+        width: 32px;
+
+        height: 32px;
+
+        margin-left: -16px;
+
+        margin-top: -16px;
+
+    }
+
+}
+
+</style>
 
 </head>
 
@@ -537,7 +606,9 @@
 <div class="contenedor-principal">
 
 
-    <!-- TITULO -->
+    <!-- ==================================
+         TITULO
+         ================================== -->
 
     <div class="titulo">
 
@@ -553,12 +624,16 @@
     </div>
 
 
-    <!-- CONTENIDO -->
+    <!-- ==================================
+         CONTENIDO
+         ================================== -->
 
     <div class="contenedor">
 
 
-        <!-- RULETA -->
+        <!-- ==================================
+             RULETA
+             ================================== -->
 
         <div class="zona-ruleta">
 
@@ -566,54 +641,130 @@
             <div class="ruleta-contenedor">
 
 
-                <!-- FLECHA -->
+                <!-- FLECHA FIJA -->
 
                 <div
                     class="flecha-ruleta">
                 </div>
 
 
-                <!-- RULETA -->
-
-                <img
-                    id="ruleta"
-                    src="imagenes/ruletap.jpg"
-                    alt="Ruleta Gira y Gana"
-                >
-
-
-                <!-- NÚMEROS 1 AL 20 -->
-
-                <div class="numeros-ruleta">
-
-                    <span style="--i: 1;">1</span>
-                    <span style="--i: 2;">2</span>
-                    <span style="--i: 3;">3</span>
-                    <span style="--i: 4;">4</span>
-                    <span style="--i: 5;">5</span>
-                    <span style="--i: 6;">6</span>
-                    <span style="--i: 7;">7</span>
-                    <span style="--i: 8;">8</span>
-                    <span style="--i: 9;">9</span>
-                    <span style="--i: 10;">10</span>
-                    <span style="--i: 11;">11</span>
-                    <span style="--i: 12;">12</span>
-                    <span style="--i: 13;">13</span>
-                    <span style="--i: 14;">14</span>
-                    <span style="--i: 15;">15</span>
-                    <span style="--i: 16;">16</span>
-                    <span style="--i: 17;">17</span>
-                    <span style="--i: 18;">18</span>
-                    <span style="--i: 19;">19</span>
-                    <span style="--i: 20;">20</span>
-
-                </div>
-
-
-                <!-- CENTRO -->
+                <!-- ==================================
+                     TODO ESTO GIRA JUNTO
+                     ================================== -->
 
                 <div
-                    class="centro-ruleta">
+                    class="ruleta-giratoria"
+                    id="ruletaGiratoria">
+
+
+                    <!-- IMAGEN -->
+
+                    <img
+                        id="ruleta"
+                        src="imagenes/ruletap.jpg"
+                        alt="Ruleta Gira y Gana"
+                    >
+
+
+                    <!-- ==================================
+                         NÚMEROS 1 AL 20
+                         ================================== -->
+
+                    <div
+                        class="numeros-ruleta">
+
+
+                        <span style="--i: 1;">
+                            1
+                        </span>
+
+                        <span style="--i: 2;">
+                            2
+                        </span>
+
+                        <span style="--i: 3;">
+                            3
+                        </span>
+
+                        <span style="--i: 4;">
+                            4
+                        </span>
+
+                        <span style="--i: 5;">
+                            5
+                        </span>
+
+                        <span style="--i: 6;">
+                            6
+                        </span>
+
+                        <span style="--i: 7;">
+                            7
+                        </span>
+
+                        <span style="--i: 8;">
+                            8
+                        </span>
+
+                        <span style="--i: 9;">
+                            9
+                        </span>
+
+                        <span style="--i: 10;">
+                            10
+                        </span>
+
+                        <span style="--i: 11;">
+                            11
+                        </span>
+
+                        <span style="--i: 12;">
+                            12
+                        </span>
+
+                        <span style="--i: 13;">
+                            13
+                        </span>
+
+                        <span style="--i: 14;">
+                            14
+                        </span>
+
+                        <span style="--i: 15;">
+                            15
+                        </span>
+
+                        <span style="--i: 16;">
+                            16
+                        </span>
+
+                        <span style="--i: 17;">
+                            17
+                        </span>
+
+                        <span style="--i: 18;">
+                            18
+                        </span>
+
+                        <span style="--i: 19;">
+                            19
+                        </span>
+
+                        <span style="--i: 20;">
+                            20
+                        </span>
+
+
+                    </div>
+
+
+                    <!-- CENTRO -->
+
+                    <div
+                        class="centro-ruleta">
+                    </div>
+
+
                 </div>
 
 
@@ -630,7 +781,9 @@
         </div>
 
 
-        <!-- PANEL -->
+        <!-- ==================================
+             PANEL
+             ================================== -->
 
         <div class="panel">
 
@@ -695,9 +848,9 @@
 // ELEMENTOS
 // ============================================
 
-const ruleta =
+const ruletaGiratoria =
     document.getElementById(
-        "ruleta"
+        "ruletaGiratoria"
     );
 
 
@@ -724,6 +877,9 @@ const preguntaDisplay =
 // ============================================
 
 const numSegmentos = 20;
+
+const gradosPorSegmento =
+    360 / numSegmentos;
 
 let anguloActual = 0;
 
@@ -811,7 +967,9 @@ function girarRuleta() {
     }
 
 
-    // Verificar preguntas
+    // ========================================
+    // VERIFICAR PREGUNTAS
+    // ========================================
 
     if (
         preguntasUsadas.length
@@ -855,7 +1013,7 @@ function girarRuleta() {
 
 
     // ========================================
-    // SELECCIONAR PREGUNTA
+    // SELECCIONAR NÚMERO
     // ========================================
 
     let indice;
@@ -878,7 +1036,7 @@ function girarRuleta() {
     );
 
 
-    // Guardar
+    // Guardar número usado
 
     preguntasUsadas.push(
         indice
@@ -886,42 +1044,55 @@ function girarRuleta() {
 
 
     // ========================================
-    // CALCULAR GIRO
+    // CALCULAR ROTACIÓN
     // ========================================
 
-    const gradosPorSegmento =
-        360
-        /
-        numSegmentos;
+    /*
+        Cada número está separado 18 grados.
+
+        Queremos que el número seleccionado
+        quede exactamente debajo de la flecha.
+
+        La flecha está arriba.
+    */
 
 
-    // Variación
-
-    const variacion =
-
-        Math.random()
+    const posicionNumero =
+        indice
         *
-        (gradosPorSegmento * 0.6)
-
-        -
-
-        (gradosPorSegmento * 0.3);
+        gradosPorSegmento;
 
 
-    // Número de vueltas
+    // Vueltas completas
 
     const vueltas =
 
         5
-
         +
-
         Math.floor(
             Math.random() * 3
         );
 
 
-    // Giro final
+    // Variación pequeña
+
+    const variacion =
+
+        (
+            Math.random()
+            *
+            8
+        )
+        -
+        4;
+
+
+    /*
+        360 - posición del número
+
+        Esto hace que el número seleccionado
+        termine en la parte superior.
+    */
 
     const giroFinal =
 
@@ -932,11 +1103,7 @@ function girarRuleta() {
         (
             360
             -
-            (
-                indice
-                *
-                gradosPorSegmento
-            )
+            posicionNumero
         )
 
         +
@@ -969,16 +1136,16 @@ function girarRuleta() {
 
 
     // ========================================
-    // GIRAR IMAGEN
+    // GIRAR RULETA + NÚMEROS
     // ========================================
 
-    ruleta.style.transform =
+    ruletaGiratoria.style.transform =
 
         `rotate(${anguloActual}deg)`;
 
 
     // ========================================
-    // ESPERAR FIN
+    // ESPERAR FIN DE ANIMACIÓN
     // ========================================
 
     setTimeout(
@@ -992,7 +1159,9 @@ function girarRuleta() {
             audioGiro.currentTime = 0;
 
 
-            // Mostrar número
+            // ==================================
+            // MOSTRAR RESULTADO
+            // ==================================
 
             numeroDisplay.textContent =
 
@@ -1007,7 +1176,7 @@ function girarRuleta() {
 
 
             // ==================================
-            // MOSTRAR RESULTADO
+            // SWEET ALERT
             // ==================================
 
             Swal.fire({
