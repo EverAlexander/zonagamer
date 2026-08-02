@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 
@@ -17,8 +18,10 @@
     <link href="css/estilo.css" rel="stylesheet">
 
     <!-- SweetAlert -->
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"
+    >
 
     <style>
 
@@ -36,15 +39,21 @@
         ========================================== */
 
         .contenedor-principal {
+
             width: 100%;
+
             min-height: calc(100vh - 150px);
 
             display: flex;
+
             flex-direction: column;
+
             align-items: center;
+
             justify-content: center;
 
             padding: 30px 20px;
+
         }
 
 
@@ -53,40 +62,60 @@
         ========================================== */
 
         .titulo {
+
             width: 100%;
+
             text-align: center;
+
             margin-bottom: 35px;
+
         }
+
 
         .titulo h1 {
+
             margin: 0;
+
             font-size: 42px;
+
             font-weight: 800;
+
             color: #123c69;
+
             text-transform: uppercase;
+
         }
 
+
         .titulo h2 {
+
             margin: 10px 0 0;
+
             font-size: 22px;
+
             color: #d89b00;
+
         }
 
 
         /* ==========================================
-           CONTENEDOR DE RULETA + PANEL
+           CONTENEDOR RULETA + PANEL
         ========================================== */
 
         .contenedor {
+
             width: 100%;
 
             display: flex;
+
             justify-content: center;
+
             align-items: center;
 
             gap: 60px;
 
             flex-wrap: wrap;
+
         }
 
 
@@ -95,10 +124,15 @@
         ========================================== */
 
         .zona-ruleta {
+
             display: flex;
+
             flex-direction: column;
+
             align-items: center;
+
             justify-content: center;
+
         }
 
 
@@ -107,13 +141,17 @@
         ========================================== */
 
         .ruleta-contenedor {
+
             position: relative;
 
             width: 500px;
+
             height: 500px;
 
             max-width: 90vw;
+
             max-height: 90vw;
+
         }
 
 
@@ -122,12 +160,15 @@
         ========================================== */
 
         .ruleta-giratoria {
+
             position: absolute;
 
             top: 0;
+
             left: 0;
 
             width: 100%;
+
             height: 100%;
 
             transform-origin: center center;
@@ -139,6 +180,7 @@
                     0.25,
                     1
                 );
+
         }
 
 
@@ -147,12 +189,15 @@
         ========================================== */
 
         #ruleta {
+
             position: absolute;
 
             top: 0;
+
             left: 0;
 
             width: 100%;
+
             height: 100%;
 
             display: block;
@@ -166,90 +211,7 @@
                     0 10px 15px
                     rgba(0, 0, 0, 0.5)
                 );
-        }
 
-
-        /* ==========================================
-           NÚMEROS DE LA RULETA
-        ========================================== */
-
-        .numeros-ruleta {
-            position: absolute;
-
-            top: 0;
-            left: 0;
-
-            width: 100%;
-            height: 100%;
-
-            border-radius: 50%;
-
-            z-index: 5;
-
-            pointer-events: none;
-        }
-
-
-        /* ==========================================
-           CADA NÚMERO
-        ========================================== */
-
-        .numeros-ruleta span {
-
-            position: absolute;
-
-            top: 50%;
-            left: 50%;
-
-            width: 42px;
-            height: 42px;
-
-            margin-left: -21px;
-            margin-top: -21px;
-
-            display: flex;
-
-            align-items: center;
-            justify-content: center;
-
-            font-size: 18px;
-            font-weight: bold;
-
-            color: white;
-
-            background:
-                rgba(0, 0, 0, 0.55);
-
-            border:
-                2px solid white;
-
-            border-radius: 50%;
-
-            text-shadow:
-                2px 2px 3px black;
-
-            /*
-                20 números = 18 grados cada uno.
-
-                translateY coloca el número
-                alrededor de la ruleta.
-
-                rotate negativo mantiene el texto
-                siempre derecho.
-            */
-
-            transform:
-                rotate(
-                    calc(
-                        (var(--i) - 1) * 18deg
-                    )
-                )
-                translateY(-205px)
-                rotate(
-                    calc(
-                        (var(--i) - 1) * -18deg
-                    )
-                );
         }
 
 
@@ -262,12 +224,14 @@
             position: absolute;
 
             top: -25px;
+
             left: 50%;
 
             transform:
                 translateX(-50%);
 
             width: 0;
+
             height: 0;
 
             border-left:
@@ -286,11 +250,12 @@
                     0 3px 3px
                     rgba(0, 0, 0, 0.6)
                 );
+
         }
 
 
         /* ==========================================
-           CENTRO DE RULETA
+           CENTRO RULETA
         ========================================== */
 
         .centro-ruleta {
@@ -298,12 +263,17 @@
             position: absolute;
 
             top: 50%;
+
             left: 50%;
 
             transform:
-                translate(-50%, -50%);
+                translate(
+                    -50%,
+                    -50%
+                );
 
             width: 75px;
+
             height: 75px;
 
             background:
@@ -324,6 +294,7 @@
                 rgba(0, 0, 0, 0.5);
 
             z-index: 10;
+
         }
 
 
@@ -334,6 +305,7 @@
         .soporte-ruleta {
 
             width: 260px;
+
             height: 70px;
 
             margin-top: -5px;
@@ -351,6 +323,7 @@
             box-shadow:
                 0 5px 10px
                 rgba(0, 0, 0, 0.4);
+
         }
 
 
@@ -361,14 +334,17 @@
         .panel {
 
             width: 320px;
+
             min-height: 400px;
 
             padding: 30px;
 
             display: flex;
+
             flex-direction: column;
 
             align-items: center;
+
             justify-content: center;
 
             background:
@@ -385,6 +361,7 @@
                 rgba(0, 0, 0, 0.2);
 
             text-align: center;
+
         }
 
 
@@ -395,7 +372,9 @@
             font-size: 30px;
 
             margin-top: 0;
+
             margin-bottom: 10px;
+
         }
 
 
@@ -404,21 +383,24 @@
             color: #333;
 
             font-size: 18px;
+
         }
 
 
         /* ==========================================
-           NÚMERO RESULTADO
+           NUMERO RESULTADO
         ========================================== */
 
         .numero {
 
             width: 120px;
+
             height: 120px;
 
             display: flex;
 
             align-items: center;
+
             justify-content: center;
 
             font-size: 65px;
@@ -436,6 +418,7 @@
             box-shadow:
                 0 5px 15px
                 rgba(0, 0, 0, 0.15);
+
         }
 
 
@@ -452,6 +435,7 @@
             display: flex;
 
             align-items: center;
+
             justify-content: center;
 
             font-size: 18px;
@@ -459,11 +443,12 @@
             color: #333;
 
             line-height: 1.5;
+
         }
 
 
         /* ==========================================
-           BOTÓN GIRAR
+           BOTON GIRAR
         ========================================== */
 
         #girarBtn {
@@ -496,6 +481,7 @@
             transition:
                 transform 0.3s,
                 box-shadow 0.3s;
+
         }
 
 
@@ -507,6 +493,7 @@
             box-shadow:
                 0 5px 15px
                 rgba(0, 0, 0, 0.3);
+
         }
 
 
@@ -517,6 +504,7 @@
             cursor: not-allowed;
 
             transform: none;
+
         }
 
 
@@ -527,88 +515,78 @@
         @media (max-width: 1100px) {
 
             .contenedor {
+
                 gap: 40px;
+
             }
 
             .ruleta-contenedor {
+
                 width: 450px;
+
                 height: 450px;
+
             }
 
-            .numeros-ruleta span {
-
-                transform:
-                    rotate(
-                        calc(
-                            (var(--i) - 1) * 18deg
-                        )
-                    )
-                    translateY(-185px)
-                    rotate(
-                        calc(
-                            (var(--i) - 1) * -18deg
-                        )
-                    );
-            }
         }
 
 
         @media (max-width: 700px) {
 
             .contenedor-principal {
+
                 padding: 20px 10px;
+
             }
+
 
             .titulo h1 {
+
                 font-size: 28px;
+
             }
+
 
             .titulo h2 {
+
                 font-size: 18px;
+
             }
+
 
             .contenedor {
+
                 flex-direction: column;
+
                 gap: 30px;
+
             }
+
 
             .ruleta-contenedor {
+
                 width: 90vw;
+
                 height: 90vw;
+
             }
 
-            .numeros-ruleta span {
-
-                width: 32px;
-                height: 32px;
-
-                margin-left: -16px;
-                margin-top: -16px;
-
-                font-size: 14px;
-
-                transform:
-                    rotate(
-                        calc(
-                            (var(--i) - 1) * 18deg
-                        )
-                    )
-                    translateY(-40vw)
-                    rotate(
-                        calc(
-                            (var(--i) - 1) * -18deg
-                        )
-                    );
-            }
 
             .panel {
+
                 width: 95%;
+
                 max-width: 350px;
+
             }
 
+
             .soporte-ruleta {
+
                 width: 55vw;
+
             }
+
         }
 
     </style>
@@ -618,762 +596,1070 @@
 
 <body id="page-top">
 
-    <div id="wrapper">
 
-        <div id="content-wrapper" class="d-flex flex-column">
-
-            <div id="content">
-
-                <!-- ==========================================
-                     NAVBAR
-                ========================================== -->
-
-                <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-primary mb-4">
-
-                    <a class="navbar-brand" href="?route=home">
-
-                        <i class="fas fa-gamepad"></i>
-
-                        Zona Gamer
-
-                    </a>
+<div id="wrapper">
 
 
-                    <button
-                        class="navbar-toggler"
-                        type="button"
-                        data-toggle="collapse"
-                        data-target="#navbarGamer">
-
-                        <span class="navbar-toggler-icon"></span>
-
-                    </button>
+    <div id="content-wrapper" class="d-flex flex-column">
 
 
-                    <div
-                        class="collapse navbar-collapse"
-                        id="navbarGamer">
-
-                        <ul class="navbar-nav ml-auto align-items-center">
-
-                            <li class="nav-item">
-
-                                <a class="nav-link" href="#">
-
-                                    <i class="fas fa-home"></i>
-
-                                    Inicio
-
-                                </a>
-
-                            </li>
+        <div id="content">
 
 
-                            <li class="nav-item dropdown">
+            <!-- ==========================================
+                 NAVBAR
+            ========================================== -->
+
+            <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-primary mb-4">
+
+
+                <a
+                    class="navbar-brand"
+                    href="?route=home"
+                >
+
+                    <i class="fas fa-gamepad"></i>
+
+                    Zona Gamer
+
+                </a>
+
+
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarGamer"
+                >
+
+                    <span class="navbar-toggler-icon"></span>
+
+                </button>
+
+
+                <div
+                    class="collapse navbar-collapse"
+                    id="navbarGamer"
+                >
+
+
+                    <ul class="navbar-nav ml-auto align-items-center">
+
+
+                        <li class="nav-item">
+
+                            <a
+                                class="nav-link"
+                                href="#"
+                            >
+
+                                <i class="fas fa-home"></i>
+
+                                Inicio
+
+                            </a>
+
+                        </li>
+
+
+                        <li class="nav-item dropdown">
+
+
+                            <a
+                                class="nav-link dropdown-toggle"
+                                href="#"
+                                id="navbarGrupos"
+                                role="button"
+                                data-toggle="dropdown"
+                            >
+
+                                <i class="fas fa-users"></i>
+
+                                Lista de juegos
+
+                            </a>
+
+
+                            <div
+                                class="dropdown-menu dropdown-menu-right"
+                            >
+
 
                                 <a
-                                    class="nav-link dropdown-toggle"
+                                    class="dropdown-item"
                                     href="#"
-                                    id="navbarGrupos"
-                                    role="button"
-                                    data-toggle="dropdown">
+                                >
 
-                                    <i class="fas fa-users"></i>
-
-                                    Lista de juegos
+                                    Ruleta
 
                                 </a>
 
 
-                                <div
-                                    class="dropdown-menu dropdown-menu-right">
+                                <a
+                                    class="dropdown-item"
+                                    href="html/memoria.html"
+                                >
 
-                                    <a
-                                        class="dropdown-item"
-                                        href="#">
+                                    Memoria
 
-                                        Ruleta
-
-                                    </a>
+                                </a>
 
 
-                                    <a
-                                        class="dropdown-item"
-                                        href="html/memoria.html">
+                                <a
+                                    class="dropdown-item"
+                                    href="html/moneda.html"
+                                >
 
-                                        Memoria
+                                    Monedas
 
-                                    </a>
-
-
-                                    <a
-                                        class="dropdown-item"
-                                        href="html/moneda.html">
-
-                                        Monedas
-
-                                    </a>
+                                </a>
 
 
-                                    <a
-                                        class="dropdown-item"
-                                        href="html/Bloques.html">
+                                <a
+                                    class="dropdown-item"
+                                    href="html/Bloques.html"
+                                >
 
-                                        Saltos
+                                    Saltos
 
-                                    </a>
-
-
-                                    <a
-                                        class="dropdown-item"
-                                        href="html/puntos.html">
-
-                                        Puntos
-
-                                    </a>
+                                </a>
 
 
-                                    <a
-                                        class="dropdown-item"
-                                        href="html/Portada.html">
+                                <a
+                                    class="dropdown-item"
+                                    href="html/puntos.html"
+                                >
 
-                                        Portada
+                                    Puntos
 
-                                    </a>
-
-                                </div>
-
-                            </li>
+                                </a>
 
 
-                            <!-- RELOJ -->
+                                <a
+                                    class="dropdown-item"
+                                    href="html/Portada.html"
+                                >
 
-                            <li class="nav-item">
+                                    Portada
 
-                                <span
-                                    class="nav-link font-weight-bold text-white"
-                                    id="horaActual">
+                                </a>
+
+
+                            </div>
+
+
+                        </li>
+
+
+                        <!-- RELOJ -->
+
+                        <li class="nav-item">
+
+                            <span
+                                class="nav-link font-weight-bold text-white"
+                                id="horaActual"
+                            >
+
+                            </span>
+
+                        </li>
+
+
+                        <!-- USUARIO -->
+
+                        <li class="nav-item dropdown">
+
+
+                            <a
+                                class="nav-link dropdown-toggle d-flex align-items-center"
+                                href="#"
+                                id="userDropdown"
+                                data-toggle="dropdown"
+                            >
+
+                                <img
+                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuNuWLCLLcxIOHZWSOPeGrmiBLf_fA9Cxqvw&s"
+                                    alt="Usuario"
+                                    width="40"
+                                    height="40"
+                                    class="user-logo"
+                                >
+
+                            </a>
+
+
+                            <div
+                                class="dropdown-menu dropdown-menu-right"
+                            >
+
+
+                                <span class="dropdown-item">
+
+                                    <i class="fas fa-user mr-2"></i>
+
+                                    Administrador:
+
+                                    <?php
+
+                                    echo htmlspecialchars(
+                                        $nombreUsuario
+                                    );
+
+                                    ?>
 
                                 </span>
 
-                            </li>
 
+                                <div class="dropdown-divider"></div>
 
-                            <!-- USUARIO -->
-
-                            <li class="nav-item dropdown">
 
                                 <a
-                                    class="nav-link dropdown-toggle d-flex align-items-center"
-                                    href="#"
-                                    id="userDropdown"
-                                    data-toggle="dropdown">
+                                    class="dropdown-item"
+                                    href="/mvcPrueba/?route=logout"
+                                >
 
-                                    <img
-                                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuNuWLCLLcxIOHZWSOPeGrmiBLf_fA9Cxqvw&s"
-                                        alt="Usuario"
-                                        width="40"
-                                        height="40"
-                                        class="user-logo">
+                                    <i class="fas fa-sign-out-alt mr-2"></i>
+
+                                    Cerrar Sesión
 
                                 </a>
 
 
-                                <div
-                                    class="dropdown-menu dropdown-menu-right">
-
-                                    <span class="dropdown-item">
-
-                                        <i class="fas fa-user mr-2"></i>
-
-                                        Administrador:
-
-                                        <?php
-                                        echo htmlspecialchars($nombreUsuario);
-                                        ?>
-
-                                    </span>
-
-
-                                    <div class="dropdown-divider"></div>
-
-
-                                    <a
-                                        class="dropdown-item"
-                                        href="/mvcPrueba/?route=logout">
-
-                                        <i class="fas fa-sign-out-alt mr-2"></i>
-
-                                        Cerrar Sesión
-
-                                    </a>
-
-                                </div>
-
-                            </li>
-
-                        </ul>
-
-                    </div>
-
-                </nav>
-
-
-                <!-- ==========================================
-                     CONTENIDO
-                ========================================== -->
-
-                <div class="container-fluid">
-
-                    <div class="contenedor-principal">
-
-
-                        <!-- TITULO -->
-
-                        <div class="titulo">
-
-                            <h1>
-                                🎉 Gira y Gana 🎉
-                            </h1>
-
-                            <h2>
-                                Bienvenidos Nivel 6 Innovación -
-                                San Salvador
-                            </h2>
-
-                        </div>
-
-
-                        <!-- RULETA + PANEL -->
-
-                        <div class="contenedor">
-
-
-                            <!-- RULETA -->
-
-                            <div class="zona-ruleta">
-
-                                <div class="ruleta-contenedor">
-
-
-                                    <!-- FLECHA -->
-
-                                    <div class="flecha-ruleta"></div>
-
-
-                                    <!-- TODO ESTO GIRA -->
-
-                                    <div
-                                        class="ruleta-giratoria"
-                                        id="ruletaGiratoria">
-
-
-                                        <!-- IMAGEN -->
-
-                                        <img
-                                            id="ruleta"
-                                            src="imagenes/ruletap.jpg"
-                                            alt="Ruleta Gira y Gana">
-
-
-                                        <!-- NÚMEROS -->
-
-                                        <div class="numeros-ruleta">
-
-                                            <span style="--i: 1;">1</span>
-                                            <span style="--i: 2;">2</span>
-                                            <span style="--i: 3;">3</span>
-                                            <span style="--i: 4;">4</span>
-                                            <span style="--i: 5;">5</span>
-                                            <span style="--i: 6;">6</span>
-                                            <span style="--i: 7;">7</span>
-                                            <span style="--i: 8;">8</span>
-                                            <span style="--i: 9;">9</span>
-                                            <span style="--i: 10;">10</span>
-                                            <span style="--i: 11;">11</span>
-                                            <span style="--i: 12;">12</span>
-                                            <span style="--i: 13;">13</span>
-                                            <span style="--i: 14;">14</span>
-                                            <span style="--i: 15;">15</span>
-                                            <span style="--i: 16;">16</span>
-                                            <span style="--i: 17;">17</span>
-                                            <span style="--i: 18;">18</span>
-                                            <span style="--i: 19;">19</span>
-                                            <span style="--i: 20;">20</span>
-
-                                        </div>
-
-
-                                        <!-- CENTRO -->
-
-                                        <div class="centro-ruleta"></div>
-
-
-                                    </div>
-
-                                </div>
-
-
-                                <!-- SOPORTE -->
-
-                                <div class="soporte-ruleta"></div>
-
                             </div>
 
 
-                            <!-- PANEL -->
-
-                            <div class="panel">
-
-                                <h2>
-                                    Resultado
-                                </h2>
-
-                                <p>
-                                    Número seleccionado:
-                                </p>
+                        </li>
 
 
-                                <div
-                                    id="numero"
-                                    class="numero">
+                    </ul>
 
-                                    -
-
-                                </div>
-
-
-                                <p
-                                    id="pregunta"
-                                    class="pregunta">
-
-                                    Gira la ruleta
-                                    para comenzar
-
-                                </p>
-
-
-                                <button
-                                    id="girarBtn">
-
-                                    🎡 GIRAR RULETA
-
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                    </div>
 
                 </div>
+
+
+            </nav>
+
+
+            <!-- ==========================================
+                 CONTENIDO
+            ========================================== -->
+
+            <div class="container-fluid">
+
+
+                <div class="contenedor-principal">
+
+
+                    <!-- TITULO -->
+
+                    <div class="titulo">
+
+                        <h1>
+                            🎉 Gira y Gana 🎉
+                        </h1>
+
+                        <h2>
+                            Bienvenidos Nivel 6 Innovación -
+                            San Salvador
+                        </h2>
+
+                    </div>
+
+
+                    <!-- RULETA + PANEL -->
+
+                    <div class="contenedor">
+
+
+                        <!-- ==========================================
+                             RULETA
+                        ========================================== -->
+
+                        <div class="zona-ruleta">
+
+
+                            <div class="ruleta-contenedor">
+
+
+                                <!-- FLECHA FIJA -->
+
+                                <div class="flecha-ruleta"></div>
+
+
+                                <!-- ==================================
+                                     ELEMENTO GIRATORIO
+                                ================================== -->
+
+                                <div
+                                    class="ruleta-giratoria"
+                                    id="ruletaGiratoria"
+                                >
+
+
+                                    <!-- IMAGEN DE LA RULETA -->
+
+                                    <img
+                                        id="ruleta"
+                                        src="imagenes/ruletap.jpg"
+                                        alt="Ruleta Gira y Gana"
+                                    >
+
+
+                                    <!-- CENTRO -->
+
+                                    <div
+                                        class="centro-ruleta"
+                                    ></div>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                            <!-- SOPORTE -->
+
+                            <div class="soporte-ruleta"></div>
+
+
+                        </div>
+
+
+                        <!-- ==========================================
+                             PANEL
+                        ========================================== -->
+
+                        <div class="panel">
+
+
+                            <h2>
+
+                                Resultado
+
+                            </h2>
+
+
+                            <p>
+
+                                Número seleccionado:
+
+                            </p>
+
+
+                            <div
+                                id="numero"
+                                class="numero"
+                            >
+
+                                -
+
+                            </div>
+
+
+                            <p
+                                id="pregunta"
+                                class="pregunta"
+                            >
+
+                                Gira la ruleta
+                                para comenzar
+
+                            </p>
+
+
+                            <button
+                                id="girarBtn"
+                            >
+
+                                🎡 GIRAR RULETA
+
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
 
             </div>
 
 
-            <!-- FOOTER -->
+        </div>
 
-            <footer class="sticky-footer bg-white">
 
-                <div class="container my-auto">
+        <!-- ==========================================
+             FOOTER
+        ========================================== -->
 
-                    <div class="copyright text-center my-auto">
+        <footer class="sticky-footer bg-white">
 
-                        ©
 
-                        <script>
-                            document.write(
-                                new Date().getFullYear()
-                            );
-                        </script>
+            <div class="container my-auto">
 
-                        , The_Alexander
 
-                    </div>
+                <div
+                    class="copyright text-center my-auto"
+                >
+
+                    ©
+
+                    <script>
+
+                        document.write(
+                            new Date().getFullYear()
+                        );
+
+                    </script>
+
+                    , The_Alexander
 
                 </div>
 
-            </footer>
 
-        </div>
+            </div>
+
+
+        </footer>
+
 
     </div>
 
 
-    <!-- ==========================================
-         JAVASCRIPT
-    ========================================== -->
-
-    <script src="public/vendor/jquery/jquery.min.js"></script>
-
-    <script src="public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <script src="public/js/sb-admin-2.min.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</div>
 
 
-    <script>
 
-        /* ==========================================
-           RELOJ
-        ========================================== */
+<!-- ==========================================
+     JAVASCRIPT
+========================================== -->
 
-        function actualizarHora() {
+<script src="public/vendor/jquery/jquery.min.js"></script>
 
-            const ahora = new Date();
+<script src="public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-            const horas =
-                String(
-                    ahora.getHours()
-                ).padStart(2, "0");
+<script src="public/js/sb-admin-2.min.js"></script>
 
-            const minutos =
-                String(
-                    ahora.getMinutes()
-                ).padStart(2, "0");
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-            const segundos =
-                String(
-                    ahora.getSeconds()
-                ).padStart(2, "0");
 
-            document
-                .getElementById("horaActual")
-                .textContent =
-                `${horas}:${minutos}:${segundos}`;
+<script>
 
-        }
 
-        actualizarHora();
+/* ==========================================
+   RELOJ
+========================================== */
 
-        setInterval(
-            actualizarHora,
-            1000
+function actualizarHora() {
+
+
+    const ahora = new Date();
+
+
+    const horas =
+
+        String(
+            ahora.getHours()
+        ).padStart(
+            2,
+            "0"
         );
 
 
-        /* ==========================================
-           ELEMENTOS
-        ========================================== */
+    const minutos =
 
-        const ruletaGiratoria =
-            document.getElementById(
-                "ruletaGiratoria"
-            );
-
-        const girarBtn =
-            document.getElementById(
-                "girarBtn"
-            );
-
-        const numeroDisplay =
-            document.getElementById(
-                "numero"
-            );
-
-        const preguntaDisplay =
-            document.getElementById(
-                "pregunta"
-            );
+        String(
+            ahora.getMinutes()
+        ).padStart(
+            2,
+            "0"
+        );
 
 
-        /* ==========================================
-           CONFIGURACIÓN
-        ========================================== */
+    const segundos =
 
-        const numSegmentos = 20;
-
-        const gradosPorSegmento =
-            360 / numSegmentos;
-
-        let anguloActual = 0;
-
-        let animando = false;
-
-        const preguntasUsadas = [];
+        String(
+            ahora.getSeconds()
+        ).padStart(
+            2,
+            "0"
+        );
 
 
-        /* ==========================================
-           PREGUNTAS
-        ========================================== */
+    document
+        .getElementById(
+            "horaActual"
+        )
+        .textContent =
 
-        const preguntas = [
+        `${horas}:${minutos}:${segundos}`;
 
-            "Pregunta 1: Mencione un área de la biblioteca",
-
-            "Pregunta 2: ¿Cómo se llama el presidente de El Salvador?",
-
-            "Pregunta 3: Menciona un personaje del mundo de Mario Kart",
-
-            "Pregunta 4: ¿Cuántos colores tiene la bandera de El Salvador?",
-
-            "Pregunta 5: ¿Cuántos niveles tiene la Biblioteca Nacional?",
-
-            "Pregunta 6: ¿Cuál es el Pokémon más popular?",
-
-            "Pregunta 7: Mencione un lugar turístico de El Salvador",
-
-            "Pregunta 8: ¿Cuál es el requisito para jugar en Zona Gamer?",
-
-            "Pregunta 9: ¿Desde qué edad se puede jugar en la Zona Gamer Nivel 6?",
-
-            "Pregunta 10: Menciona un platillo típico de El Salvador",
-
-            "Pregunta 11: ¿En qué nivel de la biblioteca se encuentran las áreas de Realidad Virtual, Robótica y Prototipado?",
-
-            "Pregunta 12: ¿Qué es lo que más te gusta de la Biblioteca Nacional de El Salvador?",
-
-            "Pregunta 13: Menciona 2 libros que hayas leído dentro de la Biblioteca",
-
-            "Pregunta 14: ¿Cuánto tiempo puede utilizar un usuario las consolas?",
-
-            "Pregunta 15: ¿Qué significan las iniciales BINAES?",
-
-            "Pregunta 16: ¿Cuál es el horario de atención de la Biblioteca?",
-
-            "Pregunta 17: ¿Se organizan torneos de videojuegos?",
-
-            "Pregunta 18: Mencione un área de la biblioteca",
-
-            "Pregunta 19: ¿En qué nivel de la Biblioteca se encuentra la zona de Harry Potter?",
-
-            "Pregunta 20: ¿En qué nivel de la biblioteca se encuentra el área del Principito?"
-
-        ];
+}
 
 
-        /* ==========================================
-           AUDIO
-        ========================================== */
-
-        const audioGiro =
-            new Audio(
-                "audio/Merry-Go-Round.mp3"
-            );
-
-        audioGiro.loop = true;
+actualizarHora();
 
 
-        /* ==========================================
-           GIRAR RULETA
-        ========================================== */
+setInterval(
 
-        function girarRuleta() {
+    actualizarHora,
 
-            if (animando) {
-                return;
-            }
+    1000
+
+);
 
 
-            /* VERIFICAR SI TERMINÓ */
 
-            if (
-                preguntasUsadas.length >=
+/* ==========================================
+   ELEMENTOS
+========================================== */
+
+const ruletaGiratoria =
+
+    document.getElementById(
+        "ruletaGiratoria"
+    );
+
+
+const girarBtn =
+
+    document.getElementById(
+        "girarBtn"
+    );
+
+
+const numeroDisplay =
+
+    document.getElementById(
+        "numero"
+    );
+
+
+const preguntaDisplay =
+
+    document.getElementById(
+        "pregunta"
+    );
+
+
+
+/* ==========================================
+   CONFIGURACIÓN
+========================================== */
+
+
+/*
+    Tenemos 20 números.
+
+    360 / 20 = 18 grados
+*/
+
+const numSegmentos = 20;
+
+
+const gradosPorSegmento =
+
+    360 /
+    numSegmentos;
+
+
+/*
+    Ángulo acumulado.
+
+    Se utiliza para que la ruleta
+    siempre siga girando desde
+    donde terminó anteriormente.
+*/
+
+let anguloActual = 0;
+
+
+/*
+    Evitar múltiples clics
+*/
+
+let animando = false;
+
+
+/*
+    ==========================================
+    AJUSTE DE LA IMAGEN
+    ==========================================
+
+    Si la flecha no coincide con el número
+    real de la imagen, cambia este valor.
+
+    Ejemplos:
+
+    0
+    18
+    -18
+    36
+    -36
+
+    Cada número representa un segmento.
+
+    IMPORTANTE:
+
+    Si al girar el resultado dice 5 pero
+    la flecha está visualmente en 6,
+    probablemente debes cambiar este
+    valor en pasos de 18 grados.
+*/
+
+const AJUSTE_RULETA = 0;
+
+
+
+/* ==========================================
+   PREGUNTAS
+========================================== */
+
+const preguntas = [
+
+
+    "Pregunta 1: Mencione un área de la biblioteca",
+
+
+    "Pregunta 2: ¿Cómo se llama el presidente de El Salvador?",
+
+
+    "Pregunta 3: Menciona un personaje del mundo de Mario Kart",
+
+
+    "Pregunta 4: ¿Cuántos colores tiene la bandera de El Salvador?",
+
+
+    "Pregunta 5: ¿Cuántos niveles tiene la Biblioteca Nacional?",
+
+
+    "Pregunta 6: ¿Cuál es el Pokémon más popular?",
+
+
+    "Pregunta 7: Mencione un lugar turístico de El Salvador",
+
+
+    "Pregunta 8: ¿Cuál es el requisito para jugar en Zona Gamer?",
+
+
+    "Pregunta 9: ¿Desde qué edad se puede jugar en la Zona Gamer Nivel 6?",
+
+
+    "Pregunta 10: Menciona un platillo típico de El Salvador",
+
+
+    "Pregunta 11: ¿En qué nivel de la biblioteca se encuentran las áreas de Realidad Virtual, Robótica y Prototipado?",
+
+
+    "Pregunta 12: ¿Qué es lo que más te gusta de la Biblioteca Nacional de El Salvador?",
+
+
+    "Pregunta 13: Menciona 2 libros que hayas leído dentro de la Biblioteca",
+
+
+    "Pregunta 14: ¿Cuánto tiempo puede utilizar un usuario las consolas?",
+
+
+    "Pregunta 15: ¿Qué significan las iniciales BINAES?",
+
+
+    "Pregunta 16: ¿Cuál es el horario de atención de la Biblioteca?",
+
+
+    "Pregunta 17: ¿Se organizan torneos de videojuegos?",
+
+
+    "Pregunta 18: Mencione un área de la biblioteca",
+
+
+    "Pregunta 19: ¿En qué nivel de la Biblioteca se encuentra la zona de Harry Potter?",
+
+
+    "Pregunta 20: ¿En qué nivel de la biblioteca se encuentra el área del Principito"
+
+
+];
+
+
+
+/* ==========================================
+   PREGUNTAS UTILIZADAS
+========================================== */
+
+const preguntasUsadas = [];
+
+
+
+/* ==========================================
+   AUDIO
+========================================== */
+
+const audioGiro =
+
+    new Audio(
+        "audio/Merry-Go-Round.mp3"
+    );
+
+
+audioGiro.loop = true;
+
+
+
+/* ==========================================
+   GIRAR RULETA
+========================================== */
+
+function girarRuleta() {
+
+
+    /*
+        Evitar múltiples clics
+    */
+
+    if (animando) {
+
+        return;
+
+    }
+
+
+
+    /*
+        Verificar si ya se utilizaron
+        las 20 preguntas
+    */
+
+    if (
+
+        preguntasUsadas.length >=
+        numSegmentos
+
+    ) {
+
+
+        Swal.fire({
+
+            icon:
+                "info",
+
+            title:
+                "¡Juego terminado!",
+
+            text:
+                "Ya se utilizaron todas las preguntas."
+
+        });
+
+
+        return;
+
+    }
+
+
+
+    /*
+        Bloquear botón
+    */
+
+    animando = true;
+
+
+    girarBtn.disabled = true;
+
+
+
+    /*
+        Limpiar resultado
+    */
+
+    numeroDisplay.textContent = "-";
+
+
+    preguntaDisplay.textContent =
+
+        "¡La ruleta está girando!";
+
+
+
+    /* ==========================================
+       SELECCIONAR NÚMERO ALEATORIO
+    ========================================== */
+
+    let indice;
+
+
+    do {
+
+
+        indice =
+
+            Math.floor(
+
+                Math.random() *
                 numSegmentos
-            ) {
 
-                Swal.fire({
-
-                    icon: "info",
-
-                    title: "¡Juego terminado!",
-
-                    text:
-                        "Ya se utilizaron todas las preguntas."
-
-                });
-
-                return;
-            }
-
-
-            /* BLOQUEAR BOTÓN */
-
-            animando = true;
-
-            girarBtn.disabled = true;
-
-
-            numeroDisplay.textContent = "-";
-
-            preguntaDisplay.textContent =
-                "¡La ruleta está girando!";
-
-
-            /* ==========================================
-               SELECCIONAR NÚMERO NO UTILIZADO
-            ========================================== */
-
-            let indice;
-
-            do {
-
-                indice =
-                    Math.floor(
-                        Math.random() *
-                        numSegmentos
-                    );
-
-            } while (
-                preguntasUsadas.includes(indice)
             );
 
 
-            preguntasUsadas.push(indice);
+    }
+
+    while (
+
+        preguntasUsadas.includes(
+            indice
+        )
+
+    );
 
 
-            /* ==========================================
-               CALCULAR ROTACIÓN
-            ========================================== */
 
-            const posicionNumero =
-                indice *
-                gradosPorSegmento;
+    /*
+        Guardar número utilizado
+    */
 
-
-            const vueltas =
-                5 +
-                Math.floor(
-                    Math.random() * 3
-                );
+    preguntasUsadas.push(
+        indice
+    );
 
 
-            /*
-                El centro de cada segmento
-                está separado por 18 grados.
 
-                Sumamos 9 grados para apuntar
-                al centro del número.
-            */
-
-            const giroFinal =
-
-                vueltas * 360
-
-                +
-
-                (
-                    360 -
-                    posicionNumero
-                )
-
-                -
-
-                9;
+    /* ==========================================
+       CALCULAR POSICIÓN
+    ========================================== */
 
 
-            anguloActual +=
-                giroFinal;
+/*
+    Cada segmento mide:
+
+    360 / 20 = 18 grados
+
+    Para apuntar al centro del segmento
+    sumamos 9 grados.
+*/
+
+const posicionCentro =
+
+    (
+        indice *
+        gradosPorSegmento
+    )
+
+    +
+
+    (
+        gradosPorSegmento /
+        2
+    );
 
 
-            /* ==========================================
-               AUDIO
-            ========================================== */
 
-            audioGiro.currentTime = 0;
+/* ==========================================
+   VUELTAS COMPLETAS
+========================================== */
 
-            audioGiro
-                .play()
-                .catch(
-                    error => {
+const vueltas =
 
-                        console.log(
-                            "Audio bloqueado:",
-                            error
-                        );
+    5 +
 
-                    }
-                );
+    Math.floor(
+
+        Math.random() *
+        3
+
+    );
 
 
-            /* ==========================================
-               GIRAR
-            ========================================== */
 
-            ruletaGiratoria.style.transform =
-                `rotate(${anguloActual}deg)`;
+/* ==========================================
+   CALCULAR GIRO
+========================================== */
 
 
-            /* ==========================================
-               ESPERAR ANIMACIÓN
-            ========================================== */
+/*
+    La flecha está ubicada arriba.
 
-            setTimeout(
+    Por eso llevamos el centro del número
+    seleccionado hacia los 0 grados.
 
-                function () {
+    AJUSTE_RULETA permite sincronizar
+    la imagen real.
+*/
 
+const giroFinal =
 
-                    /* DETENER AUDIO */
+    (
+        vueltas *
+        360
+    )
 
-                    audioGiro.pause();
+    +
 
-                    audioGiro.currentTime = 0;
+    (
+        360 -
+        posicionCentro
+    )
 
+    +
 
-                    /* MOSTRAR RESULTADO */
-
-                    numeroDisplay.textContent =
-                        indice + 1;
-
-
-                    preguntaDisplay.textContent =
-                        preguntas[indice];
-
-
-                    /* SWEET ALERT */
-
-                    Swal.fire({
-
-                        icon: "success",
-
-                        title:
-                            "🎉 ¡Resultado! 🎉",
-
-                        html:
-
-                            `
-                            <h2>
-                                Número ${indice + 1}
-                            </h2>
-
-                            <p>
-                                ${preguntas[indice]}
-                            </p>
-                            `,
-
-                        confirmButtonText:
-                            "Continuar"
-
-                    });
+    AJUSTE_RULETA;
 
 
-                    /* ACTIVAR BOTÓN */
 
-                    animando = false;
+/*
+    Acumular giro
+*/
 
-                    girarBtn.disabled = false;
+anguloActual +=
+
+    giroFinal;
 
 
-                },
 
-                6000
+/* ==========================================
+   AUDIO
+========================================== */
 
+audioGiro.currentTime = 0;
+
+
+audioGiro
+    .play()
+    .catch(
+
+        error => {
+
+            console.log(
+                "Audio bloqueado:",
+                error
             );
 
         }
 
+    );
 
-        /* ==========================================
-           EVENTO BOTÓN
-        ========================================== */
 
-        girarBtn.addEventListener(
-            "click",
-            girarRuleta
-        );
 
-    </script>
+/* ==========================================
+   GIRAR RULETA
+========================================== */
+
+ruletaGiratoria.style.transform =
+
+    `rotate(${anguloActual}deg)`;
+
+
+
+/* ==========================================
+   ESPERAR FIN DE ANIMACIÓN
+========================================== */
+
+setTimeout(
+
+    function () {
+
+
+        /*
+            Detener audio
+        */
+
+        audioGiro.pause();
+
+
+        audioGiro.currentTime = 0;
+
+
+
+        /*
+            Mostrar número seleccionado
+        */
+
+        numeroDisplay.textContent =
+
+            indice + 1;
+
+
+
+        /*
+            Mostrar pregunta
+        */
+
+        preguntaDisplay.textContent =
+
+            preguntas[indice];
+
+
+
+        /*
+            Mostrar SweetAlert
+        */
+
+        Swal.fire({
+
+            icon:
+                "success",
+
+            title:
+                "🎉 ¡Resultado! 🎉",
+
+            html:
+
+                `
+                <h2>
+                    Número ${indice + 1}
+                </h2>
+
+                <p>
+                    ${preguntas[indice]}
+                </p>
+                `,
+
+            confirmButtonText:
+                "Continuar"
+
+        });
+
+
+
+        /*
+            Activar botón
+        */
+
+        animando = false;
+
+
+        girarBtn.disabled = false;
+
+
+    },
+
+
+    6000
+
+    );
+
+}
+
+
+
+/* ==========================================
+   EVENTO BOTÓN
+========================================== */
+
+girarBtn.addEventListener(
+
+    "click",
+
+    girarRuleta
+
+);
+
+
+</script>
+
 
 </body>
 
